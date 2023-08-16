@@ -1,7 +1,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head } from "@inertiajs/react"
+import { useTrm } from "@/hooks/useTrm";
+import {  TrmGraph } from "@/Components/Trm";
 
 export default function Dashboard({ auth }) {
+    const { valores,  loading } = useTrm()
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -17,7 +20,6 @@ export default function Dashboard({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <h2 className="text-center font-bold text-xl mt-3">
-                            {" "}
                             Informes de KPI Meltec
                         </h2>
                         <div className="p-6">
@@ -25,14 +27,22 @@ export default function Dashboard({ auth }) {
                                 title="Report Section"
                                 width="100%"
                                 height="804"
-                                src="https://app.powerbi.com/view?r=eyJrIjoiM2U5ZTZmYWUtNjI2MS00M2M2LWFhMWQtODk1MTQwNGQyMTAxIiwidCI6ImQzOTZjNGY4LTMyOTgtNDg5ZS04YmQ0LTFkZjZiMmE0NzE4NCJ9&navContentPaneEnabled=false"
-                                frameborder="0"
-                                allowFullScreen="true"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiM2U5ZTZmYWUtNjI2MS00M2M2LWFhMWQtODk1MTQwNGQyMTAxIiwidCI6ImQzOTZjNGY4LTMyOTgtNDg5ZS04YmQ0LTFkZjZiMmE0NzE4NCJ9"
+                                frameBorder="0"
+                                allowFullScreen={true}
                             ></iframe>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <>
+                {loading ? <p>Cargando...</p> : <TrmGraph valores={valores} />}
+            </>
+
+            
+
+
         </AuthenticatedLayout>
     );
 }
