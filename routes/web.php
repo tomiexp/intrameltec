@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\DirectorsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\RolsController;
 use App\Http\Controllers\ServerpartController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,10 +34,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('parts', ServerpartController::class);
+    Route::get('/directors', DirectorsController::class)->name('directors.index');
+
+    Route::resource('users', UserController::class)->names('admin.users');
+    Route::resource('parts', ServerpartController::class)->names('admin.parts');
+    Route::resource('rols', RolsController::class)->names('admin.rols');
 });
 
 require __DIR__.'/auth.php';

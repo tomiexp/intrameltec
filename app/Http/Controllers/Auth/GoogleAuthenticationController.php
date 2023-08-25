@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -14,7 +15,6 @@ class GoogleAuthenticationController extends Controller
     public function AuthCallback()
     {
         $user = Socialite::driver('google')->user();
-        // dd($user);
         $userExists = User::where('external_id', $user->id)->where('external_auth', 'google')->first();
 
         if (!$userExists) {
@@ -28,6 +28,7 @@ class GoogleAuthenticationController extends Controller
                 'google_refresh_token' => $user->refreshToken,
             ]);
 
+            $newUserByGoogleAuth->assignRole('Administrador');
             $newUserByGoogleAuth->save();
             Auth::login($newUserByGoogleAuth);
 
