@@ -8,7 +8,7 @@ import InputError from '@/Components/InputError'
 
 export const RoleForm = ({ closeModal, showPermissions, operation }) => {
   const [checked, setChecked] = useState([])
-  const { data, setData, post, put, processing, errors, reset } = useForm({ nameRol: '', permissions: [] })
+  const { data, setData, post, processing, errors, reset } = useForm({ nameRol: '', permissions: [] })
 
   const handleInputChange = (e) => {
     let updateList = [...checked]

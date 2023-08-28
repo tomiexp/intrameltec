@@ -15,6 +15,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        $roleSuperAdmin = Role::create(['name' => 'Super Administrador']);
         $roleAdmin = Role::create(['name' => 'Administrador']);
         $roleDirector = Role::create(['name' => 'Director']);
         $roleCommon = Role::create(['name' => 'Usuario corriente']);
@@ -29,5 +30,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.users.index'])->assignRole($roleAdmin);
         Permission::create(['name' => 'admin.users.edit'])->assignRole($roleAdmin);
         Permission::create(['name' => 'admin.users.destroy'])->assignRole($roleAdmin);
+
+        Permission::create(['name' => 'admin.roles.index'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'admin.roles.create'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'admin.roles.edit'])->assignRole($roleAdmin);
     }
 }

@@ -11,14 +11,21 @@ use Spatie\Permission\Models\Permission;
 
 class RolsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $this->authorize('viewAny', Role::class);
         $permission = Permission::get();
         $roles = Role::all();
-
+        
         return Inertia::render('Admin/Rols/Index', [
             'roles' => $roles,
             'permission' => $permission,
