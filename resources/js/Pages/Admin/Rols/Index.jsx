@@ -30,6 +30,10 @@ export default function Rols ({ auth, roles, permission }) {
         setTitle('Editar Rol ' + title)
         setPermissions(permisos)
         break
+      case 4:
+        setTitle('Nuevos Permisos')
+        setPermissions(permisos)
+        break
       default:
         setTitle('')
         setPermissions([])

@@ -9,9 +9,9 @@ export const HeaderTable = ({ openModal }) => {
         <Button type='button' className='text-white bg-blue-900 hover:bg-green-600 hover:scale-110' startContent={<AddIcon />} onClick={() => openModal({ operation: 2 })}>
           Añadir rol
         </Button>
-        {/* <Button type='button' className='text-white bg-cyan-800 hover:bg-green-600 hover:scale-110' startContent={<AddIcon />} onClick={() => openModal({ operation: 2 })}>
+        <Button type='button' className='text-white bg-cyan-800 hover:bg-green-600 hover:scale-110' startContent={<AddIcon />} onClick={() => openModal({ operation: 4 })}>
           Añadir permisos
-        </Button> */}
+        </Button>
       </div>
     </div>
   )

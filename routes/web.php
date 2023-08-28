@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DirectorsController;
 use App\Http\Controllers\ProfileController;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->names('admin.users');
     Route::resource('parts', ServerpartController::class)->names('admin.parts');
     Route::resource('rols', RolsController::class)->names('admin.rols');
+
+    Route::post('newPermissions', PermissionsStoreController::class)->name('admin.permission.create');
 });
 
 require __DIR__.'/auth.php';
