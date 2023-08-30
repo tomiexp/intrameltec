@@ -2,7 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/internalmeltecco/public_html
-    - /bin/cp -R * $DEPLOYPATH
-    - /bin/chmod -R 755 $DEPLOYPATH
-    - /bin/chown -R internalmeltecco:internalmeltecco $DEPLOYPATH
-    - /usr/local/bin/composer install --no-dev -d $DEPLOYPATH
+    - /bin/rsync -av public/ $DEPLOYPATH
