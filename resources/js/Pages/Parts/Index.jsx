@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
+import { Input } from '@nextui-org/react'
 
 export default function Parts ({ auth }) {
   return (
@@ -9,11 +10,28 @@ export default function Parts ({ auth }) {
     >
       <Head title='Partes del servidor' />
 
-      <div className='bg-white grid v-screen '>
-        <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
-          <img src='/img/19199262.jpg' alt='Imagen de Parte de Desarrollo en construccion' />
+      <section className='py-12'>
+        <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
+          <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
+            <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-0 lg:py-16 lg:grid-cols-12'>
+              <div className='mr-auto place-self-center lg:col-span-7'>
+                <h2 className='max-w-2xl mb-4 text-2xl text-center font-bold mt-3'>
+                  Calculadora de Precios para nuevo Servidor
+                </h2>
+                <form>
+                  <div className='flex gap-2'>
+                    <Input type='number' label='Nombre de Rol a Crear' radius='sm' labelPlacement='inside' description='Hola Mundo' />
+                    <Input type='text' label='Nombre de Rol a Crear' radius='sm' />
+                  </div>
+                </form>
+              </div>
+              <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
+                <img src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png' alt='imagen de prueba' />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </AuthenticatedLayout>
   )
 }

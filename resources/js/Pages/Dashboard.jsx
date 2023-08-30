@@ -16,9 +16,7 @@ export default function Dashboard ({ auth }) {
     >
       <Head title='Dashboard' />
 
-      <>
-        {loading ? <p>Cargando...</p> : <TrmGraph valores={valores} trmInCop={trmInCop} />}
-      </>
+      {loading ? <p>Cargando...</p> : <TrmGraph valores={valores} trmInCop={trmInCop} />}
 
     </AuthenticatedLayout>
   )
