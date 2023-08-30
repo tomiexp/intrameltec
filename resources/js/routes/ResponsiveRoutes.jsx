@@ -4,9 +4,16 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
 export default function ResposiveRoutes ({ user }) {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
 
-  return (
-    <>
+  const roleName = user.roles[0].name
+  const ROLES_CONSTANTS = {
+    Admin: 'Administrador',
+    Director: 'Director',
+    'Usuario corriente': 'Usuario corriente'
+  }
 
+  return (
+
+    <>
       <div className='-mr-2 flex items-center sm:hidden'>
         <button
           onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
@@ -37,22 +44,35 @@ export default function ResposiveRoutes ({ user }) {
             Dashboard
           </ResponsiveNavLink>
         </div>
+        {roleName.includes(ROLES_CONSTANTS.Admin)
+          ? (
+            <div className='pt-2 pb-3 space-y-1'>
+              <ResponsiveNavLink href={route('admin.parts.index')} active={route().current('admin.parts.index')}>
+                Partes del Servidor
+              </ResponsiveNavLink>
+            </div>
+            )
+          : ''}
 
-        <div className='pt-2 pb-3 space-y-1'>
-          <ResponsiveNavLink href={route('admin.parts.index')} active={route().current('admin.parts.index')}>
-            Partes del Servidor
-          </ResponsiveNavLink>
-        </div>
-        <div className='pt-2 pb-3 space-y-1'>
-          <ResponsiveNavLink href={route('directors.index')} active={route().current('directors.index')}>
-            Kpi´s para Directores
-          </ResponsiveNavLink>
-        </div>
-        <div className='pt-2 pb-3 space-y-1'>
-          <ResponsiveNavLink href={route('admin.users.index')} active={route().current('admin.users.index')}>
-            Usuarios del Sistema
-          </ResponsiveNavLink>
-        </div>
+        {roleName.includes(ROLES_CONSTANTS.Admin) || roleName.includes(ROLES_CONSTANTS.Director)
+          ? (
+            <div className='pt-2 pb-3 space-y-1'>
+              <ResponsiveNavLink href={route('directors.index')} active={route().current('directors.index')}>
+                Kpi´s para Directores
+              </ResponsiveNavLink>
+            </div>
+            )
+          : ''}
+
+        {roleName.includes(ROLES_CONSTANTS.Admin)
+          ? (
+            <div className='pt-2 pb-3 space-y-1'>
+              <ResponsiveNavLink href={route('admin.users.index')} active={route().current('admin.users.index')}>
+                Usuarios del Sistema
+              </ResponsiveNavLink>
+            </div>
+            )
+          : ''}
 
         <div className='pt-4 pb-1 border-t border-gray-200'>
           <div className='px-4'>

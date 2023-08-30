@@ -26,12 +26,16 @@ export default function Routes ({ user }) {
           Dashboard
         </NavLink>
       </div>
+      {roleName.includes(ROLES_CONSTANTS.Admin)
+        ? (
+          <div className='hidden space-x-8 sm:-my-px sm:ml-10 sm:flex'>
+            <NavLink href={route('admin.parts.index')} active={route().current('admin.parts.index')}>
+              Partes de Servidor
+            </NavLink>
+          </div>
+          )
+        : ''}
 
-      <div className='hidden space-x-8 sm:-my-px sm:ml-10 sm:flex'>
-        <NavLink href={route('admin.parts.index')} active={route().current('admin.parts.index')}>
-          Partes de Servidor
-        </NavLink>
-      </div>
       {roleName.includes(ROLES_CONSTANTS.Admin) || roleName.includes(ROLES_CONSTANTS.Director)
         ? (
           <div className='hidden sm:flex sm:items-center sm:ml-6'>
