@@ -16,14 +16,7 @@ export default function Directors ({ auth }) {
               Informes de KPI Meltec
             </h2>
             <div className='p-6'>
-              <iframe
-                title='Report Section'
-                width='100%'
-                height='804'
-                src='https://app.powerbi.com/view?r=eyJrIjoiM2U5ZTZmYWUtNjI2MS00M2M2LWFhMWQtODk1MTQwNGQyMTAxIiwidCI6ImQzOTZjNGY4LTMyOTgtNDg5ZS04YmQ0LTFkZjZiMmE0NzE4NCJ9'
-                frameBorder='0'
-                allowFullScreen
-              />
+              <iframe title='Report Section' width='100%' height='612' src='https://app.powerbi.com/view?r=eyJrIjoiNzIzNDZhMjMtODU4MC00MDM2LWI5YzAtOGYwNGM0NTk2MDE0IiwidCI6ImQzOTZjNGY4LTMyOTgtNDg5ZS04YmQ0LTFkZjZiMmE0NzE4NCJ9' frameborder='0' allowFullScreen='true' />
             </div>
           </div>
         </div>
