@@ -1,13 +1,70 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { Input, Select, SelectItem, CheckboxGroup, Checkbox } from '@nextui-org/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Parts ({ auth, soParts, aditionals, parts }) {
   const [total, setTotal] = useState(0)
+  const [selectedValues, setSelectedValues] = useState({
+    cpuCores: 0,
+    ram: 0,
+    storage: 0,
+    bandwidth: 0,
+    backup: 0.045,
+    security: 10,
+    support: 100,
+    snapchot: 2
+  })
 
-  const handleModificablesParts = (e) => {
-    console.log(e.target.value)
+  const partsPrice = {
+    cpuPart: parseFloat(parts.find(part => part.product === 'CPU').usdPrice),
+    ramPart: parseFloat(parts.find(part => part.product === 'Memoria RAM').usdPrice),
+    storagePart: parseFloat(parts.find(part => part.product === 'Almacenamiento').usdPrice),
+    brandwichPart: parseFloat(parts.find(part => part.product === 'Internet').usdPrice)
+  }
+
+  const calculateTotal = () => {
+    const cpuTotal = parseFloat(selectedValues.cpuCores * partsPrice.cpuPart)
+    const ramTotal = parseFloat(selectedValues.ram * partsPrice.ramPart)
+    const ddTotal = parseFloat(selectedValues.storage * partsPrice.storagePart)
+    const brandTotal = parseFloat(selectedValues.bandwidth * partsPrice.brandwichPart)
+
+    const totalPrice = cpuTotal + ramTotal + ddTotal + brandTotal
+
+    return totalPrice
+  }
+
+  useEffect(() => {
+    const newTotalPrice = calculateTotal()
+    setTotal(newTotalPrice + selectedValues.backup + selectedValues.security + selectedValues.support + selectedValues.snapchot)
+  }, [selectedValues])
+
+  const handleCpu = (e) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      cpuCores: parseInt(e.target.value)
+    }))
+  }
+
+  const handleRam = (e) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      ram: parseInt(e.target.value)
+    }))
+  }
+
+  const handleDD = (e) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      storage: parseInt(e.target.value)
+    }))
+  }
+
+  const handleBrand = (e) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      bandwidth: parseInt(e.target.value)
+    }))
   }
 
   const handleSo = (e) => {
@@ -31,14 +88,14 @@ export default function Parts ({ auth, soParts, aditionals, parts }) {
                 <form>
                   <div className='flex gap-2'>
                     <Input
-                      type='number' label='Numero de Nucleos de CPU' radius='sm' labelPlacement='inside' description='Procesador' defaultValue={1} min={1} onChange={handleModificablesParts} endContent={
+                      type='number' label='Numero de Nucleos de CPU' radius='sm' labelPlacement='inside' description='Procesador' min={1} onChange={handleCpu} endContent={
                         <div className='pointer-events-none flex items-center'>
                           <span className='text-default-400 text-small'>Nucleos</span>
                         </div>
                       }
                     />
                     <Input
-                      type='number' label='Memoria RAM' min={1} radius='sm' labelPlacement='inside' description='Memoria RAM' defaultValue={1} onChange={handleModificablesParts} endContent={
+                      type='number' label='Memoria RAM' min={1} radius='sm' labelPlacement='inside' description='Memoria RAM' onChange={handleRam} endContent={
                         <div className='pointer-events-none flex items-center'>
                           <span className='text-default-400 text-small'>GB</span>
                         </div>
@@ -47,14 +104,14 @@ export default function Parts ({ auth, soParts, aditionals, parts }) {
                   </div>
                   <div className='flex gap-2'>
                     <Input
-                      type='number' label='Almacenamiento' radius='sm' labelPlacement='inside' description='Almacenamiento' defaultValue={10} min={1} onChange={handleModificablesParts} endContent={
+                      type='number' label='Almacenamiento' radius='sm' labelPlacement='inside' description='Almacenamiento' min={1} onChange={handleDD} endContent={
                         <div className='pointer-events-none flex items-center'>
                           <span className='text-default-400 text-small'>GB</span>
                         </div>
                       }
                     />
                     <Input
-                      type='number' label='Ancho de Banda' radius='sm' labelPlacement='inside' description='Ancho de Banda' defaultValue={5} min={1} onChange={handleModificablesParts} endContent={
+                      type='number' label='Ancho de Banda' radius='sm' labelPlacement='inside' description='Ancho de Banda' min={1} onChange={handleBrand} endContent={
                         <div className='pointer-events-none flex items-center'>
                           <span className='text-default-400 text-small'>Mb/s</span>
                         </div>
@@ -76,6 +133,11 @@ export default function Parts ({ auth, soParts, aditionals, parts }) {
                     </CheckboxGroup>
                   </div>
                 </form>
+                <div className='py-2 flex justify-center'>
+                  <h2 className='text-2xl'>Total del Servidor: </h2>
+                  <p className='text-2xl font-bold ml-2'> ${total.toFixed(2)} USD </p>
+
+                </div>
               </div>
               <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
                 <img src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png' alt='imagen de prueba' />
@@ -87,27 +149,3 @@ export default function Parts ({ auth, soParts, aditionals, parts }) {
     </AuthenticatedLayout>
   )
 }
-
-/**
- * created_at
-:
-"2023-08-30T16:23:45.000000Z"
-description
-:
-"Cantidad de Nucleos de CPU a dedicar"
-id
-:
-1
-product
-:
-"CPU"
-type_id
-:
-2
-updated_at
-:
-"2023-08-30T16:23:45.000000Z"
-usdPrice
-:
-"7.95"
- */
