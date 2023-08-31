@@ -14,7 +14,16 @@ class ServerpartController extends Controller
     public function index()
     {
         $serverparts = Serverpart::all();
-        return Inertia::render('Parts/Index', ['parts' => $serverparts]);
+        $modifiableparts = Serverpart::where('type_id', '2')->get();
+        $soParts = Serverpart::where('type_id', 4)->get();
+        $aditionals = Serverpart::where('type_id', 3)->get();
+
+        return Inertia::render('Parts/Index', [
+            'parts' => $serverparts,
+            'modifiableparts' => $modifiableparts,
+            'soParts' => $soParts,
+            'aditionals' => $aditionals,
+        ]);
     }
 
     /**

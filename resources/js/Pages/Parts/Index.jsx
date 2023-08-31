@@ -1,8 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
-import { Input } from '@nextui-org/react'
+import { Input, Select, SelectItem, CheckboxGroup, Checkbox } from '@nextui-org/react'
 
-export default function Parts ({ auth }) {
+export default function Parts ({ auth, modifiableparts, soParts, aditionals }) {
+  const handleModificablesParts = (e) => {
+    console.log(e.target)
+  }
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -20,8 +23,23 @@ export default function Parts ({ auth }) {
                 </h2>
                 <form>
                   <div className='flex gap-2'>
-                    <Input type='number' label='Nombre de Rol a Crear' radius='sm' labelPlacement='inside' description='Hola Mundo' />
-                    <Input type='text' label='Nombre de Rol a Crear' radius='sm' />
+                    {modifiableparts.map(({ id, product, description, usdPrice }) => (
+                      <Input key={id} type='number' label={`Cantidad de ${product}`} radius='sm' labelPlacement='inside' onChange={handleModificablesParts} />
+                    ))}
+                  </div>
+                  <div className='flex my-2 gap-2'>
+                    <Select label='Sistema Operativo S.O' className='max-w-xs text-black'>
+                      {soParts.map(({ id, product, description, usdPrice }) => (
+                        <SelectItem key={id} value={usdPrice}> {product} </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+                  <div className='flex gap-2'>
+                    <CheckboxGroup label='Adicionales'>
+                      {aditionals.map(({ id, product, description, usdPrice }) => (
+                        <Checkbox key={id} value={usdPrice}> {product} </Checkbox>
+                      ))}
+                    </CheckboxGroup>
                   </div>
                 </form>
               </div>
@@ -35,3 +53,27 @@ export default function Parts ({ auth }) {
     </AuthenticatedLayout>
   )
 }
+
+/**
+ * created_at
+:
+"2023-08-30T16:23:45.000000Z"
+description
+:
+"Cantidad de Nucleos de CPU a dedicar"
+id
+:
+1
+product
+:
+"CPU"
+type_id
+:
+2
+updated_at
+:
+"2023-08-30T16:23:45.000000Z"
+usdPrice
+:
+"7.95"
+ */
