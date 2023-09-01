@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { FormCalculator } from './components/FormCalculator'
 import { Accordion, AccordionItem } from '@nextui-org/react'
+import { ClientForm } from './components/ClientForm'
 
 export default function Parts ({ auth, soParts, parts }) {
   return (
@@ -21,7 +22,7 @@ export default function Parts ({ auth, soParts, parts }) {
                 </h2>
                 <Accordion>
                   <AccordionItem key={1} aria-label='Datos del Cliente' subtitle='Ingreso del cliente' title='Datos del Cliente'>
-                    <p>Hola Mundo</p>
+                    <ClientForm />
                   </AccordionItem>
                   <AccordionItem key={2} aria-label='Datos del nuevo Servidor' subtitle='Calculadora del servidor' title='Datos del Servidor'>
                     <FormCalculator soParts={soParts} parts={parts} />
