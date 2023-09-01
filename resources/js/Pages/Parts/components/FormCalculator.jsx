@@ -1,7 +1,7 @@
 import { Input, Select, SelectItem, Checkbox, Button } from '@nextui-org/react'
 import { useState, useEffect } from 'react'
 import { calculateTotal } from '../logic/calculatedTotal'
-import { PARTSNAME } from '../logic/partsNameConst'
+import { PARTSNAME, NAMEPARTS } from '../logic/partsNameConst'
 
 export const FormCalculator = ({ soParts, parts }) => {
   const [total, setTotal] = useState(0)

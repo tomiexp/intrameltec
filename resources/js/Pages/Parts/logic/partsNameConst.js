@@ -12,3 +12,18 @@ export const PARTSNAME = {
   support: 'Asistencia Tecnica',
   snapchot: 'Snapchot'
 }
+
+export const NAMEPARTS = {
+  cpuCores: 'cpuCores',
+  ram: 'ram',
+  storage: 'storage',
+  bandwidth: 'bandwidth',
+  sql2core: 'sql2core',
+  backup: 'backup',
+  security: 'security',
+  support: 'support',
+  snapchot: 'snapchot',
+  rdp: 'rdp',
+  ip: 'ip',
+  sql2extra: 'sql2extra'
+}
