@@ -22,7 +22,6 @@ export const FormCalculator = ({ soParts, parts }) => {
   })
 
   const [isChecked, setIsChecked] = useState(false)
-
   const partsPrice = {
     cpuPart: parseFloat(parts.find(part => part.product === PARTSNAME.cpuCores).usdPrice),
     ramPart: parseFloat(parts.find(part => part.product === PARTSNAME.ram).usdPrice),
@@ -63,7 +62,12 @@ export const FormCalculator = ({ soParts, parts }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(selectedValues)
+    window.localStorage.setItem('partsAmout', JSON.stringify(selectedValues))
+  }
+
+  const deleteParts = (e) => {
+    e.preventDefault()
+    window.localStorage.removeItem('partsAmout')
   }
 
   return (
@@ -143,6 +147,7 @@ export const FormCalculator = ({ soParts, parts }) => {
       </div>
       <div className='py-2'>
         <Button type='submit'>Generar Cotizacion</Button>
+        <Button type='button' onClick={deleteParts}>Cancelar</Button>
       </div>
     </form>
   )

@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { FormCalculator } from './components/FormCalculator'
+import { Accordion, AccordionItem } from '@nextui-org/react'
 
 export default function Parts ({ auth, soParts, parts }) {
   return (
@@ -18,7 +19,14 @@ export default function Parts ({ auth, soParts, parts }) {
                 <h2 className='max-w-2xl mb-4 text-2xl text-center font-bold mt-3'>
                   Calculadora de Precios para nuevo Servidor
                 </h2>
-                <FormCalculator soParts={soParts} parts={parts} />
+                <Accordion>
+                  <AccordionItem key={1} aria-label='Datos del Cliente' subtitle='Ingreso del cliente' title='Datos del Cliente'>
+                    <p>Hola Mundo</p>
+                  </AccordionItem>
+                  <AccordionItem key={2} aria-label='Datos del nuevo Servidor' subtitle='Calculadora del servidor' title='Datos del Servidor'>
+                    <FormCalculator soParts={soParts} parts={parts} />
+                  </AccordionItem>
+                </Accordion>
               </div>
               <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
                 <img src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png' alt='imagen de prueba' />
