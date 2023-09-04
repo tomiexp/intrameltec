@@ -22,6 +22,7 @@ export const FormCalculator = ({ soParts, parts }) => {
   })
 
   const [isChecked, setIsChecked] = useState(false)
+
   const partsPrice = {
     cpuPart: parseFloat(parts.find(part => part.product === PARTSNAME.cpuCores).usdPrice),
     ramPart: parseFloat(parts.find(part => part.product === PARTSNAME.ram).usdPrice),
@@ -145,7 +146,7 @@ export const FormCalculator = ({ soParts, parts }) => {
         <h2 className='text-2xl'>Total del Servidor: </h2>
         <p className='text-2xl font-bold ml-2'> ${total.toFixed(2)} USD </p>
       </div>
-      <div className='py-2'>
+      <div className='py-2 flex justify-end gap-2'>
         <Button type='submit'>Generar Cotizacion</Button>
         <Button type='button' onClick={deleteParts}>Cancelar</Button>
       </div>

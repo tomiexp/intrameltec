@@ -29,9 +29,9 @@ export default function Parts ({ auth, soParts, parts }) {
                   </AccordionItem>
                 </Accordion>
               </div>
-              <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
+              {/* <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
                 <img src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png' alt='imagen de prueba' />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
