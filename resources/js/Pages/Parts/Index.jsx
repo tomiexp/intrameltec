@@ -3,8 +3,20 @@ import { Head } from '@inertiajs/react'
 import { FormCalculator } from './components/FormCalculator'
 import { Accordion, AccordionItem } from '@nextui-org/react'
 import { ClientForm } from './components/ClientForm'
+import { useState } from 'react'
 
 export default function Parts ({ auth, soParts, parts }) {
+  const [client, setClient] = useState({
+    nameClient: '',
+    email: '',
+    phone: '',
+    identification: ''
+  })
+
+  const handleClientUpdate = (updateClient) => {
+    setClient(updateClient)
+  }
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -22,16 +34,14 @@ export default function Parts ({ auth, soParts, parts }) {
                 </h2>
                 <Accordion>
                   <AccordionItem key={1} aria-label='Datos del Cliente' subtitle='Ingreso del cliente' title='Datos del Cliente'>
-                    <ClientForm />
+                    <ClientForm onClientUpdate={handleClientUpdate} />
                   </AccordionItem>
                   <AccordionItem key={2} aria-label='Datos del nuevo Servidor' subtitle='Calculadora del servidor' title='Datos del Servidor'>
                     <FormCalculator soParts={soParts} parts={parts} />
                   </AccordionItem>
                 </Accordion>
               </div>
-              {/* <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
-                <img src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png' alt='imagen de prueba' />
-              </div> */}
+              <p>{client.nameClient}</p>
             </div>
           </div>
         </div>

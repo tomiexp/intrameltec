@@ -1,11 +1,12 @@
 import { Input, Select, SelectItem, Checkbox, Button } from '@nextui-org/react'
 import { useState, useEffect } from 'react'
 import { calculateTotal } from '../logic/calculatedTotal'
-import { PARTSNAME, NAMEPARTS } from '../logic/partsNameConst'
+import { partsPrice } from '../logic/partsPrice'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 export const FormCalculator = ({ soParts, parts }) => {
-  const [total, setTotal] = useState(0)
-  const [selectedValues, setSelectedValues] = useState({
+  const [total, setTotal] = useLocalStorage('total', '')
+  const [selectedValues, setSelectedValues] = useLocalStorage('serverParts', {
     cpuCores: 0,
     ram: 0,
     storage: 0,
@@ -22,53 +23,40 @@ export const FormCalculator = ({ soParts, parts }) => {
   })
 
   const [isChecked, setIsChecked] = useState(false)
-
-  const partsPrice = {
-    cpuPart: parseFloat(parts.find(part => part.product === PARTSNAME.cpuCores).usdPrice),
-    ramPart: parseFloat(parts.find(part => part.product === PARTSNAME.ram).usdPrice),
-    storagePart: parseFloat(parts.find(part => part.product === PARTSNAME.storage).usdPrice),
-    brandwichPart: parseFloat(parts.find(part => part.product === PARTSNAME.bandwidth).usdPrice),
-    sql2core: parseFloat(parts.find(part => part.product === PARTSNAME.sql2core).usdPrice),
-    backup: parseFloat(parts.find(part => part.product === PARTSNAME.backup).usdPrice),
-    security: parseFloat(parts.find(part => part.product === PARTSNAME.security).usdPrice),
-    support: parseFloat(parts.find(part => part.product === PARTSNAME.support).usdPrice),
-    snapchot: parseFloat(parts.find(part => part.product === PARTSNAME.snapchot).usdPrice),
-    rdp: parseFloat(parts.find(part => part.product === PARTSNAME.rdp).usdPrice),
-    ip: parseFloat(parts.find(part => part.product === PARTSNAME.ip).usdPrice),
-    sql2extra: parseFloat(parts.find(part => part.product === PARTSNAME.sql2extra).usdPrice)
-  }
+  const setPartsPrice = partsPrice({ parts })
 
   useEffect(() => {
-    const newTotalPrice = calculateTotal({ selectedValues, partsPrice })
+    const newTotalPrice = calculateTotal({ selectedValues, setPartsPrice })
     setTotal(newTotalPrice)
   }, [selectedValues])
 
   const handleInput = (e, field) => {
-    let value = e.target.value
+    let value = e.target.value ? e.target.value : 0
 
     if (field === 'so') {
       value = parseInt(value) ? parseInt(value) : 4
       value = parseFloat(parts.find(part => part.id === value).usdPrice)
     } else if (field === 'sql2core' || field === 'rdp' || field === 'ip') {
-      value = e.target.checked ? partsPrice[field] : 0
+      value = e.target.checked ? selectedValues[field] = 1 : 0
     } else {
       value = parseInt(value)
     }
 
-    setSelectedValues((prevValues) => ({
-      ...prevValues,
-      [field]: value
-    }))
+    const newValues = { ...selectedValues }
+    newValues[field] = value
+
+    setSelectedValues(newValues)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    window.localStorage.setItem('partsAmout', JSON.stringify(selectedValues))
+    setSelectedValues(selectedValues)
+    console.log(selectedValues)
   }
 
   const deleteParts = (e) => {
     e.preventDefault()
-    window.localStorage.removeItem('partsAmout')
+    window.localStorage.removeItem('serverParts')
   }
 
   return (
@@ -144,7 +132,7 @@ export const FormCalculator = ({ soParts, parts }) => {
       )}
       <div className='py-2 flex justify-center'>
         <h2 className='text-2xl'>Total del Servidor: </h2>
-        <p className='text-2xl font-bold ml-2'> ${total.toFixed(2)} USD </p>
+        <p className='text-2xl font-bold ml-2'> ${parseFloat(total).toFixed(2)} USD </p>
       </div>
       <div className='py-2 flex justify-end gap-2'>
         <Button type='submit'>Generar Cotizacion</Button>
