@@ -3,6 +3,7 @@ import { Input } from '@nextui-org/react'
 export const ClientForm = () => {
   return (
     <form>
+
       <div className='flex gap-2'>
         <Input type='text' label='Nombre del cliente' radius='sm' labelPlacement='inside' isRequired />
         <Input type='email' label='Correo electronico del cliente' radius='sm' labelPlacement='inside' isRequired />
