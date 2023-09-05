@@ -4,7 +4,7 @@ import { calculateTotal } from '../logic/calculatedTotal'
 import { partsPrice } from '../logic/partsPrice'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
-export const FormCalculator = ({ soParts, parts, onCalculateUpdate }) => {
+export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdate }) => {
   const [total, setTotal] = useLocalStorage('total', '')
   const [selectedValues, setSelectedValues] = useLocalStorage('serverParts', {
     cpuCores: 0,
@@ -50,20 +50,21 @@ export const FormCalculator = ({ soParts, parts, onCalculateUpdate }) => {
     e.preventDefault()
     setSelectedValues(selectedValues)
     onCalculateUpdate(selectedValues)
+    onTotalUpdate(total)
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <div className='flex gap-2'>
         <Input
-          type='number' label='Nucleos de CPU' radius='sm' labelPlacement='inside' isRequired description='Procesador' min={1} onChange={(e) => handleInput(e, 'cpuCores')} endContent={
+          type='number' label='Nucleos de CPU' value={selectedValues.cpuCores} radius='sm' labelPlacement='inside' isRequired description='Procesador' min={1} onChange={(e) => handleInput(e, 'cpuCores')} endContent={
             <div className='pointer-events-none flex items-center'>
               <span className='text-default-400 text-small'>Nucleos</span>
             </div>
                       }
         />
         <Input
-          type='number' label='Memoria RAM' isRequired min={1} radius='sm' labelPlacement='inside' description='Memoria RAM' onChange={(e) => handleInput(e, 'ram')} endContent={
+          type='number' label='Memoria RAM' value={selectedValues.ram} isRequired min={1} radius='sm' labelPlacement='inside' description='Memoria RAM' onChange={(e) => handleInput(e, 'ram')} endContent={
             <div className='pointer-events-none flex items-center'>
               <span className='text-default-400 text-small'>GB</span>
             </div>
@@ -72,14 +73,14 @@ export const FormCalculator = ({ soParts, parts, onCalculateUpdate }) => {
       </div>
       <div className='flex gap-2'>
         <Input
-          type='number' label='Almacenamiento' isRequired radius='sm' labelPlacement='inside' description='Almacenamiento' min={1} onChange={(e) => handleInput(e, 'storage')} endContent={
+          type='number' label='Almacenamiento' value={selectedValues.storage} isRequired radius='sm' labelPlacement='inside' description='Almacenamiento' min={1} onChange={(e) => handleInput(e, 'storage')} endContent={
             <div className='pointer-events-none flex items-center'>
               <span className='text-default-400 text-small'>GB</span>
             </div>
                       }
         />
         <Input
-          type='number' label='Ancho de Banda' isRequired radius='sm' labelPlacement='inside' description='Ancho de Banda' min={1} onChange={(e) => handleInput(e, 'bandwidth')} endContent={
+          type='number' label='Ancho de Banda' value={selectedValues.bandwidth} isRequired radius='sm' labelPlacement='inside' description='Ancho de Banda' min={1} onChange={(e) => handleInput(e, 'bandwidth')} endContent={
             <div className='pointer-events-none flex items-center'>
               <span className='text-default-400 text-small'>Mb/s</span>
             </div>
@@ -115,7 +116,7 @@ export const FormCalculator = ({ soParts, parts, onCalculateUpdate }) => {
           <Checkbox onChange={(e) => handleInput(e, 'rdp')}>Licencia RDP SPLA</Checkbox>
           <Checkbox onChange={(e) => handleInput(e, 'ip')}>IP Publica</Checkbox>
           <Input
-            type='number' label='Usuarios Extra de SQL 2 Server' radius='sm' labelPlacement='inside' description='Usuarios Extra de SQL 2 Server' min={1} onChange={(e) => handleInput(e, 'sql2extra')} endContent={
+            type='number' label='Usuarios Extra de SQL 2 Server' radius='sm' labelPlacement='inside' description='Usuarios Extra de SQL 2 Server' min={0} onChange={(e) => handleInput(e, 'sql2extra')} endContent={
               <div className='pointer-events-none flex items-center'>
                 <span className='text-default-400 text-small'>Usuarios</span>
               </div>
