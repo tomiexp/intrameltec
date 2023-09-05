@@ -12,8 +12,9 @@ export const calculateTotal = ({ selectedValues = {}, setPartsPrice = {} }) => {
   const sql2core = parseFloat(selectedValues.sql2core) ? parseFloat(selectedValues.sql2core + setPartsPrice.sql2core) : 0
   const rdp = parseFloat(selectedValues.rdp) ? parseFloat(selectedValues.rdp + setPartsPrice.rdp) : 0
   const ip = parseFloat(selectedValues.ip) ? parseFloat(selectedValues.ip + setPartsPrice.ip) : 0
+  const rdpExtra = parseFloat(selectedValues.rdpExtra * setPartsPrice.rdp) ? parseFloat(selectedValues.rdpExtra * setPartsPrice.rdp) : 0
 
-  const totalPrice = cpuTotal + ramTotal + ddTotal + brandTotal + soTotal + backup + security + support + snapchot + sql2core + rdp + ip + sql2extra
+  const totalPrice = cpuTotal + ramTotal + ddTotal + brandTotal + soTotal + backup + security + support + snapchot + sql2core + rdp + ip + sql2extra + rdpExtra
 
   return totalPrice
 }

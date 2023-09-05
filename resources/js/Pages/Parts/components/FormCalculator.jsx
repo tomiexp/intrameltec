@@ -3,24 +3,11 @@ import { useState, useEffect } from 'react'
 import { calculateTotal } from '../logic/calculatedTotal'
 import { partsPrice } from '../logic/partsPrice'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { SERVER_INITIAL_VALUES } from '../constants/initialValues'
 
 export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdate }) => {
   const [total, setTotal] = useLocalStorage('total', '')
-  const [selectedValues, setSelectedValues] = useLocalStorage('serverParts', {
-    cpuCores: 0,
-    ram: 0,
-    storage: 0,
-    bandwidth: 0,
-    backup: 1,
-    security: 1,
-    support: 1,
-    snapchot: 1,
-    so: 0,
-    sql2core: 0,
-    rdp: 0,
-    ip: 0,
-    sql2extra: 0
-  })
+  const [selectedValues, setSelectedValues] = useLocalStorage('serverParts', SERVER_INITIAL_VALUES)
   const [isChecked, setIsChecked] = useState(false)
   const setPartsPrice = partsPrice({ parts })
   useEffect(() => {
@@ -64,7 +51,7 @@ export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdat
                       }
         />
         <Input
-          type='number' label='Memoria RAM' value={selectedValues.ram} isRequired min={1} radius='sm' labelPlacement='inside' description='Memoria RAM' onChange={(e) => handleInput(e, 'ram')} endContent={
+          type='number' label='Memoria RAM' value={selectedValues.ram} isRequired min={1} radius='sm' labelPlacement='inside' description='Memoria RAM' max={64} onChange={(e) => handleInput(e, 'ram')} endContent={
             <div className='pointer-events-none flex items-center'>
               <span className='text-default-400 text-small'>GB</span>
             </div>
@@ -73,7 +60,7 @@ export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdat
       </div>
       <div className='flex gap-2'>
         <Input
-          type='number' label='Almacenamiento' value={selectedValues.storage} isRequired radius='sm' labelPlacement='inside' description='Almacenamiento' min={1} onChange={(e) => handleInput(e, 'storage')} endContent={
+          type='number' label='Almacenamiento' value={selectedValues.storage} isRequired radius='sm' labelPlacement='inside' description='Almacenamiento' max={250} min={1} onChange={(e) => handleInput(e, 'storage')} endContent={
             <div className='pointer-events-none flex items-center'>
               <span className='text-default-400 text-small'>GB</span>
             </div>
@@ -111,12 +98,19 @@ export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdat
         </Checkbox>
       </div>
       {isChecked && (
-        <div className='flex gap-2 my-6'>
+        <div className='grid gap-2 my-6'>
           <Checkbox onChange={(e) => handleInput(e, 'sql2core')}>Licencia SQL 2 CORE</Checkbox>
           <Checkbox onChange={(e) => handleInput(e, 'rdp')}>Licencia RDP SPLA</Checkbox>
           <Checkbox onChange={(e) => handleInput(e, 'ip')}>IP Publica</Checkbox>
           <Input
             type='number' label='Usuarios Extra de SQL 2 Server' radius='sm' labelPlacement='inside' description='Usuarios Extra de SQL 2 Server' min={0} onChange={(e) => handleInput(e, 'sql2extra')} endContent={
+              <div className='pointer-events-none flex items-center'>
+                <span className='text-default-400 text-small'>Usuarios</span>
+              </div>
+                      }
+          />
+          <Input
+            type='number' label='Usuarios Extra RDP SPLA' radius='sm' labelPlacement='inside' description='Usuarios Extra RDP SPLA' min={0} onChange={(e) => handleInput(e, 'rdpExtra')} endContent={
               <div className='pointer-events-none flex items-center'>
                 <span className='text-default-400 text-small'>Usuarios</span>
               </div>

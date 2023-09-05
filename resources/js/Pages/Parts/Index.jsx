@@ -4,31 +4,13 @@ import { FormCalculator } from './components/FormCalculator'
 import { Accordion, AccordionItem, Button, Input } from '@nextui-org/react'
 import { ClientForm } from './components/ClientForm'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES } from './constants/initialValues'
 
 export default function Parts ({ auth, soParts, parts }) {
-  const [client, setClient] = useLocalStorage('client', {
-    nameClient: '',
-    email: '',
-    phone: '',
-    identification: ''
-  })
-  const [calculator, setCalculator] = useLocalStorage('serverParts', {
-    cpuCores: '',
-    ram: '',
-    storage: '',
-    bandwidth: '',
-    backup: '',
-    security: '',
-    support: '',
-    snapchot: '',
-    so: '',
-    sql2core: '',
-    rdp: '',
-    ip: '',
-    sql2extra: ''
-  })
+  const [client, setClient] = useLocalStorage('client', CLIENT_INITIAL_VALUES)
+  const [calculator, setCalculator] = useLocalStorage('serverParts', SERVER_INITIAL_VALUES)
 
-  const [total, setTotal] = useLocalStorage('total', '')
+  const [total, setTotal] = useLocalStorage('total', 0)
 
   const handleCalculatorUpdate = (updateCalculator) => {
     setCalculator(updateCalculator)
@@ -46,6 +28,9 @@ export default function Parts ({ auth, soParts, parts }) {
     window.localStorage.removeItem('client')
     window.localStorage.removeItem('serverParts')
     window.localStorage.removeItem('total')
+    handleClientUpdate(CLIENT_INITIAL_VALUES)
+    handleCalculatorUpdate(SERVER_INITIAL_VALUES)
+    handleTotalUpdate(0)
   }
 
   return (
@@ -118,6 +103,9 @@ export default function Parts ({ auth, soParts, parts }) {
                   />
                   <Input
                     value={calculator?.sql2extra !== 0 ? calculator?.sql2extra : 'Ninguno'} type='text' isDisabled label='Usuarios SQL 2 CORE Adicionales' labelPlacement='outside-left'
+                  />
+                  <Input
+                    value={calculator?.rdpExtra !== 0 ? calculator?.rdpExtra : 'Ninguno'} type='text' isDisabled label='Usuarios RDP SPLA Extra' labelPlacement='outside-left'
                   />
                 </div>
                 <div className='flex justify-end gap-2 my-6'>

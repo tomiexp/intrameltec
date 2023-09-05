@@ -12,6 +12,7 @@ export const partsPrice = ({ parts }) => {
     support: parseFloat(parts.find(part => part.product === PARTSNAME.support).usdPrice),
     snapchot: parseFloat(parts.find(part => part.product === PARTSNAME.snapchot).usdPrice),
     rdp: parseFloat(parts.find(part => part.product === PARTSNAME.rdp).usdPrice),
+    rdpExtra: parseFloat(parts.find(part => part.product === PARTSNAME.rdp).usdPrice),
     ip: parseFloat(parts.find(part => part.product === PARTSNAME.ip).usdPrice),
     sql2extra: parseFloat(parts.find(part => part.product === PARTSNAME.sql2extra).usdPrice)
   }
