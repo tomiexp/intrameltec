@@ -12,6 +12,25 @@ export default function Parts ({ auth, soParts, parts }) {
     phone: '',
     identification: ''
   })
+  const [calculator, setCalculator] = useState({
+    cpuCores: '',
+    ram: '',
+    storage: '',
+    bandwidth: '',
+    backup: '',
+    security: '',
+    support: '',
+    snapchot: '',
+    so: '',
+    sql2core: '',
+    rdp: '',
+    ip: '',
+    sql2extra: ''
+  })
+
+  const handleCalculatorUpdate = (updateCalculator) => {
+    setCalculator(updateCalculator)
+  }
 
   const handleClientUpdate = (updateClient) => {
     setClient(updateClient)
@@ -37,11 +56,12 @@ export default function Parts ({ auth, soParts, parts }) {
                     <ClientForm onClientUpdate={handleClientUpdate} />
                   </AccordionItem>
                   <AccordionItem key={2} aria-label='Datos del nuevo Servidor' subtitle='Calculadora del servidor' title='Datos del Servidor'>
-                    <FormCalculator soParts={soParts} parts={parts} />
+                    <FormCalculator soParts={soParts} parts={parts} onCalculateUpdate={handleCalculatorUpdate} />
                   </AccordionItem>
                 </Accordion>
               </div>
               <p>{client.nameClient}</p>
+              <p>{calculator.cpuCores}</p>
             </div>
           </div>
         </div>

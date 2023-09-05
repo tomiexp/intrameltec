@@ -4,7 +4,7 @@ import { calculateTotal } from '../logic/calculatedTotal'
 import { partsPrice } from '../logic/partsPrice'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
-export const FormCalculator = ({ soParts, parts }) => {
+export const FormCalculator = ({ soParts, parts, onCalculateUpdate }) => {
   const [total, setTotal] = useLocalStorage('total', '')
   const [selectedValues, setSelectedValues] = useLocalStorage('serverParts', {
     cpuCores: 0,
@@ -21,10 +21,8 @@ export const FormCalculator = ({ soParts, parts }) => {
     ip: 0,
     sql2extra: 0
   })
-
   const [isChecked, setIsChecked] = useState(false)
   const setPartsPrice = partsPrice({ parts })
-
   useEffect(() => {
     const newTotalPrice = calculateTotal({ selectedValues, setPartsPrice })
     setTotal(newTotalPrice)
@@ -51,12 +49,7 @@ export const FormCalculator = ({ soParts, parts }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setSelectedValues(selectedValues)
-    console.log(selectedValues)
-  }
-
-  const deleteParts = (e) => {
-    e.preventDefault()
-    window.localStorage.removeItem('serverParts')
+    onCalculateUpdate(selectedValues)
   }
 
   return (
@@ -135,8 +128,7 @@ export const FormCalculator = ({ soParts, parts }) => {
         <p className='text-2xl font-bold ml-2'> ${parseFloat(total).toFixed(2)} USD </p>
       </div>
       <div className='py-2 flex justify-end gap-2'>
-        <Button type='submit'>Generar Cotizacion</Button>
-        <Button type='button' onClick={deleteParts}>Cancelar</Button>
+        <Button type='submit'>Continuar</Button>
       </div>
     </form>
   )
