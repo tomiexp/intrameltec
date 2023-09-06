@@ -28,7 +28,7 @@ class GoogleAuthenticationController extends Controller
                 'google_refresh_token' => $user->refreshToken,
             ]);
 
-            $newUserByGoogleAuth->assignRole('Director');
+            $newUserByGoogleAuth->assignRole('Usuario corriente');
             $newUserByGoogleAuth->save();
             Auth::login($newUserByGoogleAuth);
 
