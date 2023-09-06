@@ -36,5 +36,9 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
+        Gate::define('kpisDirectorAccess', function(User $user) {
+            return $user->hasRole('Director') || $user->hasRole('Administrador');
+        });
     }
 }
