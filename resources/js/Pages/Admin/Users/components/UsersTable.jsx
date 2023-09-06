@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Table, TableColumn, TableHeader, TableBody, TableCell, TableRow, Avatar, Button } from '@nextui-org/react'
+import { Table, TableColumn, TableHeader, TableBody, TableCell, TableRow, Avatar, Button, Pagination } from '@nextui-org/react'
 import { EditIcon } from '@/Components/icons/Icons'
 import { ModalUser } from './ModalUser'
 
@@ -12,6 +12,8 @@ export const UsersTable = ({ users, roles }) => {
     nameRol: '',
     name: ''
   })
+
+  console.log(users.meta)
 
   const openModal = ({ id = '', nameRol = '', name = '' }) => {
     setModal(true)
@@ -31,7 +33,7 @@ export const UsersTable = ({ users, roles }) => {
           ))}
         </TableHeader>
         <TableBody emptyContent='No se encontraron usuarios registrados'>
-          {users.map(({ id, name, avatar, email, roles }) => {
+          {users.data.map(({ id, name, avatar, email, roles }) => {
             const nameRol = roles[0].name
             return (
               <TableRow key={id}>

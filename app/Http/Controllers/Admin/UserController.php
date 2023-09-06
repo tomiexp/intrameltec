@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -22,10 +23,11 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
-        $users = User::with('roles')->get();
         $roles = Role::all();
         return Inertia::render('Admin/Users/Index', [
-            'users' => $users,
+            'users' => UserResource::collection(
+                User::with('roles')->paginate(10)
+            ),
             'roles' => $roles
         ]);
     }
@@ -82,12 +84,11 @@ class UserController extends Controller
 
             $updateRole = DB::table('model_has_roles')->where('model_id', $id)->update(['role_id' => $validateData['role']]);
 
-            if(!$updateRole) {
+            if (!$updateRole) {
                 throw new Exception('Error al actualizar el rol del Usuario');
             }
 
             return to_route('admin.users.index');
-
         } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'message' => $e->getMessage()
