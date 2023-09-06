@@ -84,15 +84,6 @@ export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdat
       <div className='flex gap-2'>
         <Checkbox onChange={() => {
           setIsChecked(!isChecked)
-          if (!isChecked) {
-            setSelectedValues((prevValues) => ({
-              ...prevValues,
-              sql2core: 0,
-              rdp: 0,
-              ip: 0,
-              sql2extra: 0
-            }))
-          }
         }}
         >¿Desea Añadir adicionales?
         </Checkbox>
