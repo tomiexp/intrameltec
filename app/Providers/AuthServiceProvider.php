@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
-
 use App\Models\User;
 use App\Policies\RolPolicy;
 use App\Policies\UserPolicy;
@@ -31,11 +29,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // Grant "Super Administrador" role all permissions 
-        Gate::before(function ($user, $ability) {
+        Gate::before(function (User $user, $ability) {
             if($user->hasRole('Super Administrador')) {
                 return true;
             }
         });
+
+        // Gate Define to Index Kpi's
 
         Gate::define('kpisDirectorAccess', function(User $user) {
             return $user->hasRole('Director') || $user->hasRole('Administrador');
