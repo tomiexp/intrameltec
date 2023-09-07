@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { useTrm } from '@/hooks/useTrm'
 import { TrmGraph } from '@/Components/Trm'
+import { RealTimeNotification } from '@/Components/RealTimeNotification'
 
 export default function Dashboard ({ auth }) {
   const { valores, loading, trmInCop } = useTrm()
@@ -15,6 +16,7 @@ export default function Dashboard ({ auth }) {
             }
     >
       <Head title='Dashboard' />
+      <RealTimeNotification event='App.Models.User.1' />
 
       {loading ? <p>Cargando...</p> : <TrmGraph valores={valores} trmInCop={trmInCop} />}
 

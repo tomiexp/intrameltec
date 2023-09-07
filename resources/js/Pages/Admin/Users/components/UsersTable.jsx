@@ -13,8 +13,6 @@ export const UsersTable = ({ users, roles }) => {
     name: ''
   })
 
-  console.log(users.meta)
-
   const openModal = ({ id = '', nameRol = '', name = '' }) => {
     setModal(true)
     setDataModal({ id, nameRol, name })
@@ -33,7 +31,7 @@ export const UsersTable = ({ users, roles }) => {
           ))}
         </TableHeader>
         <TableBody emptyContent='No se encontraron usuarios registrados'>
-          {users.data.map(({ id, name, avatar, email, roles }) => {
+          {users.map(({ id, name, avatar, email, roles }) => {
             const nameRol = roles[0].name
             return (
               <TableRow key={id}>
