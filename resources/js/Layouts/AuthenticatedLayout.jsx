@@ -1,6 +1,7 @@
 import Routes from '@/routes/Routes'
 import DropdownProfile from '@/routes/DropdownProfile'
 import ResposiveRoutes from '@/routes/ResponsiveRoutes'
+import { RealTimeNotification } from '@/Components/RealTimeNotification'
 
 export default function Authenticated ({ user, header, children }) {
   return (
@@ -26,7 +27,10 @@ export default function Authenticated ({ user, header, children }) {
         </header>
       )}
 
-      <main>{children}</main>
+      <main>
+        <RealTimeNotification event='App.Models.User.1' />
+        {children}
+      </main>
     </div>
   )
 }
