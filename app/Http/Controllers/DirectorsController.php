@@ -11,7 +11,7 @@ class DirectorsController extends Controller
     public function __invoke()
     {
         if(!Gate::allows('kpisDirectorAccess')) {
-            abort(403);
+            abort(403, 'No estas Autorizado para entrar a este recurso, comunicate con IT para solicitar Acceso');
         }
         return Inertia::render('Directors/Index');
     }
