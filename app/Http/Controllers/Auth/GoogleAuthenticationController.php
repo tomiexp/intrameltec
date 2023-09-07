@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Notifications\UserCreate;
 use App\Providers\RouteServiceProvider;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+
+use App\Notifications\UserCreate;
 use Illuminate\Support\Facades\Notification;
 
 class GoogleAuthenticationController extends Controller
