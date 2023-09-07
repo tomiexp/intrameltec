@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +27,8 @@ class User extends Authenticatable
         'external_id',
         'external_auth',
         'google_access_token',
-        'google_refresh_token'
+        'google_refresh_token',
+        'created_at'
     ];
 
     /**

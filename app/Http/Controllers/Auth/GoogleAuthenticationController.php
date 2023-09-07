@@ -5,15 +5,21 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\UserCreate;
 use App\Providers\RouteServiceProvider;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Notification;
 
 class GoogleAuthenticationController extends Controller
 {
     public function AuthCallback()
     {
+        $admins = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Administrador');
+        })->get();
+        
         $user = Socialite::driver('google')->user();
         $userExists = User::where('external_id', $user->id)->where('external_auth', 'google')->first();
 
@@ -31,6 +37,8 @@ class GoogleAuthenticationController extends Controller
             $newUserByGoogleAuth->assignRole('Usuario corriente');
             $newUserByGoogleAuth->save();
             Auth::login($newUserByGoogleAuth);
+
+            Notification::send($admins, new UserCreate($newUserByGoogleAuth));
 
             return redirect()->intended(RouteServiceProvider::HOME);
         }

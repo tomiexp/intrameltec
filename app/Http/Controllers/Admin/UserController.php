@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
+use App\Notifications\UserEdit;
 
 class UserController extends Controller
 {
@@ -23,10 +24,12 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
         $users = User::with('roles')->get();
+        $notifications = auth()->user()->unreadNotifications;
         $roles = Role::all();
         return Inertia::render('Admin/Users/Index', [
             'users' => $users,
-            'roles' => $roles
+            'roles' => $roles,
+            'notifications' => $notifications
         ]);
     }
 
@@ -86,6 +89,7 @@ class UserController extends Controller
                 throw new Exception('Error al actualizar el rol del Usuario');
             }
 
+            $user->notify(new UserEdit($updateRole));
             return to_route('admin.users.index');
 
         } catch (Exception $e) {
