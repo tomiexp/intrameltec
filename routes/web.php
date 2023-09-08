@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\PermissionsStoreController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\DirectorsController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\RolsController;
-use App\Http\Controllers\ServerpartController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DirectorsController;
+use App\Http\Controllers\Admin\RolsController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ServerpartController;
+use App\Http\Controllers\Admin\PermissionsStoreController;
 
 /*
 |--------------------------------------------------------------------------

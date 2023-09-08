@@ -12,9 +12,7 @@ use Illuminate\Notifications\Notification;
 
 class UserCreate extends Notification implements ShouldBroadcast
 {
-    use Queueable;
-
-    private $user;
+    public $user;
 
     /**
      * Create a new notification instance.

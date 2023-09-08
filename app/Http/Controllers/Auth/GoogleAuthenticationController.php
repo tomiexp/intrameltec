@@ -17,7 +17,7 @@ class GoogleAuthenticationController extends Controller
     public function AuthCallback()
     {
         $admins = User::whereHas('roles', function ($query) {
-            $query->where('name', 'Administrador');
+            $query->where('name', 'Administrador')->orWhere('name', 'Super Administrador');
         })->get();
         
         $user = Socialite::driver('google')->user();
