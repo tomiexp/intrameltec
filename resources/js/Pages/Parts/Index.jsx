@@ -17,7 +17,7 @@ import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES } from './constants/initia
 import { Accordion, AccordionItem } from '@nextui-org/react'
 import { CommentForm } from './components/CommentForm'
 
-export default function Parts ({ auth, soParts, parts }) {
+export default function Parts ({ auth, soParts, parts, unreadNotifications }) {
   const [client, setClient] = useLocalStorage('client', CLIENT_INITIAL_VALUES)
   const [calculator, setCalculator] = useLocalStorage('serverParts', SERVER_INITIAL_VALUES)
 
@@ -38,6 +38,7 @@ export default function Parts ({ auth, soParts, parts }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
+      unreadNotifications={unreadNotifications}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Partes del servidor</h2>}
     >
       <Head title='Partes del servidor' />

@@ -5,7 +5,7 @@ export const calculateTotal = ({ selectedValues = {}, setPartsPrice = {} }) => {
   const brandTotal = parseFloat(selectedValues.bandwidth * setPartsPrice.brandwichPart) ? parseFloat(selectedValues.bandwidth * setPartsPrice.brandwichPart) : 0
   const sql2extra = parseFloat(selectedValues.sql2extra * setPartsPrice.sql2extra) ? parseFloat(selectedValues.sql2extra * setPartsPrice.sql2extra) : 0
   const soTotal = parseFloat(selectedValues.so) ? parseFloat(selectedValues.so) : 0
-  const backup = parseFloat(setPartsPrice.backup)
+  const backup = parseFloat(setPartsPrice.backup * selectedValues.storage) ? parseFloat(setPartsPrice.backup * selectedValues.storage) : 0
   const security = parseFloat(setPartsPrice.security)
   const support = parseFloat(setPartsPrice.support)
   const snapchot = parseFloat(setPartsPrice.snapchot)

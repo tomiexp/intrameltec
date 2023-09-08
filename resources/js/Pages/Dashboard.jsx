@@ -4,11 +4,12 @@ import { useTrm } from '@/hooks/useTrm'
 import { TrmGraph } from '@/Components/Trm'
 import { RealTimeNotification } from '@/Components/RealTimeNotification'
 
-export default function Dashboard ({ auth }) {
+export default function Dashboard ({ auth, unreadNotifications }) {
   const { valores, loading, trmInCop } = useTrm()
   return (
     <AuthenticatedLayout
       user={auth.user}
+      unreadNotifications={unreadNotifications}
       header={
         <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
           Inicio Meltec Comunicaciones S.A

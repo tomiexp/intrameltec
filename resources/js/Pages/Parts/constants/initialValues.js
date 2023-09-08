@@ -10,7 +10,7 @@ export const SERVER_INITIAL_VALUES = {
   ram: 0,
   storage: 0,
   bandwidth: 0,
-  backup: 1,
+  backup: 0,
   security: 1,
   support: 1,
   snapchot: 1,

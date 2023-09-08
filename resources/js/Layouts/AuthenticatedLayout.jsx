@@ -1,8 +1,11 @@
 import Routes from '@/routes/Routes'
 import DropdownProfile from '@/routes/DropdownProfile'
 import ResposiveRoutes from '@/routes/ResponsiveRoutes'
+import { Badge } from '@nextui-org/react'
+import { NotificationIcon } from '@/Components/icons/Icons'
 
-export default function Authenticated ({ user, header, children }) {
+export default function Authenticated ({ user, header, children, unreadNotifications }) {
+  console.log(unreadNotifications)
   return (
     <div className='min-h-screen bg-gray-100'>
       <nav className='bg-white border-b border-gray-100'>
@@ -11,8 +14,12 @@ export default function Authenticated ({ user, header, children }) {
             <div className='flex'>
               <Routes user={user} />
             </div>
-
-            <DropdownProfile user={user} />
+            <div className='flex'>
+              <Badge color='danger' content={unreadNotifications} shape='circle'>
+                <NotificationIcon className='flex align-middle' size={40} />
+              </Badge>
+              <DropdownProfile user={user} />
+            </div>
 
           </div>
         </div>
