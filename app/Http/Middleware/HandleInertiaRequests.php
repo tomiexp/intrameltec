@@ -41,7 +41,7 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
-            'unreadNotifications' => $request->user()->unreadNotifications()->count() ?? 0,
+            'unreadNotifications' =>  0 //$request->user()->unreadNotifications()->count() ?? 0,
         ]);
     }
 }
