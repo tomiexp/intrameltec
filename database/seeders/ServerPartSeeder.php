@@ -65,7 +65,7 @@ class ServerPartSeeder extends Seeder
         Serverpart::create([
             'product' => 'Asistencia Tecnica',
             'description' => 'Gestion de Asistencia Tecnica Servidor',
-            'usdPrice' => '100',
+            'usdPrice' => '15',
             'type_id' => 1,
         ]);
         Serverpart::create([
