@@ -30,7 +30,7 @@ export default function Routes ({ user }) {
         ? (
           <div className='hidden space-x-8 sm:-my-px sm:ml-10 sm:flex'>
             <NavLink href={route('admin.parts.index')} active={route().current('admin.parts.index')}>
-              Partes de Servidor
+              Datacenter
             </NavLink>
           </div>
           )
