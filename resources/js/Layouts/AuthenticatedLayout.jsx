@@ -1,11 +1,11 @@
+/* eslint-disable no-undef */
 import Routes from '@/routes/Routes'
 import DropdownProfile from '@/routes/DropdownProfile'
 import ResposiveRoutes from '@/routes/ResponsiveRoutes'
-import { Badge } from '@nextui-org/react'
+import { Badge, Link } from '@nextui-org/react'
 import { NotificationIcon } from '@/Components/icons/Icons'
 
 export default function Authenticated ({ user, header, children, unreadNotifications }) {
-  console.log(unreadNotifications)
   return (
     <div className='min-h-screen bg-gray-100'>
       <nav className='bg-white border-b border-gray-100'>
@@ -15,9 +15,11 @@ export default function Authenticated ({ user, header, children, unreadNotificat
               <Routes user={user} />
             </div>
             <div className='flex'>
-              <Badge color='danger' content={unreadNotifications} shape='circle'>
-                <NotificationIcon className='flex align-middle' size={40} />
-              </Badge>
+              <Link href={route('notifications')}>
+                <Badge color='danger' content={unreadNotifications} shape='circle'>
+                  <NotificationIcon className='flex align-middle' size={40} />
+                </Badge>
+              </Link>
               <DropdownProfile user={user} />
             </div>
 

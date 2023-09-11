@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RolsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ServerpartController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
+use App\Http\Controllers\Auth\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('rols', RolsController::class)->names('admin.rols');
 
     Route::post('newPermissions', PermissionsStoreController::class)->name('admin.permission.create');
+
+    Route::get('/notifications', NotificationController::class)->name('notifications');
 });
 
 require __DIR__.'/auth.php';
