@@ -21,3 +21,10 @@ export const SERVER_INITIAL_VALUES = {
   sql2extra: 0,
   rdpExtra: 0
 }
+
+export const DISCOUNTS = [
+  { value: 10, label: '1 Año', months: 12 },
+  { value: 20, label: '2 Años', months: 24 },
+  { value: 30, label: '3 Años', months: 36 },
+  { value: 40, label: '4 Años', months: 48 }
+]

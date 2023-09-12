@@ -1,14 +1,25 @@
-import { Input, Button } from '@nextui-org/react'
-import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES } from '../constants/initialValues'
+import { Input, Button, Select, SelectItem } from '@nextui-org/react'
+import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES, DISCOUNTS } from '../constants/initialValues'
+import { yearTotal } from '../logic/calculatedTotal'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handleCalculatorUpdate, handleTotalUpdate }) => {
+  const [totalYear, setTotalYear] = useLocalStorage('yearTotal', 0)
   const deleteLocalStorageItems = () => {
     window.localStorage.removeItem('client')
     window.localStorage.removeItem('serverParts')
     window.localStorage.removeItem('total')
+    window.localStorage.removeItem('yearTotal')
     handleClientUpdate(CLIENT_INITIAL_VALUES)
     handleCalculatorUpdate(SERVER_INITIAL_VALUES)
     handleTotalUpdate(0)
+  }
+
+  const handlePlanChange = (e) => {
+    const subtotal = total !== '' ? parseFloat(total) : 0
+    const discount = parseInt(e.target.value)
+    const yeartotal = yearTotal({ discount, subtotal })
+    setTotalYear(yeartotal)
   }
 
   return (
@@ -64,7 +75,17 @@ export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handle
         />
       </div>
       <div className='flex justify-end gap-2 my-6'>
-        <h3 className='font-semibold self-center'> Total Servidor: ${total !== '' ? parseFloat(total).toFixed(2) : 0} USD </h3>
+        <h3 className='font-semibold self-center'> Total Servidor: ${total !== '' ? parseFloat(total).toFixed(2) : 0} USD/Mes </h3>
+
+        <Select className='max-w-xs' placeholder='Tiempo de Contrato del Servicio' label='Tiempo de Contrato' onChange={handlePlanChange} isRequired>
+          {DISCOUNTS.map(({ label, value }) => (
+            <SelectItem key={value} value={value}>{label}</SelectItem>
+          ))}
+        </Select>
+
+      </div>
+      <div className='flex justify-end gap-2 my-6'>
+        <h3 className='font-semibold self-center'> Total Anual: ${totalYear.toFixed(2)} USD</h3>
       </div>
       <div className='flex justify-end gap-2 my-6'>
         {total > 0 && (
