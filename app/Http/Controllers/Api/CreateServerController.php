@@ -7,6 +7,7 @@ use App\Models\ClientServer;
 use App\Models\QuoteServer;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CreateServerController extends Controller
 {
@@ -105,11 +106,7 @@ class CreateServerController extends Controller
                 throw new \Throwable('Error saving quote');
             }
 
-                return response()->json([
-                'status' => 201,
-                'message' => 'Server created successfully',
-                ]);
-
+            return Redirect::route('admin.parts');
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 400);
         }
