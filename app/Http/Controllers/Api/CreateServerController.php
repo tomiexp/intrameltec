@@ -12,6 +12,11 @@ class CreateServerController extends Controller
      */
     public function __invoke(Request $request)
     {
-        dd($request);
+        $client = $request->json('client');
+        $serverData = $request->json('serverParts');
+        $discount = $request->json('discount');
+        $total = $request->json('total');
+        $yearTotal = $request->json('yearTotal');
+        dd($request->json('client'));
     }
 }

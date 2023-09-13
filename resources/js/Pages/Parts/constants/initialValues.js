@@ -23,8 +23,8 @@ export const SERVER_INITIAL_VALUES = {
 }
 
 export const DISCOUNTS = [
-  { value: 10, label: '1 Año', months: 12 },
-  { value: 20, label: '2 Años', months: 24 },
-  { value: 30, label: '3 Años', months: 36 },
-  { value: 40, label: '4 Años', months: 48 }
+  { value: 10, label: '1 Año' },
+  { value: 20, label: '2 Años' },
+  { value: 30, label: '3 Años' },
+  { value: 40, label: '4 Años' }
 ]

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { Input, Button, Select, SelectItem } from '@nextui-org/react'
 import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES, DISCOUNTS } from '../constants/initialValues'
 import { yearTotal } from '../logic/calculatedTotal'
@@ -6,17 +7,20 @@ import { useForm } from '@inertiajs/react'
 
 export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handleCalculatorUpdate, handleTotalUpdate }) => {
   const [totalYear, setTotalYear] = useLocalStorage('yearTotal', 0)
+  const [discount, setDiscount] = useLocalStorage('discount', 0)
   const { data, setData, post } = useForm({
     client: '',
     serverParts: '',
     total: '',
-    yearTotal: ''
+    yearTotal: '',
+    discount: ''
   })
   const deleteLocalStorageItems = () => {
     window.localStorage.removeItem('client')
     window.localStorage.removeItem('serverParts')
     window.localStorage.removeItem('total')
     window.localStorage.removeItem('yearTotal')
+    window.localStorage.removeItem('discount')
     handleClientUpdate(CLIENT_INITIAL_VALUES)
     handleCalculatorUpdate(SERVER_INITIAL_VALUES)
     handleTotalUpdate(0)
@@ -27,20 +31,22 @@ export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handle
     const subtotal = total !== '' ? parseFloat(total) : 0
     const discount = parseInt(e.target.value)
     const yeartotal = yearTotal({ discount, subtotal })
+    setDiscount(discount)
     setTotalYear(yeartotal)
+    setData({
+      client: localStorage.getItem('client'),
+      serverParts: localStorage.getItem('serverParts'),
+      total: localStorage.getItem('total'),
+      yearTotal: localStorage.getItem('yearTotal'),
+      discount: localStorage.getItem('discount')
+    })
   }
 
   const createServerQueue = (e) => {
     e.preventDefault()
-    setData({
-      client,
-      serverParts: calculator,
-      total,
-      yearTotal: totalYear
-    })
     console.log(data)
     post('/api/createServer', data)
-    deleteLocalStorageItems()
+    // deleteLocalStorageItems()
   }
 
   return (
@@ -99,7 +105,7 @@ export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handle
         <div className='flex justify-end gap-2 my-6'>
           <h3 className='font-semibold self-center'> Total Servidor: ${total !== '' ? parseFloat(total).toFixed(2) : 0} USD/Mes </h3>
 
-          <Select className='max-w-xs' placeholder='Tiempo de Contrato del Servicio' label='Tiempo de Contrato' onChange={handlePlanChange} isRequired>
+          <Select className='max-w-xs' placeholder='Tiempo de Contrato del Servicio' label='Tiempo de Contrato' onChange={handlePlanChange} isRequired value={discount}>
             {DISCOUNTS.map(({ label, value }) => (
               <SelectItem key={value} value={value}>{label}</SelectItem>
             ))}
