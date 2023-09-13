@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ClientServer extends Model
 {
     use HasFactory;
+    
+    protected $table = 'client_server';
+
+    protected $fillable = [
+        'client',
+        'email_client',
+        'phone',
+        'identification',
+    ];
 }

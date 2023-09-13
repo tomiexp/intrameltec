@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class QuoteServer extends Model
 {
     use HasFactory;
+
+    protected $table = 'quote_servers';
+
+    protected $fillable = [
+        'client_server_id',
+        'server_id',
+        'discount',
+        'total_mounth',
+        'total_amount',
+        'total_year',
+    ];
 }
