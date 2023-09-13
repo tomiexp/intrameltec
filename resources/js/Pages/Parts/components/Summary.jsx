@@ -42,11 +42,15 @@ export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handle
     })
   }
 
-  const createServerQueue = (e) => {
+  const createServerQueue = async (e) => {
     e.preventDefault()
-    console.log(data)
-    post('/api/createServer', data)
-    // deleteLocalStorageItems()
+    try {
+      const response = post('/api/createServer', data)
+      console.log(response)
+      // deleteLocalStorageItems()
+    } catch (error) {
+
+    }
   }
 
   return (
