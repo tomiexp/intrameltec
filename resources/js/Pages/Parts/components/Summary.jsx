@@ -8,6 +8,7 @@ import {
 import { yearTotal } from '../logic/calculatedTotal'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useForm } from '@inertiajs/react'
+import axios from 'axios'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -19,16 +20,17 @@ export const Sumnmary = ({
   handleCalculatorUpdate,
   handleTotalUpdate
 }) => {
-  const MySwal = withReactContent(Swal)
   const [totalYear, setTotalYear] = useLocalStorage('yearTotal', 0)
   const [discount, setDiscount] = useLocalStorage('discount', 0)
-  const { data, setData, post } = useForm({
+  const { data, setData } = useForm({
     client: '',
     serverParts: '',
     total: '',
     yearTotal: '',
     discount: ''
   })
+
+  const MySwal = withReactContent(Swal)
   const deleteLocalStorageItems = () => {
     window.localStorage.removeItem('client')
     window.localStorage.removeItem('serverParts')
@@ -59,15 +61,36 @@ export const Sumnmary = ({
   const createServerQueue = async (e) => {
     e.preventDefault()
     try {
-      post('/api/createServer', {
-        preserveScroll: true,
-        data,
-        onSuccess: (event) => {
-          console.log(event)
+      MySwal.fire({
+        title: '¿Estas Seguro?',
+        text: 'Esta accion no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await axios.post('/api/createServer', data)
+          if (!response.ok || response.status !== 201) {
+            MySwal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Hubo un error al crear el Servidor'
+            })
+          }
+          MySwal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: response.data.message
+          })
+          deleteLocalStorageItems()
         }
       })
+
       // deleteLocalStorageItems()
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
