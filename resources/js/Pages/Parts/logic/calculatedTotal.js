@@ -18,3 +18,19 @@ export const calculateTotal = ({ selectedValues = {}, setPartsPrice = {} }) => {
 
   return totalPrice
 }
+
+export const yearTotal = ({ discount, subtotal }) => {
+  const DISCONT_MOUNTS = {
+    10: 12,
+    20: 24,
+    30: 36,
+    40: 48
+  }
+  const DEFAULT_MOUNTS = 0
+  const months = DISCONT_MOUNTS[discount] || DEFAULT_MOUNTS
+
+  const subtotalWithDiscount = (subtotal * discount) / 100
+  const yearTotal = ((subtotal - subtotalWithDiscount) * months)
+
+  return yearTotal
+}

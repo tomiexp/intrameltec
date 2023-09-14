@@ -6,7 +6,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { SERVER_INITIAL_VALUES } from '../constants/initialValues'
 
 export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdate }) => {
-  const [total, setTotal] = useLocalStorage('total', '')
+  const [total, setTotal] = useLocalStorage('total', 0)
   const [selectedValues, setSelectedValues] = useLocalStorage('serverParts', SERVER_INITIAL_VALUES)
   const [isChecked, setIsChecked] = useState(false)
   const setPartsPrice = partsPrice({ parts })

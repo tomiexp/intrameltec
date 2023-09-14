@@ -17,7 +17,7 @@ export default function Dashboard ({ auth, unreadNotifications }) {
             }
     >
       <Head title='Dashboard' />
-      <RealTimeNotification event='App.Models.User.1' />
+      <RealTimeNotification event={`App.Models.User.${auth.user.id}`} />
 
       {loading ? <p>Cargando...</p> : <TrmGraph valores={valores} trmInCop={trmInCop} />}
 

@@ -13,19 +13,27 @@ class ServerpartController extends Controller
      */
     public function index()
     {
+        return Inertia::render('Parts/Index');
+    }
+
+    /**
+     * Display the new Server
+     */
+
+    public function create()
+    {
         $serverparts = Serverpart::all();
         $modifiableparts = Serverpart::where('type_id', '2')->get();
         $soParts = Serverpart::where('type_id', 4)->get();
         $aditionals = Serverpart::where('type_id', 3)->get();
 
-        return Inertia::render('Parts/Index', [
+        return Inertia::render('Parts/CreateServer', [
             'parts' => $serverparts,
             'modifiableparts' => $modifiableparts,
             'soParts' => $soParts,
             'aditionals' => $aditionals,
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      */
