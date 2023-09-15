@@ -4,6 +4,7 @@ import DropdownProfile from '@/routes/DropdownProfile'
 import ResposiveRoutes from '@/routes/ResponsiveRoutes'
 import { Badge, Link } from '@nextui-org/react'
 import { NotificationIcon } from '@/Components/icons/Icons'
+import Sidebar from './partials/Sidebar'
 
 export default function Authenticated ({ user, header, children, unreadNotifications }) {
   return (
@@ -12,9 +13,13 @@ export default function Authenticated ({ user, header, children, unreadNotificat
       {/* TopBar */}
       <nav className='bg-white border-b border-gray-100'>
         <div className='max-w mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex justify-between h-16'>
-            <div className='flex'>
-              <Routes user={user} />
+          <div className='flex justify-between h-16 items-stretch'>
+            <div className='self-center'>
+              {header && (
+                <header className='bg-white'>
+                  <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>{header}</div>
+                </header>
+              )}
             </div>
             <div className='flex'>
               <Link href={route('notifications')}>
@@ -24,22 +29,22 @@ export default function Authenticated ({ user, header, children, unreadNotificat
               </Link>
               <DropdownProfile user={user} />
             </div>
-
           </div>
         </div>
         <ResposiveRoutes user={user} />
 
       </nav>
 
-      {header && (
-        <header className='bg-white shadow'>
-          <div className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8'>{header}</div>
-        </header>
-      )}
+      <div className='flex'>
 
-      <main>
-        {children}
-      </main>
+        <Sidebar>
+          <Routes user={user} />
+        </Sidebar>
+
+        <main className='w-screen'>
+          {children}
+        </main>
+      </div>
     </div>
   )
 }
