@@ -21,10 +21,13 @@ export default function Routes ({ user }) {
       </NavLink>
       {roleName.includes(ROLES_CONSTANTS.Admin)
         ? (
-          <NavDropdown menu='Datacenter' className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
-            <Dropdown.Link href={route('admin.parts.index')}>Todos los Servidores</Dropdown.Link>
-            <Dropdown.Link href={route('admin.parts.create')}>Generar Cotización de Servidor</Dropdown.Link>
-          </NavDropdown>
+          <div className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
+            <HomeIcon size={24} />
+            <NavDropdown menu='Datacenter'>
+              <Dropdown.Link href={route('admin.parts.index')}>Todos los Servidores</Dropdown.Link>
+              <Dropdown.Link href={route('admin.parts.create')}>Generar Cotización de Servidor</Dropdown.Link>
+            </NavDropdown>
+          </div>
           )
         : ''}
 
@@ -38,7 +41,7 @@ export default function Routes ({ user }) {
 
       {roleName.includes(ROLES_CONSTANTS.Admin)
         ? (
-          <NavDropdown menu='Gestion del Sistema'>
+          <NavDropdown menu='Gestion del Sistema' className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
             <Dropdown.Link href={route('admin.users.index')}>Usuarios del Sistema</Dropdown.Link>
             <Dropdown.Link href={route('admin.rols.index')}>Roles y Permisos</Dropdown.Link>
           </NavDropdown>
