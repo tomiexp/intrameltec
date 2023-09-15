@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuoteServer;
 use App\Models\Serverpart;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,7 +14,11 @@ class ServerpartController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Parts/Index');
+        $serverQuotes = QuoteServer::with('clientServer', 'server')->paginate(10);
+        
+        return Inertia::render('Parts/Index', [
+            'servers' => $serverQuotes
+        ]);
     }
 
     /**
