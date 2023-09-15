@@ -2,6 +2,7 @@
 import NavLink from '@/Components/NavLink'
 import Dropdown from '@/Components/Dropdown'
 import NavDropdown from '@/Components/NavDropdown'
+import { HomeIcon } from '@/Components/icons/Icons'
 
 export default function Routes ({ user }) {
   const roleName = user.roles[0].name
@@ -11,50 +12,48 @@ export default function Routes ({ user }) {
     'Usuario corriente': 'Usuario corriente'
   }
   return (
-    <>
-      <div className='hidden space-x-8 sm:-my-px sm:ml-10 sm:flex'>
-        <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-          Inicio
-        </NavLink>
-      </div>
+    <nav className='space-y-2'>
+      <NavLink href={route('dashboard')} active={route().current('dashboard')} className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
+        <HomeIcon size={24} />
+        <span className='text-sm font-medium'>
+          Home
+        </span>
+      </NavLink>
       {roleName.includes(ROLES_CONSTANTS.Admin)
         ? (
-          <div className='hidden sm:flex sm:items-center sm:ml-6'>
-            <div className='ml-3 relative'>
-              <NavDropdown menu='Datacenter'>
-                <Dropdown.Link href={route('admin.parts.index')}>Todos los Servidores</Dropdown.Link>
-                <Dropdown.Link href={route('admin.parts.create')}>Generar Cotización de Servidor</Dropdown.Link>
-              </NavDropdown>
-            </div>
-          </div>
+          <NavDropdown menu='Datacenter' className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
+            <Dropdown.Link href={route('admin.parts.index')}>Todos los Servidores</Dropdown.Link>
+            <Dropdown.Link href={route('admin.parts.create')}>Generar Cotización de Servidor</Dropdown.Link>
+          </NavDropdown>
           )
         : ''}
 
       {roleName.includes(ROLES_CONSTANTS.Admin) || roleName.includes(ROLES_CONSTANTS.Director)
         ? (
-          <div className='hidden sm:flex sm:items-center sm:ml-6'>
-            <div className='ml-3 relative'>
-              <NavDropdown menu='Informe de Kpi'>
-                <Dropdown.Link href={route('directors.index')}>Kpi´s Generales</Dropdown.Link>
-              </NavDropdown>
-            </div>
-          </div>
+          <NavDropdown menu='Informe de Kpi' className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
+            <Dropdown.Link href={route('directors.index')}>Kpi´s Generales</Dropdown.Link>
+          </NavDropdown>
           )
         : ''}
 
       {roleName.includes(ROLES_CONSTANTS.Admin)
         ? (
-          <div className='hidden sm:flex sm:items-center sm:ml-6'>
-            <div className='ml-3 relative'>
-              <NavDropdown menu='Gestion del Sistema'>
-                <Dropdown.Link href={route('admin.users.index')}>Usuarios del Sistema</Dropdown.Link>
-                <Dropdown.Link href={route('admin.rols.index')}>Roles y Permisos</Dropdown.Link>
-              </NavDropdown>
-            </div>
-          </div>
+          <NavDropdown menu='Gestion del Sistema'>
+            <Dropdown.Link href={route('admin.users.index')}>Usuarios del Sistema</Dropdown.Link>
+            <Dropdown.Link href={route('admin.rols.index')}>Roles y Permisos</Dropdown.Link>
+          </NavDropdown>
           )
         : ''}
 
-    </>
+    </nav>
   )
 }
+
+/**
+ * <div className=''>
+            <NavDropdown menu='Datacenter' className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
+              <Dropdown.Link href={route('admin.parts.index')}>Todos los Servidores</Dropdown.Link>
+              <Dropdown.Link href={route('admin.parts.create')}>Generar Cotización de Servidor</Dropdown.Link>
+            </NavDropdown>
+          </div>
+ */
