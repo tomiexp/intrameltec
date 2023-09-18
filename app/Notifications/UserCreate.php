@@ -49,6 +49,7 @@ class UserCreate extends Notification implements ShouldBroadcast
         return [
              'created_at' => $this->user->created_at,
              'id' => $this->user->id,
+             'title' => 'Nuevo Usuario',
              'name' => $this->user->name,
              'role' => $this->user->external_auth,
              'avatar' => $this->user->avatar
