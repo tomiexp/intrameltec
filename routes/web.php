@@ -8,8 +8,9 @@ use App\Http\Controllers\DirectorsController;
 use App\Http\Controllers\Admin\RolsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ServerpartController;
-use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Auth\NotificationController;
+use App\Http\Controllers\MarkReadNotificationController;
+use App\Http\Controllers\Admin\PermissionsStoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::post('newPermissions', PermissionsStoreController::class)->name('admin.permission.create');
 
     Route::get('/notifications', NotificationController::class)->name('notifications');
+    Route::get('/markNotifications/{id}', MarkReadNotificationController::class)->name('markNotifications');
 });
 
 require __DIR__.'/auth.php';
