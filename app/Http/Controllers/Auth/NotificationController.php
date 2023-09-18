@@ -14,7 +14,7 @@ class NotificationController extends Controller
     public function __invoke()
     {
         return Inertia::render('Notifications', [
-            'notification' => auth()->user()->unreadNotifications()->latest()->paginate() 
+            'notification' => auth()->user()->unreadNotifications()->latest()->paginate(),
         ]);
     }
 }
