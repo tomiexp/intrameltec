@@ -28,3 +28,5 @@ export const DISCOUNTS = [
   { value: 30, label: '3 Años' },
   { value: 40, label: '4 Años' }
 ]
+
+export const TABLE_HEADER = ['Fecha de Cotización', 'Nombre del cliente', 'Duracion del contracto', 'Total USD/MES', 'Total USD/AÑO', 'Archivo']
