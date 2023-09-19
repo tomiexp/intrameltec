@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 
 // Component
 import { Head } from '@inertiajs/react'
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Button, Spacer, Link } from '@nextui-org/react'
+import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Button, Link } from '@nextui-org/react'
 import { DownloadIcon } from '@/Components/icons/Icons'
 
 export default function Parts ({ auth, unreadNotifications, servers }) {
