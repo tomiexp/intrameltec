@@ -3,13 +3,21 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 
 // Component
 import { Head } from '@inertiajs/react'
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Button } from '@nextui-org/react'
+import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Button, Spacer, Link } from '@nextui-org/react'
 import { DownloadIcon } from '@/Components/icons/Icons'
 
 export default function Parts ({ auth, unreadNotifications, servers }) {
   console.log(servers)
   const dataServers = servers.data
   const paginate = servers.links
+
+  const getClassName = (active) => {
+    if (active) {
+      return 'mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary bg-blue-700 text-white'
+    } else {
+      return 'mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary'
+    }
+  }
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -26,15 +34,22 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
                 <div className='flex w-full justify-center'>
                   {
                     paginate.map((page, index) => (
-                      <Button
-                        key={index}
-                        type='button'
-                        size='large'
-                        color='primary'
-                        onClick={() => { window.location.href = page.url }}
-                      >
-                        {page.label}
-                      </Button>
+                      page.url === null
+                        ? (
+                          <div
+                            key={index}
+                            className='mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded'
+                          >{page.label}
+                          </div>
+                          )
+                        : (
+                          <Link
+                            key={index}
+                            className={getClassName(page.active)}
+                            href={page.url}
+                          >{page.label}
+                          </Link>
+                          )
                     ))
                   }
                 </div>
@@ -68,3 +83,17 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
     </AuthenticatedLayout>
   )
 }
+
+/**
+ * (
+                      <Button
+                        key={index}
+                        type='button'
+                        size='large'
+                        color='primary'
+                        onClick={() => { window.location.href = page.url }}
+                      >
+                        {page.label}
+                      </Button>
+                    )
+ */
