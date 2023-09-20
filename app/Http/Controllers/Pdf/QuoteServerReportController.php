@@ -13,7 +13,8 @@ use Carbon\Carbon;
 class QuoteServerReportController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * Download a quote by id
+     * @param string $id 
      */
     public function __invoke(String $id)
     {
