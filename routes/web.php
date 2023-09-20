@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\NotificationController;
 use App\Http\Controllers\MarkReadNotificationController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Pdf\QuoteServerReportController;
+use App\Http\Controllers\View\CommercialQuoterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/markNotifications/{id}', MarkReadNotificationController::class)->name('markNotifications');
 
     Route::get('/quoteserver/{id}', QuoteServerReportController::class)->name('quoteserver.report');
+
+    Route::get('/commercial', CommercialQuoterController::class)->name('commercial.quoter');
 });
 
 require __DIR__.'/auth.php';
