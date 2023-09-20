@@ -1,4 +1,4 @@
-// import request from 'request'
+import request from 'request'
 import axios from 'axios'
 
 const opportunities = async () => {
@@ -12,15 +12,57 @@ const opportunities = async () => {
 
   try {
     const data = res.data.d.results
-    console.log(data)
     return { data }
   } catch (error) {
-    console.errpr(error)
+    console.error(error)
   }
 }
 
-export default async function getOpportunities (req, res) {
+export async function getOpportunities (req, res) {
   const { data } = await opportunities()
   res.setHeader('Content-Type', 'application/json')
   res.send(data)
+}
+
+export const postOpportunity = async (req, res) => {
+  const cookies = request.jar()
+  try {
+    request({
+      method: 'GET',
+      uri: `${process.env.SAP_URL_PRODUCCTION}sap/byd/odata/cust/v1/khopportunity`,
+      jar: cookies,
+      headers: {
+        Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_PRODUCTION}:${process.env.SAP_PASSWORD_PRODUCTION}`),
+        'Content-Type': 'application/json',
+        'x-csrf-token': 'fetch'
+      }
+    }, (error, response, body) => {
+      if (!error) {
+        const csrfToken = response.headers['x-csrf-token']
+        const dataSend = req.body
+        request({
+          method: 'POST',
+          url: `${process.env.SAP_URL_PRODUCCTION}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection`,
+          jar: cookies,
+          headers: {
+            Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_PRODUCTION}:${process.env.SAP_PASSWORD_PRODUCTION}`),
+            'Content-Type': 'application/json',
+            'x-csrf-token': csrfToken
+          },
+          json: dataSend
+        }, async (error, response, body) => {
+          if (!error) {
+            console.log(response.statusCode)
+            res.send(body.d.results)
+          } else {
+            throw new Error('Error al generar la nueca Oportunidad')
+          }
+        })
+      } else {
+        throw new Error('Error al obtener el Token CSRF')
+      }
+    })
+  } catch (error) {
+    res.send(error)
+  }
 }
