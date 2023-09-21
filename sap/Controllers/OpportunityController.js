@@ -25,14 +25,15 @@ export async function getOpportunities (req, res) {
 }
 
 export const postOpportunity = async (req, res) => {
+  console.log(req.body)
   const cookies = request.jar()
   try {
     request({
       method: 'GET',
-      uri: `${process.env.SAP_URL_PRODUCCTION}sap/byd/odata/cust/v1/khopportunity`,
+      uri: `${process.env.SAP_URL_TEST}sap/byd/odata/cust/v1/khopportunity`,
       jar: cookies,
       headers: {
-        Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_PRODUCTION}:${process.env.SAP_PASSWORD_PRODUCTION}`),
+        Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_TEST}:${process.env.SAP_PASSWORD_TEST}`),
         'Content-Type': 'application/json',
         'x-csrf-token': 'fetch'
       }
@@ -42,20 +43,25 @@ export const postOpportunity = async (req, res) => {
         const dataSend = req.body
         request({
           method: 'POST',
-          url: `${process.env.SAP_URL_PRODUCCTION}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection`,
+          url: `${process.env.SAP_URL_TEST}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection`,
           jar: cookies,
           headers: {
-            Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_PRODUCTION}:${process.env.SAP_PASSWORD_PRODUCTION}`),
+            Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_TEST}:${process.env.SAP_PASSWORD_TEST}`),
             'Content-Type': 'application/json',
             'x-csrf-token': csrfToken
           },
           json: dataSend
-        }, async (error, response, body) => {
-          if (!error) {
-            console.log(response.statusCode)
-            res.send(body.d.results)
-          } else {
-            throw new Error('Error al generar la nueca Oportunidad')
+        }, async (_error, response, body) => {
+          try {
+            if (response.statusCode !== 201) {
+              throw new Error('Error al enviar la solicitud')
+            } else {
+              console.log(response.statusCode)
+              res.status(response.statusCode).send(body.d.results).end()
+            }
+          } catch (err) {
+            res.status(response.statusCode).send(body.error.message.value).end()
+            console.log(_error)
           }
         })
       } else {
@@ -63,6 +69,6 @@ export const postOpportunity = async (req, res) => {
       }
     })
   } catch (error) {
-    res.send(error)
+    res.status(400).send(error).end()
   }
 }

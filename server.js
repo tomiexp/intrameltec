@@ -1,6 +1,7 @@
 import express from 'express'
 import 'dotenv/config'
 import cors from 'cors'
+import bodyParser from 'body-parser'
 
 import { getOpportunities, postOpportunity } from './sap/Controllers/OpportunityController.js'
 
@@ -18,6 +19,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/opportunities', getOpportunities)
-app.post('/opportunities', postOpportunity)
+app.post('/opportunities', bodyParser.json(), postOpportunity)
 
 app.listen(port)
