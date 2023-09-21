@@ -3,7 +3,7 @@ import 'dotenv/config'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 
-import { getOpportunities, postOpportunity } from './sap/Controllers/OpportunityController.js'
+import { getOpportunities, loseOpportunity, postOpportunity, winOpportunity } from './sap/Controllers/OpportunityController.js'
 
 const app = express()
 const port = process.env.APP_API_PORT
@@ -20,5 +20,9 @@ app.get('/', (req, res) => {
 
 app.get('/opportunities', getOpportunities)
 app.post('/opportunities', bodyParser.json(), postOpportunity)
+
+// Change opportunity Percent
+app.post('/winopportunity', winOpportunity)
+app.post('/loseopportunity', loseOpportunity)
 
 app.listen(port)
