@@ -10,7 +10,7 @@ class PersonalAccessTokensController extends Controller
 {
     public function create (Request $request) {
         $user = $request->user();
-        $tokenName = 'Token';
+        $tokenName = $request->input('token');
 
         if(!$user) abort(403, 'Usuario no Autenticado');
 

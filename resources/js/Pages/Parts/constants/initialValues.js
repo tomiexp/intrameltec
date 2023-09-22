@@ -30,3 +30,5 @@ export const DISCOUNTS = [
 ]
 
 export const TABLE_HEADER = ['Fecha de Cotización', 'Nombre del cliente', 'Duracion del contracto', 'Total USD/MES', 'Total USD/AÑO', 'Archivo']
+
+export const TABLE_TOKENS_HEADER = ['#', 'Nombre del Token', 'Fecha de Creación', 'Acciones']
