@@ -11,6 +11,7 @@ use App\Http\Controllers\ServerpartController;
 use App\Http\Controllers\Auth\NotificationController;
 use App\Http\Controllers\MarkReadNotificationController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
+use App\Http\Controllers\Auth\PersonalAccessTokensController;
 use App\Http\Controllers\Pdf\QuoteServerReportController;
 
 /*
@@ -54,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/markNotifications/{id}', MarkReadNotificationController::class)->name('markNotifications');
 
     Route::get('/quoteserver/{id}', QuoteServerReportController::class)->name('quoteserver.report');
+    Route::post('/generatetokens', [PersonalAccessTokensController::class, 'create'])->name('profile.generatetokens.create');
+    Route::get('/generatetokens', [PersonalAccessTokensController::class, 'index']);
 });
 
 require __DIR__.'/auth.php';

@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { showAlert, handleSwalError, handleSwalSuccess } from '../partials/showAlert'
 
-export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handleCalculatorUpdate, handleTotalUpdate }) => {
+export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handleCalculatorUpdate, handleTotalUpdate, auth }) => {
   const [totalYear, setTotalYear] = useLocalStorage('yearTotal', 0)
   const [discount, setDiscount] = useLocalStorage('discount', 0)
   const { data, setData } = useForm({

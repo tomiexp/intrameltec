@@ -17,7 +17,6 @@ class CreateServerController extends Controller
      */
     public function __invoke(Request $request)
     {
-
         try {
             $client = json_decode($request->json('client'), false);
             $server = json_decode($request->json('serverParts'), false);

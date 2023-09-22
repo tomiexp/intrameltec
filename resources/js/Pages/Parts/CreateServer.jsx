@@ -63,7 +63,7 @@ export default function CreateServer ({ auth, soParts, parts, unreadNotification
                   </AccordionItem>
                 </Accordion>
               </div>
-              <Sumnmary client={client} calculator={calculator} total={total} handleCalculatorUpdate={handleCalculatorUpdate} handleClientUpdate={handleClientUpdate} handleTotalUpdate={handleTotalUpdate} />
+              <Sumnmary auth={auth} client={client} calculator={calculator} total={total} handleCalculatorUpdate={handleCalculatorUpdate} handleClientUpdate={handleClientUpdate} handleTotalUpdate={handleTotalUpdate} />
             </div>
           </div>
         </div>
