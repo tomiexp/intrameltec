@@ -55,8 +55,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/markNotifications/{id}', MarkReadNotificationController::class)->name('markNotifications');
 
     Route::get('/quoteserver/{id}', QuoteServerReportController::class)->name('quoteserver.report');
-    Route::post('/generatetokens', [PersonalAccessTokensController::class, 'create'])->name('profile.generatetokens.create');
-    Route::get('/generatetokens', [PersonalAccessTokensController::class, 'index'])->name('profile.generatetokens.index');
+
+    Route::resource('generatetokens', PersonalAccessTokensController::class )->names('profile.generatetokens');
+
+    // Route::post('/generatetokens', [PersonalAccessTokensController::class, 'create'])->name('profile.generatetokens.create');
+    // Route::get('/generatetokens', [PersonalAccessTokensController::class, 'index'])->name('profile.generatetokens.index');
 });
 
 require __DIR__.'/auth.php';
