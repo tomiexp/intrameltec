@@ -11,7 +11,7 @@ import { ClientForm } from './components/ClientForm'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 // Helpers
-import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES } from './constants/initialValues'
+import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES } from '../../constants/initialValues'
 
 // Utilities
 import { Accordion, AccordionItem } from '@nextui-org/react'

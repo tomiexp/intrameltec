@@ -3,8 +3,10 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm'
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm'
 import { Head } from '@inertiajs/react'
 import TokensFragment from './Partials/TokensFragment'
+import { ROLES_CONSTANTS } from '@/constants/initialValues'
 
 export default function Edit ({ auth, mustVerifyEmail, status }) {
+  const roleName = auth.user.roles[0].name
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -25,10 +27,16 @@ export default function Edit ({ auth, mustVerifyEmail, status }) {
           <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
             <UpdatePasswordForm className='max-w-xl' />
           </div>
+          {
+            roleName.includes(ROLES_CONSTANTS.Admin)
+              ? (
+                <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
+                  <TokensFragment />
+                </div>
+                )
+              : ('')
+          }
 
-          <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
-            <TokensFragment />
-          </div>
         </div>
       </div>
     </AuthenticatedLayout>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { calculateTotal } from '../logic/calculatedTotal'
 import { partsPrice } from '../logic/partsPrice'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
-import { SERVER_INITIAL_VALUES } from '../constants/initialValues'
+import { SERVER_INITIAL_VALUES } from '../../../constants/initialValues'
 
 export const FormCalculator = ({ soParts, parts, onCalculateUpdate, onTotalUpdate }) => {
   const [total, setTotal] = useLocalStorage('total', 0)

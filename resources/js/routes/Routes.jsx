@@ -3,14 +3,11 @@ import NavLink from '@/Components/NavLink'
 import Dropdown from '@/Components/Dropdown'
 import NavDropdown from '@/Components/NavDropdown'
 import { HomeIcon, DatacenterIcon, ReportIcon, ToolIcon } from '@/Components/icons/Icons'
+import { ROLES_CONSTANTS } from '@/constants/initialValues'
 
 export default function Routes ({ user }) {
   const roleName = user.roles[0].name
-  const ROLES_CONSTANTS = {
-    Admin: 'Administrador',
-    Director: 'Director',
-    'Usuario corriente': 'Usuario corriente'
-  }
+
   return (
     <nav className='space-y-2'>
       <NavLink href={route('dashboard')} active={route().current('dashboard')} className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>

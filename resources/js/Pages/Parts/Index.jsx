@@ -3,7 +3,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 
 // Helpers
-import { TABLE_HEADER } from './constants/initialValues'
+import { TABLE_HEADER } from '../../constants/initialValues'
 import { dateFormatter } from '@/helpers/dateHelper'
 import { priceFormatted } from '@/helpers/priceHelper'
 

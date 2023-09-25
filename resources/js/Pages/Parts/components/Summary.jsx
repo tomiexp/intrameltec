@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { Input, Button, Select, SelectItem } from '@nextui-org/react'
-import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES, DISCOUNTS } from '../constants/initialValues'
+import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES, DISCOUNTS } from '../../../constants/initialValues'
 import { yearTotal } from '../logic/calculatedTotal'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useForm } from '@inertiajs/react'
