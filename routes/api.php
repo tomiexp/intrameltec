@@ -3,8 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CreateServerController;
-use App\Http\Controllers\Api\TestApiController;
-use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\Api\Sap\OpportunitiesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
             return $request->user();
         });
 
-        Route::get('/testApi', [TestApiController::class, 'index']);
+        Route::get('/opportunities', [OpportunitiesController::class, 'index']);
+        Route::post('/opportunities', [OpportunitiesController::class, 'testPost']);
     } catch (\Throwable $th) {
         return 'error';
     }

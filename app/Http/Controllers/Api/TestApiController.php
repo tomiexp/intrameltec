@@ -10,24 +10,14 @@ use Illuminate\Support\Facades\Process;
 // use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class TestApiController extends Controller
-{
+{   
     public function index(Request $request)
     {
-        $scriptFile = base_path(). '\app.js';
+        $scriptFile = base_path(). '/sap/functions/opportunities/Get/app.js ';
         $command = "node $scriptFile";
         $result = Process::run($command)->throw();
+        $data = json_decode($result->output());
 
-        echo $result->output();
+        return response()->json($data);
     }
 }
-
-// $process = new Process([$command]);
-//         // dd($process);
-//         $process->run();
-
-//         // executes after the command finishes
-//         if (!$process->isSuccessful()) {
-//             throw new ProcessFailedException($process);
-//         }
-
-//         echo $process->getOutput();

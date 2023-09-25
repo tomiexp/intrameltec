@@ -64,6 +64,4 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/testApi', [TestApiController::class, 'index']);
-
 require __DIR__.'/auth.php';
