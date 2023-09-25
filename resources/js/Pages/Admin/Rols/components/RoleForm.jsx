@@ -34,20 +34,27 @@ export const RoleForm = ({ closeModal, showPermissions, operation }) => {
   }
 
   return (
-    <form onSubmit={save}>
-      <div className='my-6'>
-        <Input type='text' onChange={handelNewText} value={data.nameRol} label='Nombre de Rol a Crear' isRequired radius='sm' />
-      </div>
-      <InputError message={errors.nameRol} className='mt-2' />
-      <CheckboxGroup label='Selecciona los permisos'>
-        {showPermissions.map(({ id, name }) => (
-          <Checkbox key={id} type='checkbox' value={id} onChange={handleInputChange}>{name}</Checkbox>
-        ))}
-      </CheckboxGroup>
-      <div className='mt-6 flex justify-end gap-6'>
-        {operation === 2 ? <PrimaryButton type='submit' disabled={processing}>Crear</PrimaryButton> : ''}
-        <SecondaryButton onClick={closeModal}>Cerrar</SecondaryButton>
-      </div>
-    </form>
+    <>
+      {operation === 1
+        ? (<h1>Hola desde op 1</h1>)
+        : (
+          <form onSubmit={save}>
+            <div className='my-6'>
+              <Input type='text' onChange={handelNewText} value={data.nameRol} label='Nombre de Rol a Crear' isRequired radius='sm' />
+            </div>
+            <InputError message={errors.nameRol} className='mt-2' />
+            <CheckboxGroup label='Selecciona los permisos'>
+              {showPermissions.map(({ id, name }) => (
+                <Checkbox key={id} type='checkbox' value={id} onChange={handleInputChange}>{name}</Checkbox>
+              ))}
+            </CheckboxGroup>
+            <div className='mt-6 flex justify-end gap-6'>
+              {operation === 2 ? <PrimaryButton type='submit' disabled={processing}>Crear</PrimaryButton> : ''}
+              <SecondaryButton onClick={closeModal}>Cerrar</SecondaryButton>
+            </div>
+          </form>
+          )}
+    </>
+
   )
 }

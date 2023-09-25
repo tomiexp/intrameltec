@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Table, TableColumn, TableHeader, TableBody, TableCell, TableRow, Avatar, Button, Pagination } from '@nextui-org/react'
+import { Table, TableColumn, TableHeader, TableBody, TableCell, TableRow, Avatar, Button } from '@nextui-org/react'
 import { EditIcon } from '@/Components/icons/Icons'
 import { ModalUser } from './ModalUser'
 

@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { UsersTable } from './components/UsersTable'
 
-export default function Users ({ auth, users, roles, notifications }) {
+export default function Users ({ auth, users, roles }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
