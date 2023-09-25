@@ -2,10 +2,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { Button, Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Modal, useDisclosure, ModalContent, ModalHeader, ModalBody, Input, ModalFooter } from '@nextui-org/react'
 import { dateFormatter } from '@/helpers/dateHelper'
-import { TABLE_TOKENS_HEADER } from '../Parts/constants/initialValues'
+import { TABLE_TOKENS_HEADER } from '../../constants/initialValues'
 import { useState } from 'react'
 import axios from 'axios'
-import { handleSwalError, handleSwalSuccess } from '@/helpers/swalHelper'
+import { handleSwalError, handleSwalSuccess, mixinSwal } from '@/helpers/swalHelper'
 
 export default function Edit ({ auth, tokens }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -23,13 +23,33 @@ export default function Edit ({ auth, tokens }) {
 
     try {
       const request = await axios.post('/generatetokens', data)
-
       if (request.status !== 200) throw new Error('Error al Crear el Token')
-
-      handleSwalSuccess({ message: `Tu Token: ${request.data.token.plainTextToken}`, footer: 'Recuerda Copiar este Token y guardarlo en un lugar seguro, de lo contrario tendras que generar uno nuevo' })
+      handleSwalSuccess({ message: `Tu Token: ${request.data.token.plainTextToken}`, footer: 'Recuerda Copiar este Token y guardarlo en un lugar seguro, de lo contrario tendras que generar uno nuevo' }).then((result) => { if (result.isConfirmed) { window.location.reload() } })
     } catch (error) {
       handleSwalError({ error })
       console.error(error)
+    }
+  }
+
+  const deleteToken = async (token, nameToken) => {
+    try {
+      mixinSwal({
+        title: `Eliminar token ${nameToken}`,
+        text: '¿Esta seguro de eliminar este Token de Acceso? Esta accion no se podra deshacer',
+        icon: 'warning',
+        confirmButtonText: 'Confirmar Borrado',
+        cancelButtonText: 'Cancelar'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const result = await axios.delete(`/generatetokens/${token}`)
+
+          if (result.status === 200) {
+            handleSwalSuccess({ message: result.data.message }).then((result) => { if (result.isConfirmed) { window.location.reload() } })
+          }
+        }
+      })
+    } catch (error) {
+
     }
   }
   return (
@@ -62,7 +82,7 @@ export default function Edit ({ auth, tokens }) {
                         <TableCell>{token.id}</TableCell>
                         <TableCell>{token.name}</TableCell>
                         <TableCell>{dateFormatter(token.created_at)}</TableCell>
-                        <TableCell><Button color='danger'>Borrar</Button></TableCell>
+                        <TableCell><Button color='danger' onClick={() => deleteToken(token.id, token.name)}>Borrar</Button></TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
