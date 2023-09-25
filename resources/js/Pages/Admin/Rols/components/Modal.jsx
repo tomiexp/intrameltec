@@ -2,7 +2,7 @@ import Modal from '@/Components/Modal'
 import { RoleForm } from './RoleForm'
 import { PermissionForm } from './PermissionForm'
 
-export const ModalRols = ({ modal, closeModal, title, showPermissions, operation }) => {
+export const ModalRols = ({ modal, closeModal, title, showPermissions, operation = 1 }) => {
   return (
     <Modal show={modal} onClose={closeModal}>
       <div className='p-6'>

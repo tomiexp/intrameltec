@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { Input, Button, Select, SelectItem } from '@nextui-org/react'
-import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES, DISCOUNTS } from '../constants/initialValues'
+import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES, DISCOUNTS } from '../../../constants/initialValues'
 import { yearTotal } from '../logic/calculatedTotal'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useForm } from '@inertiajs/react'
@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { showAlert, handleSwalError, handleSwalSuccess } from '../partials/showAlert'
 
-export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handleCalculatorUpdate, handleTotalUpdate }) => {
+export const Sumnmary = ({ client, calculator, total, handleClientUpdate, handleCalculatorUpdate, handleTotalUpdate, auth }) => {
   const [totalYear, setTotalYear] = useLocalStorage('yearTotal', 0)
   const [discount, setDiscount] = useLocalStorage('discount', 0)
   const { data, setData } = useForm({

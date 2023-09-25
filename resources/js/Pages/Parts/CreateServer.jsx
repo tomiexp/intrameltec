@@ -11,7 +11,7 @@ import { ClientForm } from './components/ClientForm'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 // Helpers
-import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES } from './constants/initialValues'
+import { CLIENT_INITIAL_VALUES, SERVER_INITIAL_VALUES } from '../../constants/initialValues'
 
 // Utilities
 import { Accordion, AccordionItem } from '@nextui-org/react'
@@ -63,7 +63,7 @@ export default function CreateServer ({ auth, soParts, parts, unreadNotification
                   </AccordionItem>
                 </Accordion>
               </div>
-              <Sumnmary client={client} calculator={calculator} total={total} handleCalculatorUpdate={handleCalculatorUpdate} handleClientUpdate={handleClientUpdate} handleTotalUpdate={handleTotalUpdate} />
+              <Sumnmary auth={auth} client={client} calculator={calculator} total={total} handleCalculatorUpdate={handleCalculatorUpdate} handleClientUpdate={handleClientUpdate} handleTotalUpdate={handleTotalUpdate} />
             </div>
           </div>
         </div>

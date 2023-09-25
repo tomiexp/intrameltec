@@ -71,7 +71,7 @@ class RolsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        dd($id);
     }
 
     /**
