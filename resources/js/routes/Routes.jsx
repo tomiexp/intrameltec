@@ -2,7 +2,7 @@
 import NavLink from '@/Components/NavLink'
 import Dropdown from '@/Components/Dropdown'
 import NavDropdown from '@/Components/NavDropdown'
-import { HomeIcon, DatacenterIcon, ReportIcon, ToolIcon } from '@/Components/icons/Icons'
+import { HomeIcon, DatacenterIcon, ReportIcon, ToolIcon, SellerIcon } from '@/Components/icons/Icons'
 import { ROLES_CONSTANTS } from '@/constants/initialValues'
 
 export default function Routes ({ user }) {
