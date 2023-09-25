@@ -32,10 +32,24 @@ export const handleSwalSuccess = ({ message, ...options }) => {
   })
 }
 
-export const handleSwalError = ({ message }) => {
+export const handleSwalError = ({ message, ...options }) => {
   return MySwal.fire({
     icon: 'error',
     title: 'Oops...',
-    text: message
+    text: message,
+    ...options
+  })
+}
+
+export const mixinSwal = async ({ title, text, icon, ...options }) => {
+  return await MySwal.fire({
+    toast: true,
+    title,
+    text,
+    icon,
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    ...options
   })
 }
