@@ -8,12 +8,13 @@ use App\Http\Controllers\DirectorsController;
 use App\Http\Controllers\Admin\RolsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ServerpartController;
+use App\Http\Controllers\Api\TestApiController;
 use App\Http\Controllers\Auth\NotificationController;
 use App\Http\Controllers\MarkReadNotificationController;
-use App\Http\Controllers\Admin\PermissionsStoreController;
-use App\Http\Controllers\Auth\PersonalAccessTokensController;
 use App\Http\Controllers\Pdf\QuoteServerReportController;
 use App\Http\Controllers\View\CommercialQuoterController;
+use App\Http\Controllers\Admin\PermissionsStoreController;
+use App\Http\Controllers\Auth\PersonalAccessTokensController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/commercial', CommercialQuoterController::class)->name('commercial.quoter');
 
 });
+
+Route::get('/testApi', [TestApiController::class, 'index']);
 
 require __DIR__.'/auth.php';

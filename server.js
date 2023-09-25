@@ -14,8 +14,13 @@ app.use(cors({
   optionsSuccessStatus: 200
 }))
 
+// app.use((req, res, next) => {
+//   console.log(req.headers.authorization)
+//   next()
+// })
+
 app.get('/', (req, res) => {
-  res.send('Welcome')
+  res.send('hola')
 })
 
 app.get('/opportunities', getOpportunities)
