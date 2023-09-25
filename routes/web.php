@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('generatetokens', PersonalAccessTokensController::class )->names('profile.generatetokens');
 
+    Route::get('/commercial', CommercialQuoterController::class)->name('commercial.quoter');
+
 });
 
 require __DIR__.'/auth.php';
