@@ -27,11 +27,23 @@ class OpportunitiesController extends Controller
         return $this->executeScript('Post/postOpportunity.js', 'node', $dataSend);
     }
 
+    public function win(Request $request) 
+    {
+        $opportunity = json_encode($request->all());
+        return $this->executeScript('Post/winOpportunity.js', 'node', $opportunity);
+    }
+
+    public function lose(Request $request)
+    {
+        $opportunity = json_encode($request->all());
+        return $this->executeScript('Post/loseOpportunity.js', 'node', $opportunity);   
+    }
+
     private function executeScript(String $script, String $type, ?String $params = '')
     {
         $scriptPath = "$this->nodeOpportunityPath$script '$params'";
         $command = "$type $scriptPath";
         $result = Process::run($command)->throw();
-        return response()->json(json_decode($result->output()));
+        return response()->json(json_decode($result->output(), true));
     }
 }
