@@ -16,29 +16,22 @@ class OpportunitiesController extends Controller
         $this->nodeOpportunityPath = base_path(). '/sap/functions/opportunities/';
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $scriptFile = base_path(). '/sap/functions/opportunities/Get/app.js';
-        $command = "node $scriptFile";
-        $result = Process::run($command)->throw();
-        $data = json_decode($result->output());
-
-        return response()->json($data);
+        return $this->executeScript('/Get/app.js', 'node');
     }
 
-    public function testPost(Request $request)
+    public function create(Request $request)
     {
-        $basePath = base_path();
         $dataSend = json_encode($request->all());
-        $stringData = addslashes($dataSend);
-        $scriptFile = "$basePath/sap/functions/opportunities/Post/postOpportunity.js '$dataSend'";
-        $command = "node $scriptFile";
-        $result = Process::run($command)->throw();
-        return $result->output();
+        return $this->executeScript('Post/postOpportunity.js', 'node', $dataSend);
     }
 
-    private function getCommand(Request $request, String $script)
+    private function executeScript(String $script, String $type, ?String $params = '')
     {
-
+        $scriptPath = "$this->nodeOpportunityPath$script '$params'";
+        $command = "$type $scriptPath";
+        $result = Process::run($command)->throw();
+        return response()->json(json_decode($result->output()));
     }
 }

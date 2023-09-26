@@ -16,9 +16,6 @@ use App\Http\Controllers\Api\Sap\OpportunitiesController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
 Route::middleware('auth:sanctum')->group(function () {
     try {
@@ -27,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::get('/opportunities', [OpportunitiesController::class, 'index']);
-        Route::post('/opportunities', [OpportunitiesController::class, 'testPost']);
+        Route::post('/opportunities', [OpportunitiesController::class, 'create']);
     } catch (\Throwable $th) {
         return 'error';
     }

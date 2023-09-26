@@ -36,12 +36,14 @@ async function main () {
             if (response.statusCode !== 201) {
               throw new Error('Error al enviar la solicitud')
             } else {
-              console.log(response.statusCode, body.d.results)
+              const resutls = JSON.stringify(body.d.results)
+              console.log(resutls)
             //   res.status(response.statusCode).send(body.d.results).end()
             }
           } catch (err) {
-            // res.status(response.statusCode).send(body.error.message.value).end()
-            console.log(response.statusCode, err, body.error.message.value)
+            const error = JSON.stringify(body.error.message.value)
+            const statusCode = JSON.stringify(response.statusCode)
+            console.log(error, statusCode)
           }
         })
       } else {
@@ -50,10 +52,8 @@ async function main () {
       }
     })
   } catch (error) {
-    console.error(error)
+    console.error(JSON.stringify(error))
   }
-
-  console.log(dataParsed)
 }
 
 main()
