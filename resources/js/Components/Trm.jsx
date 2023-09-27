@@ -63,7 +63,7 @@ export function TrmGraph ({ valores, trmInCop }) {
         fill: true,
         borderColor: 'rgb(57, 81, 129)',
         backgroundColor: 'rgba(57, 81, 129, 0.5)',
-        pointRadius: 10
+        pointRadius: 1
       }
     ]
   }
@@ -84,16 +84,12 @@ export function TrmGraph ({ valores, trmInCop }) {
     }
   }
   return (
-    <section className='py-12'>
-      <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
-        <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
-          <h2 className='text-center font-bold text-xl mt-3'>Precio del dolar del dia de hoy: {trmInCop}</h2>
-          <div className='p-10'>
-            <Line data={midata} options={misOpciones} />
-          </div>
-        </div>
+    <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg max-w-sm'>
+      <div className='p-10'>
+        <h2 className='text-center font-bold text-xl mt-3'>Precio del dolar del dia de hoy: {trmInCop}</h2>
+        <Line data={midata} options={misOpciones} />
       </div>
-    </section>
+    </div>
   )
 }
 
