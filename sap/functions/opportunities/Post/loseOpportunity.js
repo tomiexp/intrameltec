@@ -13,7 +13,7 @@ async function main () {
 
   request({
     method: 'GET',
-    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity`,
+    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022`,
     jar: cookies,
     headers: {
       Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
@@ -31,7 +31,7 @@ async function main () {
 
       request({
         method: 'POST',
-        url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity/Lose?ObjectID='${opportunity}'`,
+        url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022/OpportunityLose?ObjectID='${opportunity}'`,
         jar: cookies,
         headers: {
           Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
@@ -48,7 +48,7 @@ async function main () {
           const result = { message: 'Oportunidad Perdida!!', result: jsonBody.d.results }
           console.log(JSON.stringify(result))
         } catch (error) {
-          const danger = { message: 'Error al generar el WIN de la oportunidad', code: 400 }
+          const danger = { message: 'Error al generar el Lose de la oportunidad', code: 400 }
           console.log(JSON.stringify(danger))
         }
       })

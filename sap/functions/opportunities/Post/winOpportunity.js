@@ -13,7 +13,7 @@ async function main () {
 
   request({
     method: 'GET',
-    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity`,
+    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022`,
     jar: cookies,
     headers: {
       Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
@@ -31,7 +31,7 @@ async function main () {
 
       request({
         method: 'POST',
-        url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity/Win?ObjectID='${opportunity}'`,
+        url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022/OpportunityWin?ObjectID='${opportunity}'`,
         jar: cookies,
         headers: {
           Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),

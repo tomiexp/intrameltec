@@ -10,7 +10,7 @@ async function main () {
   try {
     request({
       method: 'GET',
-      uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity`,
+      uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022`,
       jar: cookies,
       headers: {
         Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
@@ -23,7 +23,7 @@ async function main () {
         const dataSend = dataParsed
         request({
           method: 'POST',
-          url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection`,
+          url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022/OpportunityCollection`,
           jar: cookies,
           headers: {
             Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
@@ -38,16 +38,15 @@ async function main () {
             } else {
               const resutls = JSON.stringify(body.d.results)
               console.log(resutls)
-            //   res.status(response.statusCode).send(body.d.results).end()
             }
           } catch (err) {
-            const error = JSON.stringify(body.error.message.value)
-            const statusCode = JSON.stringify(response.statusCode)
-            console.log(error, statusCode)
+            const bodyError = { code: response.statusCode, message: body.error.message }
+            console.log(JSON.stringify(bodyError))
           }
         })
       } else {
-        console.log(response.statusCode, body.error.message.value)
+        const bodyError = { code: response.statusCode, message: body.error.message }
+        console.log(JSON.stringify(bodyError))
         // res.status(response.statusCode).send(body.error.message.value).end()
       }
     })

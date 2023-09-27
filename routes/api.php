@@ -18,18 +18,14 @@ use App\Http\Controllers\Api\Sap\OpportunitiesController;
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    try {
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 
-        Route::get('/opportunities', [OpportunitiesController::class, 'index']);
-        Route::post('/opportunities', [OpportunitiesController::class, 'create']);
-        Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
-        Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
-    } catch (\Throwable $th) {
-        return 'error';
-    }
+    Route::get('/opportunities', [OpportunitiesController::class, 'index']);
+    Route::post('/opportunities', [OpportunitiesController::class, 'create']);
+    Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
+    Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
 });
 
 Route::post('/createServer', CreateServerController::class);
