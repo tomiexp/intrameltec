@@ -15,6 +15,7 @@ use App\Http\Controllers\Pdf\QuoteServerReportController;
 use App\Http\Controllers\View\CommercialQuoterController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Auth\PersonalAccessTokensController;
+use App\Http\Controllers\HseqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('generatetokens', PersonalAccessTokensController::class )->names('profile.generatetokens');
 
     Route::get('/commercial', CommercialQuoterController::class)->name('commercial.quoter');
+
+    Route::resource('hseq', HseqController::class)->names('resources.hseq');
 
 });
 
