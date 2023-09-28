@@ -36,16 +36,17 @@ async function main () {
             if (response.statusCode !== 201) {
               throw new Error('Error al enviar la solicitud')
             } else {
-              const resutls = JSON.stringify(body.d.results)
+              const message = { code: response.statusCode, message: 'Oportunidad Creada', opportunity: body.d.results }
+              const resutls = JSON.stringify(message)
               console.log(resutls)
             }
           } catch (err) {
-            const bodyError = { code: response.statusCode, message: body.error.message }
+            const bodyError = { code: response.statusCode, message: body }
             console.log(JSON.stringify(bodyError))
           }
         })
       } else {
-        const bodyError = { code: response.statusCode, message: body.error.message }
+        const bodyError = { code: response.statusCode, message: body.error }
         console.log(JSON.stringify(bodyError))
         // res.status(response.statusCode).send(body.error.message.value).end()
       }
@@ -56,51 +57,3 @@ async function main () {
 }
 
 main()
-
-/**
- *
-  try {
-    request({
-      method: 'GET',
-      uri: `${process.env.SAP_URL_TEST}sap/byd/odata/cust/v1/khopportunity`,
-      jar: cookies,
-      headers: {
-        Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_TEST}:${process.env.SAP_PASSWORD_TEST}`),
-        'Content-Type': 'application/json',
-        'x-csrf-token': 'fetch'
-      }
-    }, (error, response, body) => {
-      if (!error) {
-        const csrfToken = response.headers['x-csrf-token']
-        const dataSend = req.body
-        request({
-          method: 'POST',
-          url: `${process.env.SAP_URL_TEST}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection`,
-          jar: cookies,
-          headers: {
-            Authorization: 'Basic ' + btoa(`${process.env.SAP_USERNAME_TEST}:${process.env.SAP_PASSWORD_TEST}`),
-            'Content-Type': 'application/json',
-            'x-csrf-token': csrfToken
-          },
-          json: dataSend
-        }, async (_error, response, body) => {
-          try {
-            if (response.statusCode !== 201) {
-              throw new Error('Error al enviar la solicitud')
-            } else {
-              console.log(response.statusCode)
-              res.status(response.statusCode).send(body.d.results).end()
-            }
-          } catch (err) {
-            res.status(response.statusCode).send(body.error.message.value).end()
-            console.log(_error)
-          }
-        })
-      } else {
-        res.status(response.statusCode).send(body.error.message.value).end()
-      }
-    })
-  } catch (error) {
-    res.status(400).send(error).end()
-  }
- */

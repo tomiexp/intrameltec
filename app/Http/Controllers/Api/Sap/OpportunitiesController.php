@@ -44,6 +44,8 @@ class OpportunitiesController extends Controller
         $scriptPath = "$this->nodeOpportunityPath$script '$params'";
         $command = "$type $scriptPath";
         $result = Process::run($command)->throw();
-        return response()->json(json_decode($result->output(), true));
+        $jsonData = json_decode($result->output(), true);
+        $code = $jsonData['code'];
+        return response()->json($jsonData, $code);
     }
 }
