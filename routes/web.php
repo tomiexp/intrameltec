@@ -63,7 +63,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/commercial', CommercialQuoterController::class)->name('commercial.quoter');
 
-    Route::resource('hseq', HseqController::class)->names('resources.hseq');
+    Route::get('hseq', [HseqController::class, 'index'])->name('resources.hseq.index');
+    Route::post('hseq', [HseqController::class, 'store'])->name('resources.hseq.store');
+    
 
 });
 
