@@ -34,5 +34,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.roles.index'])->assignRole($roleAdmin);
         Permission::create(['name' => 'admin.roles.create'])->assignRole($roleAdmin);
         Permission::create(['name' => 'admin.roles.edit'])->assignRole($roleAdmin);
+
+        Permission::create(['name' => 'admin.token.create'])->assignRole($roleAdmin);
     }
 }
