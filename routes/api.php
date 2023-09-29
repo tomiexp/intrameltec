@@ -29,16 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
 });
 
-Route::post('/uploadFile', function (Request $request) {
-    if ($request->hasFile('filename')) {
-        $file = $request->file('filename');
-        $filename = $file->getClientOriginalName();
-        $folder = uniqid() . '-' . now()->timestamp;
-        $file->storeAs('documents/' . $folder, $filename);
-        return $folder;
-    }
-    return '';
-});
 Route::delete('/uploadFile', function (Request $request) {
     dd($request->all());
 });

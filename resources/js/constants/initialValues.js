@@ -36,5 +36,6 @@ export const TABLE_TOKENS_HEADER = ['#', 'Nombre del Token', 'Fecha de Creación
 export const ROLES_CONSTANTS = {
   Admin: 'Administrador',
   Director: 'Director',
-  'Usuario corriente': 'Usuario corriente'
+  'Usuario corriente': 'Usuario corriente',
+  Hseq: 'Hseq - Gestion'
 }

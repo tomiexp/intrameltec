@@ -1,8 +1,11 @@
 <?php
 
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\HseqController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DirectorsController;
 use App\Http\Controllers\Admin\RolsController;
@@ -15,7 +18,6 @@ use App\Http\Controllers\Pdf\QuoteServerReportController;
 use App\Http\Controllers\View\CommercialQuoterController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Auth\PersonalAccessTokensController;
-use App\Http\Controllers\HseqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,14 +61,26 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/quoteserver/{id}', QuoteServerReportController::class)->name('quoteserver.report');
 
-    Route::resource('generatetokens', PersonalAccessTokensController::class )->names('profile.generatetokens');
+    Route::resource('generatetokens', PersonalAccessTokensController::class)->names('profile.generatetokens');
 
     Route::get('/commercial', CommercialQuoterController::class)->name('commercial.quoter');
 
     Route::get('hseq', [HseqController::class, 'index'])->name('resources.hseq.index');
     Route::post('hseq', [HseqController::class, 'store'])->name('resources.hseq.store');
-    
+    Route::get('/hseq/{id}', [HseqController::class, 'download'])->name('resources.hseq.download');
+    Route::delete('/hseq/delete/{id}', [HseqController::class, 'destroy'])->name('resources.hseq.destroy');
 
+    Route::post('/uploadFile', function (Request $request) {
+        if ($request->hasFile('filename')) {
+            $file = $request->file('filename');
+            $filename = $file->getClientOriginalName();
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+            $fileStrug = Str::slug($filename, '_') . '.' . $extension;
+            $file->storeAs('documents/', $fileStrug);
+            return $fileStrug;
+        }
+        return '';
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -5,12 +5,19 @@ import axios from 'axios'
 import { FilePond, registerPlugin } from 'react-filepond'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import { useState } from 'react'
+import { handleSwalSuccess, handleSwalError } from '@/helpers/swalHelper'
 
 const ACCEPTFILES = ['application/pdf']
 registerPlugin(FilePondPluginFileValidateType)
 
-export default function ModalComponent () {
+export default function ModalComponent ({ csrfToken }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const server = {
+    url: '/uploadFile',
+    headers: {
+      'x-csrf-token': csrfToken
+    }
+  }
   const [data, setData] = useState({
     hseqFilename: '',
     filename: ''
@@ -18,10 +25,18 @@ export default function ModalComponent () {
 
   const handleInputChange = (e) => setData((prevData) => ({ ...prevData, hseqFilename: e.target.value }))
   const handleFileUpload = (fileItem) => setData((prevData) => ({ ...prevData, filename: fileItem[0].file.name }))
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault()
-    axios.post(route('resources.hseq.store'), data)
-    console.log(data)
+    try {
+      const response = await axios.post(route('resources.hseq.store'), data)
+      if (response.status !== 201) {
+        throw new Error(response.data.message)
+      }
+
+      handleSwalSuccess({ message: response.data.message }).then((result) => { if (result.isConfirmed) { window.location.reload() } })
+    } catch (error) {
+      handleSwalError({ message: error.message })
+    }
   }
 
   return (
@@ -44,7 +59,7 @@ export default function ModalComponent () {
                   required
                   onChange={handleInputChange}
                 />
-                <FilePond required allowFileTypeValidation acceptedFileTypes={ACCEPTFILES} name='filename' maxFiles={1} labelIdle='Arrastra y suelta el PDF o <span class="filepond--label-action">Explorar</span>' server='/api/uploadFile' onupdatefiles={handleFileUpload} />
+                <FilePond required allowFileTypeValidation acceptedFileTypes={ACCEPTFILES} name='filename' maxFiles={1} labelIdle='Arrastra y suelta el PDF o <span class="filepond--label-action">Explorar</span>' server={server} onupdatefiles={handleFileUpload} />
               </ModalBody>
               <ModalFooter>
                 <Button color='danger' variant='flat' onPress={onClose}>

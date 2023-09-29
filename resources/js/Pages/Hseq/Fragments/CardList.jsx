@@ -1,16 +1,11 @@
 import CardComponent from '../Components/CardComponent'
 
-export default function CardList () {
+export default function CardList ({ documents, user }) {
   return (
-    <div className='grid md:grid-cols-4 sm:grid-cols-2 m-5 gap-5'>
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
-      <CardComponent name='Test 123456789adasdadwad' size={800} />
+    <div className='grid lg:grid-cols-3 sm:grid-cols-2 m-5 gap-5'>
+      {documents.map(({ hseqFilename, id }) => (
+        <CardComponent key={id} name={hseqFilename} size={800} id={id} user={user} />
+      ))}
     </div>
   )
 }

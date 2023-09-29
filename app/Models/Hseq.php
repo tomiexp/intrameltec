@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Hseq extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['hseqFilename', 'filename'];
 }

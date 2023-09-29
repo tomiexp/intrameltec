@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Exception;
+use App\Models\Hseq;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HseqController extends Controller
 {
@@ -12,15 +16,10 @@ class HseqController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Hseq/Index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $documents = Hseq::all();
+        return Inertia::render('Hseq/Index', [
+            'documents' => $documents
+        ]);
     }
 
     /**
@@ -28,38 +27,75 @@ class HseqController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $request->validate([
+                'hseqFilename' => 'required|string',
+                'filename' => 'required|string',
+            ]);
+
+            $fileStrug = Str::slug($request->filename, '_') . '.' .'pdf';
+
+            $fileStore = 'documents/' . $fileStrug;
+
+            $hseq = Hseq::create([
+                'hseqFilename' => $request->hseqFilename,
+                'filename' => $fileStore
+            ]);
+
+            if (!$hseq) {
+                throw new Exception('Error al subir el archivo', 500);
+            }
+
+            return response()->json([
+                'message' => 'Archivo Subido Correctamente',
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ], 500);
+        }
         dd($request->all());
     }
 
     /**
-     * Display the specified resource.
+     * Download the specified resource.
      */
-    public function show(string $id)
+    public function download(string $id)
     {
-        //
+        $resource = Hseq::find($id);
+        $url = public_path('storage/'. $resource->filename);
+        return response()->download($url);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $hseqData = Hseq::findOrFail($id);
+            if(!$hseqData) throw new Exception('Objeto no Encontrado', 400);
+
+            $fileData = $hseqData->filename;
+            $file = public_path('storage/'. $fileData);
+            if (!file_exists($file)) {
+                throw new Exception('Archivo no Encontrado', 400);
+            }
+
+            unlink($file);
+            $deleteObject = $hseqData->delete();
+            if(!$deleteObject) {
+                throw new Exception('Error al Eliminar el Registro', 400);
+            }
+
+            return response()->json([
+                'message' => 'Archivo Eliminado'
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 }

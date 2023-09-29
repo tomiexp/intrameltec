@@ -2,8 +2,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import CardList from './Fragments/CardList'
 import ModalComponent from './Fragments/Modal'
+import { ROLES_CONSTANTS } from '@/constants/initialValues'
 
-export default function Index ({ auth, unreadNotifications }) {
+export default function Index ({ auth, unreadNotifications, csrfToken, documents }) {
+  const roleName = auth.user.roles[0].name
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -17,9 +19,12 @@ export default function Index ({ auth, unreadNotifications }) {
           <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
             <div className='flex justify-between m-5'>
               <h2 className='text-center font-bold text-2xl'>Documentos HSEQ</h2>
-              <ModalComponent />
+              {
+                roleName.includes(ROLES_CONSTANTS.Admin) ? <ModalComponent csrfToken={csrfToken} /> : roleName.includes(ROLES_CONSTANTS.Hseq) ? <ModalComponent csrf={csrfToken} /> : ' '
+              }
+
             </div>
-            <CardList />
+            <CardList documents={documents} user={roleName} />
           </div>
         </div>
       </section>

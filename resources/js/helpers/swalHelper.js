@@ -2,7 +2,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
-export const showAlert = ({ title, text, icon, loading }) => {
+export const showAlert = ({ title, text, icon, ...props }) => {
   return MySwal.fire({
     title,
     text,
@@ -11,15 +11,7 @@ export const showAlert = ({ title, text, icon, loading }) => {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     allowOutsideClick: false,
-    didClose: () => {
-      if (loading) {
-        MySwal.showLoading({
-          title: 'Generando cotizaciones, por favor espere',
-          allowEscapeKey: false,
-          allowOutsideClick: false
-        })
-      }
-    }
+    ...props
   })
 }
 
