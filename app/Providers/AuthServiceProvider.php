@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
         // Gate Define to Index Kpi's
 
         Gate::define('kpisDirectorAccess', function(User $user) {
-            return $user->hasRole('Director') || $user->hasRole('Administrador');
+            return $user->hasRole('Director') || $user->hasRole('Administrador') || $user->hasRole('Hseq - Gestion');
         });
     }
 }
