@@ -14,15 +14,11 @@ export default function CardComponent ({ name, size, id, user }) {
           Descargar
         </a>
         {
-          user === ROLES_CONSTANTS.Admin
+          user === ROLES_CONSTANTS.Admin || user === ROLES_CONSTANTS.Hseq
             ? (
               <DeleteButton id={id} />
               )
-            : user === ROLES_CONSTANTS.Hseq
-              ? (
-                <DeleteButton id={id} />
-                )
-              : ''
+            : ''
         }
 
       </CardFooter>
