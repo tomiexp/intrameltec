@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/react'
 export default function Quoter ({ auth, unreadNotifications }) {
   return (
     <AuthenticatedLayout
-      user={auth.user}
+      auth={auth}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Informe de KPIS</h2>}
       unreadNotifications={unreadNotifications}
     >

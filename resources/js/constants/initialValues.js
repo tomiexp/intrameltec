@@ -39,3 +39,5 @@ export const ROLES_CONSTANTS = {
   'Usuario corriente': 'Usuario corriente',
   Hseq: 'Hseq - Gestion'
 }
+
+export const TABLE_KPIS_HEADER = ['Nombre del Informe', 'Url', 'Acciones']

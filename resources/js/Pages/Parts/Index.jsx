@@ -26,7 +26,7 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
 
   return (
     <AuthenticatedLayout
-      user={auth.user}
+      auth={auth}
       unreadNotifications={unreadNotifications}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Partes del servidor</h2>}
     >
@@ -45,7 +45,7 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
                           <div
                             key={index}
                             className='mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded'
-                          >{page.label}
+                          ><p dangerouslySetInnerHTML={{ __html: page.label }} />
                           </div>
                           )
                         : (
@@ -53,7 +53,7 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
                             key={index}
                             className={getClassName(page.active)}
                             href={page.url}
-                          >{page.label}
+                          ><p dangerouslySetInnerHTML={{ __html: page.label }} />
                           </Link>
                           )
                     ))

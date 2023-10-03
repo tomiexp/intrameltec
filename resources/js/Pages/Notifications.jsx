@@ -7,7 +7,7 @@ export default function Notifications ({ auth, unreadNotifications, notification
   const notificationsRender = notification.data
   return (
     <AuthenticatedLayout
-      user={auth.user} unreadNotifications={unreadNotifications} header={
+      auth={auth} unreadNotifications={unreadNotifications} header={
         <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
           Notificaciones
         </h2>
