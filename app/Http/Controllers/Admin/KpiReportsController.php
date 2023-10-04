@@ -8,6 +8,7 @@ use App\Models\KpiReport;
 use App\Models\RoleHasKpi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class KpiReportsController extends Controller
@@ -67,10 +68,15 @@ class KpiReportsController extends Controller
 
     public function show(String $uuid) 
     {
+        $userRol = Auth::user()->roles->first();
         $data = KpiReport::where('id', $uuid)->first();
+        $rolesReport = $data->roles;
 
-        return Inertia::render('Kpis/Show', [
+        if(!$rolesReport->contains($userRol)) abort(403, 'Usuario no autorizado para este Informe');
+
+        return Inertia::render('Admin/Kpis/Show', [
             'data' => $data,
+            'roles' => $data->roles
         ]);
     }
 }

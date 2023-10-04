@@ -1,7 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 
-export default function Show ({ auth }) {
+export default function Show ({ auth, data, roles }) {
+  const report = JSON.parse(data.data)
+  console.log(roles)
+  console.log(auth.user.roles)
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -13,11 +16,9 @@ export default function Show ({ auth }) {
         <div className='max-w-8xl mx-auto sm:px-6 lg:px-8'>
           <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
             <div className='p-6'>
-              <div className='flex justify-between m-5'>
-                <h2 className='font-bold text-2xl'>Kpis en Vivo</h2>
-                <h1>Hola mundo</h1>
-              </div>
+              <h2 className='font-bold text-2xl'>{data.reportName}</h2>
             </div>
+            <div dangerouslySetInnerHTML={{ __html: report.data }} className='flex justify-center my-6' />
           </div>
         </div>
       </section>

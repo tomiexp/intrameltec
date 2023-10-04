@@ -50,13 +50,12 @@ export default function KpisTable ({ data, paginate }) {
             )
           : (
             <TableBody>
-              {data.map(({ id, reportName, data }) => {
-                const urlData = JSON.parse(data)
+              {data.map(({ id, reportName }) => {
                 return (
                   <TableRow key={id} className='text-center'>
                     <TableCell>{reportName}</TableCell>
                     <TableCell>
-                      <div dangerouslySetInnerHTML={{ __html: urlData.data }} />
+                      <p className='text-red-500 font-semibold italic'> LA URL DEL REPORTE NO SE PUEDE MOSTRAR </p>
                     </TableCell>
                     <TableCell>
                       <Link className='primary' href={route('kpi.reports.show', id)}>Ver</Link>
