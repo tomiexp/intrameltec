@@ -5,6 +5,7 @@ import ResposiveRoutes from '@/routes/ResponsiveRoutes'
 import { Badge, Link } from '@nextui-org/react'
 import { NotificationIcon } from '@/Components/icons/Icons'
 import Sidebar from './partials/Sidebar'
+import DevMessage from './partials/DevMessage'
 
 export default function Authenticated ({ auth, header, children, unreadNotifications, ...props }) {
   const user = auth.user
@@ -36,6 +37,8 @@ export default function Authenticated ({ auth, header, children, unreadNotificat
         <ResposiveRoutes user={user} />
 
       </nav>
+
+      <DevMessage />
 
       <div className='flex'>
 
