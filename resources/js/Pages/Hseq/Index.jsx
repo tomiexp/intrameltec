@@ -8,7 +8,7 @@ export default function Index ({ auth, unreadNotifications, csrfToken, documents
   const roleName = auth.user.roles[0].name
   return (
     <AuthenticatedLayout
-      user={auth.user}
+      auth={auth}
       unreadNotifications={unreadNotifications}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Documentos HSEQ</h2>}
     >

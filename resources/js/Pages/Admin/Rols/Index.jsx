@@ -48,7 +48,7 @@ export default function Rols ({ auth, roles, permission }) {
 
   return (
     <AuthenticatedLayout
-      user={auth.user}
+      auth={auth}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Roles y Permisos</h2>}
     >
       <Head title='Roles y Permisos' />

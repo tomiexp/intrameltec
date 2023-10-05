@@ -7,7 +7,7 @@ export default function Notifications ({ auth, unreadNotifications, notification
   const notificationsRender = notification.data
   return (
     <AuthenticatedLayout
-      user={auth.user} unreadNotifications={unreadNotifications} header={
+      auth={auth} unreadNotifications={unreadNotifications} header={
         <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
           Notificaciones
         </h2>
@@ -22,7 +22,7 @@ export default function Notifications ({ auth, unreadNotifications, notification
                 {
                 notificationsRender.map((notification) => (
                   <div key={notification.id}>
-                    <div className='flex flex-col p-8 bg-white dark:bg-black shadow-md hover:shadow-lg rounded-2xl'>
+                    <div className='flex flex-col p-8 bg-white shadow-md hover:shadow-lg rounded-2xl'>
                       <div className='flex items-center justify-between'>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'

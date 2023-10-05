@@ -5,8 +5,11 @@ import ResposiveRoutes from '@/routes/ResponsiveRoutes'
 import { Badge, Link } from '@nextui-org/react'
 import { NotificationIcon } from '@/Components/icons/Icons'
 import Sidebar from './partials/Sidebar'
+import DevMessage from './partials/DevMessage'
 
-export default function Authenticated ({ user, header, children, unreadNotifications }) {
+export default function Authenticated ({ auth, header, children, unreadNotifications, ...props }) {
+  const user = auth.user
+  const permissions = auth.userPermissions
   return (
     <div className='min-h-screen bg-gray-100'>
 
@@ -35,10 +38,12 @@ export default function Authenticated ({ user, header, children, unreadNotificat
 
       </nav>
 
+      <DevMessage />
+
       <div className='flex'>
 
         <Sidebar>
-          <Routes user={user} />
+          <Routes user={user} permissions={permissions} />
         </Sidebar>
 
         <main className='w-screen'>

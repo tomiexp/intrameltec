@@ -9,7 +9,7 @@ export default function Edit ({ auth, mustVerifyEmail, status }) {
   const roleName = auth.user.roles[0].name
   return (
     <AuthenticatedLayout
-      user={auth.user}
+      auth={auth}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Perfil de {auth.user.name}</h2>}
     >
       <Head title='Perfil de usuario' />

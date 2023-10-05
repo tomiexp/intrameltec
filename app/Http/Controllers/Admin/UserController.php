@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 use App\Notifications\UserEdit;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -27,27 +27,49 @@ class UserController extends Controller
         $users = User::with('roles')->get();
         $notifications = auth()->user()->unreadNotifications;
         $roles = Role::all();
+        $permissions = Permission::all();
         return Inertia::render('Admin/Users/Index', [
             'users' => $users,
             'roles' => $roles,
+            'permissions' => $permissions,
             'notifications' => $notifications
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Revoke a Permission.
      */
-    public function create()
+    public function revokePermission(Request $request)
     {
-        //
+        try {
+            $user = User::find($request->input('user'));
+            $permission = Permission::findById($request->input('permission'), 'web');
+            $user->revokePermissionTo($permission);
+            return response()->json(['message' => 'Cambios Guardados'], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storePermission(Request $request)
     {
-        //
+        try {
+            $user = User::find($request->input('user'));
+            $permission = Permission::findById($request->input('permission'), 'web');
+
+            $user->givePermissionTo($permission->name);
+
+            return response()->json(['message' => 'Cambios Guardados'], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**

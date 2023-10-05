@@ -37,7 +37,7 @@ export default function CreateServer ({ auth, soParts, parts, unreadNotification
 
   return (
     <AuthenticatedLayout
-      user={auth.user}
+      auth={auth}
       unreadNotifications={unreadNotifications}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Partes del servidor</h2>}
     >

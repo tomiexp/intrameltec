@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\KpiReportsController;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Pdf\QuoteServerReportController;
 use App\Http\Controllers\View\CommercialQuoterController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Auth\PersonalAccessTokensController;
+use App\Http\Controllers\Functions\UploadFilesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,17 +72,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/hseq/{id}', [HseqController::class, 'download'])->name('resources.hseq.download');
     Route::delete('/hseq/delete/{id}', [HseqController::class, 'destroy'])->name('resources.hseq.destroy');
 
-    Route::post('/uploadFile', function (Request $request) {
-        if ($request->hasFile('filename')) {
-            $file = $request->file('filename');
-            $filename = $file->getClientOriginalName();
-            $extension = pathinfo($filename, PATHINFO_EXTENSION);
-            $fileStrug = Str::slug($filename, '_') . '.' . $extension;
-            $file->storeAs('documents/', $fileStrug);
-            return $fileStrug;
-        }
-        return '';
-    });
+    Route::post('/uploadFile', UploadFilesController::class);
+
+    Route::get('/kpis', [KpiReportsController::class, 'index'])->name('kpi.reports.index');
+    Route::post('/kpis', [KpiReportsController::class, 'store'])->name('kpi.reports.store');
+    Route::get('/kpis/{kpi}', [KpiReportsController::class, 'show'])->name('kpi.reports.show');
+
+    Route::post('/revokePermission', [UserController::class, 'revokePermission'])->name('api.permission.revoke');
+    Route::post('/storePermission', [UserController::class, 'storePermission'])->name('api.permission.sync');
 });
 
 require __DIR__ . '/auth.php';

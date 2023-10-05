@@ -44,8 +44,8 @@ export const RoleForm = ({ closeModal, showPermissions, operation }) => {
             </div>
             <InputError message={errors.nameRol} className='mt-2' />
             <CheckboxGroup label='Selecciona los permisos'>
-              {showPermissions.map(({ id, name }) => (
-                <Checkbox key={id} type='checkbox' value={id} onChange={handleInputChange}>{name}</Checkbox>
+              {showPermissions.map(({ id, supername }) => (
+                <Checkbox key={id} type='checkbox' value={id} onChange={handleInputChange}>{supername}</Checkbox>
               ))}
             </CheckboxGroup>
             <div className='mt-6 flex justify-end gap-6'>
