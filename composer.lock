@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.282.1",
+            "version": "3.283.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "59b84106b3870da3a1a862047fc61108dccb37b9"
+                "reference": "0d1857ca3392ec9f8ee0b1605ba09842cced6351"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/59b84106b3870da3a1a862047fc61108dccb37b9",
-                "reference": "59b84106b3870da3a1a862047fc61108dccb37b9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0d1857ca3392ec9f8ee0b1605ba09842cced6351",
+                "reference": "0d1857ca3392ec9f8ee0b1605ba09842cced6351",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.282.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.283.1"
             },
-            "time": "2023-10-02T18:07:55+00:00"
+            "time": "2023-10-05T18:07:42+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
@@ -1679,16 +1679,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.25.2",
+            "version": "v10.26.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6014dd456b414b305fb0b408404efdcec18e64bc"
+                "reference": "6e5440f7c518f26b4495e5d7e4796ec239e26df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6014dd456b414b305fb0b408404efdcec18e64bc",
-                "reference": "6014dd456b414b305fb0b408404efdcec18e64bc",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/6e5440f7c518f26b4495e5d7e4796ec239e26df9",
+                "reference": "6e5440f7c518f26b4495e5d7e4796ec239e26df9",
                 "shasum": ""
             },
             "require": {
@@ -1875,20 +1875,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-09-28T14:08:59+00:00"
+            "time": "2023-10-03T14:24:20+00:00"
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.1.10",
+            "version": "v0.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "37ed55f6950d921a87d5beeab16d03f8de26b060"
+                "reference": "cce65a90e64712909ea1adc033e1d88de8455ffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/37ed55f6950d921a87d5beeab16d03f8de26b060",
-                "reference": "37ed55f6950d921a87d5beeab16d03f8de26b060",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/cce65a90e64712909ea1adc033e1d88de8455ffd",
+                "reference": "cce65a90e64712909ea1adc033e1d88de8455ffd",
                 "shasum": ""
             },
             "require": {
@@ -1930,9 +1930,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.1.10"
+                "source": "https://github.com/laravel/prompts/tree/v0.1.11"
             },
-            "time": "2023-09-29T07:26:07+00:00"
+            "time": "2023-10-03T01:07:35+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -2270,16 +2270,16 @@
         },
         {
             "name": "laravel/vapor-core",
-            "version": "v2.33.1",
+            "version": "v2.33.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/vapor-core.git",
-                "reference": "51d116c15d4f8a07b0d55b44622d68e4b5075743"
+                "reference": "de2ddb6c279b8e51e9ef9cea3e0f7fda829740b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/vapor-core/zipball/51d116c15d4f8a07b0d55b44622d68e4b5075743",
-                "reference": "51d116c15d4f8a07b0d55b44622d68e4b5075743",
+                "url": "https://api.github.com/repos/laravel/vapor-core/zipball/de2ddb6c279b8e51e9ef9cea3e0f7fda829740b2",
+                "reference": "de2ddb6c279b8e51e9ef9cea3e0f7fda829740b2",
                 "shasum": ""
             },
             "require": {
@@ -2313,7 +2313,10 @@
                 "laravel": {
                     "providers": [
                         "Laravel\\Vapor\\VaporServiceProvider"
-                    ]
+                    ],
+                    "aliases": {
+                        "Vapor": "Laravel\\Vapor\\Vapor"
+                    }
                 }
             },
             "autoload": {
@@ -2341,9 +2344,9 @@
                 "vapor"
             ],
             "support": {
-                "source": "https://github.com/laravel/vapor-core/tree/v2.33.1"
+                "source": "https://github.com/laravel/vapor-core/tree/v2.33.2"
             },
-            "time": "2023-09-07T14:14:16+00:00"
+            "time": "2023-09-29T13:37:32+00:00"
         },
         {
             "name": "league/commonmark",
@@ -2535,16 +2538,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.16.0",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "4fdf372ca6b63c6e281b1c01a624349ccb757729"
+                "reference": "bd4c9b26849d82364119c68429541f1631fba94b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/4fdf372ca6b63c6e281b1c01a624349ccb757729",
-                "reference": "4fdf372ca6b63c6e281b1c01a624349ccb757729",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/bd4c9b26849d82364119c68429541f1631fba94b",
+                "reference": "bd4c9b26849d82364119c68429541f1631fba94b",
                 "shasum": ""
             },
             "require": {
@@ -2562,8 +2565,8 @@
                 "symfony/http-client": "<5.2"
             },
             "require-dev": {
-                "async-aws/s3": "^1.5",
-                "async-aws/simple-s3": "^1.1",
+                "async-aws/s3": "^1.5 || ^2.0",
+                "async-aws/simple-s3": "^1.1 || ^2.0",
                 "aws/aws-sdk-php": "^3.220.0",
                 "composer/semver": "^3.0",
                 "ext-fileinfo": "*",
@@ -2609,7 +2612,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.16.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.17.0"
             },
             "funding": [
                 {
@@ -2621,7 +2624,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-07T19:22:17+00:00"
+            "time": "2023-10-05T20:15:05+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -3223,16 +3226,16 @@
         },
         {
             "name": "nette/schema",
-            "version": "v1.2.4",
+            "version": "v1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
-                "reference": "c9ff517a53903b3d4e29ec547fb20feecb05b8ab"
+                "reference": "0462f0166e823aad657c9224d0f849ecac1ba10a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/schema/zipball/c9ff517a53903b3d4e29ec547fb20feecb05b8ab",
-                "reference": "c9ff517a53903b3d4e29ec547fb20feecb05b8ab",
+                "url": "https://api.github.com/repos/nette/schema/zipball/0462f0166e823aad657c9224d0f849ecac1ba10a",
+                "reference": "0462f0166e823aad657c9224d0f849ecac1ba10a",
                 "shasum": ""
             },
             "require": {
@@ -3279,9 +3282,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/schema/issues",
-                "source": "https://github.com/nette/schema/tree/v1.2.4"
+                "source": "https://github.com/nette/schema/tree/v1.2.5"
             },
-            "time": "2023-08-05T18:56:25+00:00"
+            "time": "2023-10-05T20:37:59+00:00"
         },
         {
             "name": "nette/utils",
@@ -7934,16 +7937,16 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v1.6.2",
+            "version": "v1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "41eb6384a9f9ae85cf54d6dc8f98dab282b07890"
+                "reference": "cb47272ee078adc8cd0b04c4f0f9cb56f68d0a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/41eb6384a9f9ae85cf54d6dc8f98dab282b07890",
-                "reference": "41eb6384a9f9ae85cf54d6dc8f98dab282b07890",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/cb47272ee078adc8cd0b04c4f0f9cb56f68d0a38",
+                "reference": "cb47272ee078adc8cd0b04c4f0f9cb56f68d0a38",
                 "shasum": ""
             },
             "require": {
@@ -7995,9 +7998,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/v1.6.2"
+                "source": "https://github.com/tighten/ziggy/tree/v1.7.2"
             },
-            "time": "2023-08-18T20:28:21+00:00"
+            "time": "2023-10-04T13:26:01+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -8462,16 +8465,16 @@
         },
         {
             "name": "laravel/breeze",
-            "version": "v1.24.0",
+            "version": "v1.24.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/breeze.git",
-                "reference": "d3979dc75f78c1c6b0b035f52e3f4ea2dacab615"
+                "reference": "15c8866a19a5469c34748586162a238efa27fa51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/d3979dc75f78c1c6b0b035f52e3f4ea2dacab615",
-                "reference": "d3979dc75f78c1c6b0b035f52e3f4ea2dacab615",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/15c8866a19a5469c34748586162a238efa27fa51",
+                "reference": "15c8866a19a5469c34748586162a238efa27fa51",
                 "shasum": ""
             },
             "require": {
@@ -8520,7 +8523,7 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-            "time": "2023-09-20T18:37:37+00:00"
+            "time": "2023-10-04T01:03:14+00:00"
         },
         {
             "name": "laravel/pint",
@@ -9003,16 +9006,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "10.1.6",
+            "version": "10.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "56f33548fe522c8d82da7ff3824b42829d324364"
+                "reference": "355324ca4980b8916c18b9db29f3ef484078f26e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/56f33548fe522c8d82da7ff3824b42829d324364",
-                "reference": "56f33548fe522c8d82da7ff3824b42829d324364",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/355324ca4980b8916c18b9db29f3ef484078f26e",
+                "reference": "355324ca4980b8916c18b9db29f3ef484078f26e",
                 "shasum": ""
             },
             "require": {
@@ -9069,7 +9072,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.6"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.7"
             },
             "funding": [
                 {
@@ -9077,7 +9080,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-19T04:59:03+00:00"
+            "time": "2023-10-04T15:34:17+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -10705,5 +10708,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

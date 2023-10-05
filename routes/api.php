@@ -29,9 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
     Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
 
-    Route::post('/revokePermission', [UserController::class, 'revokePermission'])->name('api.permission.revoke');
-    Route::post('/storePermission', [UserController::class, 'storePermission'])->name('api.permission.sync');
 });
+
 
 Route::delete('/uploadFile', function (Request $request) {
     dd($request->all());

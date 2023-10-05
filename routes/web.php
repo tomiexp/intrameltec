@@ -77,6 +77,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/kpis', [KpiReportsController::class, 'index'])->name('kpi.reports.index');
     Route::post('/kpis', [KpiReportsController::class, 'store'])->name('kpi.reports.store');
     Route::get('/kpis/{kpi}', [KpiReportsController::class, 'show'])->name('kpi.reports.show');
+
+    Route::post('/revokePermission', [UserController::class, 'revokePermission'])->name('api.permission.revoke');
+    Route::post('/storePermission', [UserController::class, 'storePermission'])->name('api.permission.sync');
 });
 
 require __DIR__ . '/auth.php';
