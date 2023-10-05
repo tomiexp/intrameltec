@@ -6,8 +6,7 @@ import { HomeIcon, DatacenterIcon, ReportIcon, ToolIcon, SellerIcon, HumanIcon }
 import { ROLES_CONSTANTS } from '@/constants/initialValues'
 
 export default function Routes ({ user, permissions }) {
-  const roleName = user.roles[0].name
-  // console.log(permissions) // directors.index
+  const roleName = user.roles[0].name // directors.index
   return (
     <nav className='space-y-2'>
       <NavLink href={route('dashboard')} active={route().current('dashboard')} className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>

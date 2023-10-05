@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Api\CreateServerController;
 use App\Http\Controllers\Api\Sap\OpportunitiesController;
 
@@ -27,6 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/opportunities', [OpportunitiesController::class, 'create']);
     Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
     Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
+
+    Route::post('/revokePermission', [UserController::class, 'revokePermission'])->name('api.permission.revoke');
+    Route::post('/storePermission', [UserController::class, 'storePermission'])->name('api.permission.sync');
 });
 
 Route::delete('/uploadFile', function (Request $request) {

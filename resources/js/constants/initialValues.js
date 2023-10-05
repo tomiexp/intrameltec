@@ -41,3 +41,5 @@ export const ROLES_CONSTANTS = {
 }
 
 export const TABLE_KPIS_HEADER = ['Nombre del Informe', 'Url', 'Acciones']
+
+export const THEADS_USERS = ['Avatar', 'Id', 'Nombre de Usuario', 'Correo Electronico', 'Rol de Usuario', 'Acciones']

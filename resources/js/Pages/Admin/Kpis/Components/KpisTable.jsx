@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
 import { Table, TableColumn, TableHeader, TableBody, TableCell, TableRow } from '@nextui-org/react'
 import { TABLE_KPIS_HEADER } from '@/constants/initialValues'
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 
 export default function KpisTable ({ data, paginate }) {
+  const { auth } = usePage().props
   const getClassName = (active) => {
     if (active) {
       return 'mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary bg-blue-700 text-white'
@@ -50,18 +51,23 @@ export default function KpisTable ({ data, paginate }) {
             )
           : (
             <TableBody>
-              {data.map(({ id, reportName }) => {
-                return (
-                  <TableRow key={id} className='text-center'>
-                    <TableCell>{reportName}</TableCell>
-                    <TableCell>
-                      <p className='text-red-500 font-semibold italic'> LA URL DEL REPORTE NO SE PUEDE MOSTRAR </p>
-                    </TableCell>
-                    <TableCell>
-                      <Link className='primary' href={route('kpi.reports.show', id)}>Ver</Link>
-                    </TableCell>
-                  </TableRow>
-                )
+              {data.map(({ id, name, roles }) => {
+                const userHasRole = roles.find(role => role.name === auth.userRole[0])
+                if (userHasRole) {
+                  return (
+                    <TableRow key={id} className='text-center'>
+                      <TableCell>{name}</TableCell>
+                      <TableCell>
+                        <p className='text-red-500 font-semibold italic'> LA URL DEL REPORTE NO SE PUEDE MOSTRAR </p>
+                      </TableCell>
+                      <TableCell>
+                        <Link className='primary' href={route('kpi.reports.show', id)}>Ver</Link>
+                      </TableCell>
+                    </TableRow>
+                  )
+                } else {
+                  return null
+                }
               })}
             </TableBody>
             )

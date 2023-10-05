@@ -1,10 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 
-export default function Show ({ auth, data, roles }) {
+export default function Show ({ auth, data }) {
   const report = JSON.parse(data.data)
-  console.log(roles)
-  console.log(auth.user.roles)
   return (
     <AuthenticatedLayout
       auth={auth}

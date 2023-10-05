@@ -15,11 +15,22 @@ class KpiReportsController extends Controller
 {
     public function index()
     {
-        $reports = KpiReport::paginate(3);
+        $reports = KpiReport::paginate(10);
+        $reportsData = [];
+
+        foreach ($reports as $report) {
+            $reportsData[] = [
+                'id' => $report->id,
+                'name' => $report->reportName,
+                'roles' => $report->roles
+            ];
+        }
+
         $roles = Role::all()->except(1);
         return Inertia::render('Admin/Kpis/Index', [
             'reports' => $reports,
-            'roles' => $roles
+            'roles' => $roles,
+            'reportsData2' => $reportsData
         ]);
     }
 
@@ -66,13 +77,13 @@ class KpiReportsController extends Controller
         dd($request->all());
     }
 
-    public function show(String $uuid) 
+    public function show(String $uuid)
     {
         $userRol = Auth::user()->roles->first();
         $data = KpiReport::where('id', $uuid)->first();
         $rolesReport = $data->roles;
 
-        if(!$rolesReport->contains($userRol)) abort(403, 'Usuario no autorizado para este Informe');
+        if (!$rolesReport->contains($userRol)) abort(403, 'Usuario no autorizado para este Informe');
 
         return Inertia::render('Admin/Kpis/Show', [
             'data' => $data,

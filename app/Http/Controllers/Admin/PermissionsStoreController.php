@@ -12,8 +12,8 @@ class PermissionsStoreController extends Controller
     public function __invoke(Request $request)
     {
         try {
-            $this->validate($request, ['permission' => 'required']);
-            $permission = Permission::create(['name' => $request->input('permission'), 'guard_name' => 'web']);
+            $this->validate($request, ['permission' => 'required', 'name' => 'required']);
+            $permission = Permission::create(['name' => $request->input('permission'), 'supername' => $request->input('name') ,'guard_name' => 'web']);
 
             if (!$permission) {
                 throw new Exception('Error al crear el permiso, intentelo mas tarde', 500);
@@ -25,7 +25,7 @@ class PermissionsStoreController extends Controller
                 'success' => false,
                 'message' => $e->getMessage(),
                 'code' => $e->getCode()
-            ], $e->getCode());
+            ], 500);
         }
     }
 }

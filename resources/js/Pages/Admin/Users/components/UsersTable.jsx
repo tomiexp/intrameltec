@@ -1,17 +1,15 @@
 import { useState } from 'react'
 import { Table, TableColumn, TableHeader, TableBody, TableCell, TableRow, Avatar, Button } from '@nextui-org/react'
-import { EditIcon } from '@/Components/icons/Icons'
+import PermissionIcon, { EditIcon } from '@/Components/icons/Icons'
 import { ModalUser } from './ModalUser'
+import { THEADS_USERS } from '@/constants/initialValues'
+import { ModalPermission } from './ModalPermissions'
 
-export const UsersTable = ({ users, roles }) => {
-  const THEADS = ['Avatar', 'Id', 'Nombre de Usuario', 'Correo Electronico', 'Rol de Usuario', 'Acciones']
-
+export const UsersTable = ({ users, roles, permissions }) => {
+  // console.log(permissions)
   const [modal, setModal] = useState(false)
-  const [dataModal, setDataModal] = useState({
-    id: '',
-    nameRol: '',
-    name: ''
-  })
+  const [dataModal, setDataModal] = useState({})
+  const [modalPermissions, setModalPermissions] = useState(false)
 
   const openModal = ({ id = '', nameRol = '', name = '' }) => {
     setModal(true)
@@ -22,28 +20,38 @@ export const UsersTable = ({ users, roles }) => {
     setModal(false)
   }
 
+  const openPermissionsModal = ({ id, name }) => {
+    setModalPermissions(true)
+    setDataModal({ id, name })
+  }
+
   return (
     <>
       <Table aria-label='Tabla de Usuarios del sistema'>
         <TableHeader>
-          {THEADS.map((column) => (
-            <TableColumn key={column} className='border-b border-gray-100 bg-gray-50 p-4'>{column}</TableColumn>
+          {THEADS_USERS.map((column) => (
+            <TableColumn key={column} className='text-center border-b border-gray-100 bg-gray-50 p-4'>{column}</TableColumn>
           ))}
         </TableHeader>
         <TableBody emptyContent='No se encontraron usuarios registrados'>
           {users.map(({ id, name, avatar, email, roles }) => {
             const nameRol = roles[0].name
             return (
-              <TableRow key={id}>
+              <TableRow key={id} className='text-center'>
                 <TableCell><Avatar src={avatar} /></TableCell>
                 <TableCell>{id}</TableCell>
                 <TableCell>{name}</TableCell>
                 <TableCell>{email}</TableCell>
                 <TableCell>{nameRol}</TableCell>
                 <TableCell>
-                  <Button type='button' className='bg-gray-100 text-slate-600 font-bold py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white' onClick={() => openModal({ id, nameRol, name })}>
-                    <EditIcon className='h-4 w-4' />
-                  </Button>
+                  <div className='flex gap-2 justify-center'>
+                    <Button type='button' className='bg-gray-100 text-slate-600 font-bold py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white' onClick={() => openModal({ id, nameRol, name })}>
+                      <EditIcon className='h-4 w-4' />
+                    </Button>
+                    <Button type='button' className='bg-warning-400 text-slate-600 font-bold py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-warning-500 hover:text-white' onPress={() => openPermissionsModal({ id, name })}>
+                      <PermissionIcon className='h-4 w-4' size={24} color='#fff' />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             )
@@ -51,6 +59,7 @@ export const UsersTable = ({ users, roles }) => {
         </TableBody>
       </Table>
       <ModalUser modal={modal} closeModal={closeModal} dataModal={dataModal} roles={roles} />
+      <ModalPermission modal={modalPermissions} closeModal={() => setModalPermissions(!modalPermissions)} datamodal={dataModal} permissions={permissions} />
     </>
   )
 }
