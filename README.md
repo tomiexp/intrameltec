@@ -4,6 +4,7 @@
 Proyecto de inicio de intranet para Meltec Comunicaciones S.A
 
 ![Logo](https://meltec.com.co/wp-content/uploads/2023/10/LOGO-ANIMADO-MELTEC-COLOR.gif)
+![Laravel](https://onlinecode.org/wp-content/uploads/2021/07/laravel9-php-framework-4.png)
 
 # ¡¡AVISO DE MANTENIMIENTO!!
 
@@ -33,5 +34,3 @@ Esta condicion tambien aplica para las paginas desarrolladas por el equipo de de
 ## Support
 
 Para soporte o dudas contactar al siguiente correo: *desarrollo@meltec.com.co*
-
-
