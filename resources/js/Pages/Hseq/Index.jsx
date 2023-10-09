@@ -20,7 +20,7 @@ export default function Index ({ auth, unreadNotifications, csrfToken, documents
             <div className='flex justify-between m-5'>
               <h2 className='text-center font-bold text-2xl'>Documentos HSEQ</h2>
               {
-                roleName.includes(ROLES_CONSTANTS.Admin) ? <ModalComponent csrfToken={csrfToken} /> : roleName.includes(ROLES_CONSTANTS.Hseq) ? <ModalComponent csrf={csrfToken} /> : ' '
+                roleName.includes(ROLES_CONSTANTS.Admin) ? <ModalComponent /> : roleName.includes(ROLES_CONSTANTS.Hseq) ? <ModalComponent /> : ' '
               }
 
             </div>

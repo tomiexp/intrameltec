@@ -6,11 +6,13 @@ import { FilePond, registerPlugin } from 'react-filepond'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import { useState } from 'react'
 import { handleSwalSuccess, handleSwalError } from '@/helpers/swalHelper'
+import { usePage } from '@inertiajs/react'
 
 const ACCEPTFILES = ['application/pdf']
 registerPlugin(FilePondPluginFileValidateType)
 
-export default function ModalComponent ({ csrfToken }) {
+export default function ModalComponent () {
+  const { csrfToken } = usePage().props
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const server = {
     url: '/uploadFile',
