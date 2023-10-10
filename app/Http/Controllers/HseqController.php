@@ -16,7 +16,7 @@ class HseqController extends Controller
      */
     public function index()
     {
-        $documents = Hseq::all();
+        $documents = Hseq::paginate(10);
         return Inertia::render('Hseq/Index', [
             'documents' => $documents
         ]);

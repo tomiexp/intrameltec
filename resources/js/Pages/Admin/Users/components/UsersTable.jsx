@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Table, TableColumn, TableHeader, TableBody, TableCell, TableRow, Avatar, Button } from '@nextui-org/react'
-import PermissionIcon, { EditIcon } from '@/Components/icons/Icons'
+import { EditIcon, PermissionIcon } from '@/Components/icons/Icons'
 import { ModalUser } from './ModalUser'
 import { THEADS_USERS } from '@/constants/initialValues'
 import { ModalPermission } from './ModalPermissions'
+import { usePage } from '@inertiajs/react'
+import Paginator from '@/Components/Paginator'
 
-export const UsersTable = ({ users, roles, permissions }) => {
-  // console.log(permissions)
+export const UsersTable = () => {
+  const { users, roles, permissions } = usePage().props
   const [modal, setModal] = useState(false)
   const [dataModal, setDataModal] = useState({})
   const [modalPermissions, setModalPermissions] = useState(false)
@@ -27,14 +29,16 @@ export const UsersTable = ({ users, roles, permissions }) => {
 
   return (
     <>
-      <Table aria-label='Tabla de Usuarios del sistema'>
+      <Table
+        aria-label='Tabla de Usuarios del sistema' bottomContent={<Paginator paginate={users.links} />}
+      >
         <TableHeader>
           {THEADS_USERS.map((column) => (
             <TableColumn key={column} className='text-center border-b border-gray-100 bg-gray-50 p-4'>{column}</TableColumn>
           ))}
         </TableHeader>
         <TableBody emptyContent='No se encontraron usuarios registrados'>
-          {users.map(({ id, name, avatar, email, roles }) => {
+          {users.data.map(({ id, name, avatar, email, roles }) => {
             const nameRol = roles[0].name
             return (
               <TableRow key={id} className='text-center'>

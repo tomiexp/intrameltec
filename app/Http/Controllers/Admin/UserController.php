@@ -24,7 +24,8 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->paginate(10);
+        
         $notifications = auth()->user()->unreadNotifications;
         $roles = Role::all();
         $permissions = Permission::all();

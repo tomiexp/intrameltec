@@ -30,10 +30,3 @@ export default function Dashboard ({ auth, unreadNotifications }) {
     </AuthenticatedLayout>
   )
 }
-
-/**
- *
-import { CREDENTIALS } from '../../../../sap/constants/constants.js'
-export
-
- */

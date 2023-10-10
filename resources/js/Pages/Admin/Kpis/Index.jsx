@@ -3,8 +3,7 @@ import { Head } from '@inertiajs/react'
 import KpisTable from './Components/KpisTable'
 import KpiModalFragment from './Fragments/KpiModalFragment'
 
-export default function Index ({ auth, reports, roles, reportsData2 }) {
-  const paginate = reports.links
+export default function Index ({ auth, roles }) {
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -20,7 +19,7 @@ export default function Index ({ auth, reports, roles, reportsData2 }) {
                 <h2 className='font-bold text-2xl'>Kpis en Vivo</h2>
                 {auth?.permissions?.includes('admin.kpis.create') ? (<KpiModalFragment roles={roles} />) : ''}
               </div>
-              <KpisTable data={reportsData2} paginate={paginate} />
+              <KpisTable />
             </div>
           </div>
         </div>

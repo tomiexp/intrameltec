@@ -4,7 +4,7 @@ import CardList from './Fragments/CardList'
 import ModalComponent from './Fragments/Modal'
 import { ROLES_CONSTANTS } from '@/constants/initialValues'
 
-export default function Index ({ auth, unreadNotifications, csrfToken, documents }) {
+export default function Index ({ auth, unreadNotifications }) {
   const roleName = auth.user.roles[0].name
   return (
     <AuthenticatedLayout
@@ -24,7 +24,7 @@ export default function Index ({ auth, unreadNotifications, csrfToken, documents
               }
 
             </div>
-            <CardList documents={documents} user={roleName} />
+            <CardList user={roleName} />
           </div>
         </div>
       </section>
