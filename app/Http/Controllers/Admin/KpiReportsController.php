@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\KpiReport;
 use App\Models\RoleHasKpi;
 use App\Http\Controllers\Controller;
+use App\Models\KpiCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -27,10 +28,12 @@ class KpiReportsController extends Controller
         }
 
         $roles = Role::all()->except(1);
+        $categories = KpiCategory::all();
         return Inertia::render('Admin/Kpis/Index', [
             'reports' => $reports,
             'roles' => $roles,
-            'reportsData2' => $reportsData
+            'reportsData2' => $reportsData,
+            'categories' => $categories
         ]);
     }
 
@@ -41,8 +44,8 @@ class KpiReportsController extends Controller
                 'reportName' => 'required|string',
                 'urlData.data' => 'required|string',
                 'roles' => 'required|array',
+                'category' => 'required',
             ]);
-
 
 
             if (!$validator) {
@@ -53,6 +56,7 @@ class KpiReportsController extends Controller
             $kpi = new KpiReport([
                 'reportName' => $request->input('reportName'),
                 'data' => $data,
+                'category_id' => $request->input('category'),
             ]);
 
             $saveKpi = $kpi->save();

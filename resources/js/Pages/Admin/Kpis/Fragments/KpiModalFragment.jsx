@@ -1,17 +1,20 @@
 /* eslint-disable no-undef */
 import { handleSwalError, handleSwalSuccess } from '@/helpers/swalHelper'
-import { useDisclosure, Button, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, CheckboxGroup, Checkbox } from '@nextui-org/react'
+import { usePage } from '@inertiajs/react'
+import { useDisclosure, Button, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, CheckboxGroup, Checkbox, Select, SelectItem } from '@nextui-org/react'
 import axios from 'axios'
 import { useState } from 'react'
 
-export default function KpiModalFragment ({ roles }) {
+export default function KpiModalFragment () {
+  const { roles, categories } = usePage().props
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [data, setData] = useState({
     reportName: '',
     urlData: {
       data: ''
     },
-    roles: []
+    roles: [],
+    category: ''
   })
   const [selected, setSelected] = useState([])
 
@@ -19,6 +22,10 @@ export default function KpiModalFragment ({ roles }) {
   const handleUrlChange = (e) => {
     const jsonData = { data: e.target.value }
     setData((prevData) => ({ ...prevData, urlData: jsonData }))
+  }
+
+  const handleSelectChange = (e) => {
+    setData((prevData) => ({ ...prevData, category: e.target.value }))
   }
 
   const handleSelected = (e) => {
@@ -38,7 +45,6 @@ export default function KpiModalFragment ({ roles }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(data)
     try {
       const request = await axios.post(route('kpi.reports.store'), data)
 
@@ -82,6 +88,12 @@ export default function KpiModalFragment ({ roles }) {
                   required
                   onChange={handleUrlChange}
                 />
+
+                <Select label='Seleccione la categoria del KPI' className='max-w' onChange={handleSelectChange}>
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>{category.category}</SelectItem>
+                  ))}
+                </Select>
               </ModalBody>
               <CheckboxGroup label='Seleccione los roles que deseen ver este Informe' color='primary' className='mx-8'>
                 {roles.map(({ id, name }) => (

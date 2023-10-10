@@ -12,7 +12,7 @@ class KpiReport extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['reportName', 'data'];
+    protected $fillable = ['reportName', 'data', 'category_id'];
 
     protected $casts = ['data' => 'array'];
 

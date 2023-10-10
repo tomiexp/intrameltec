@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react'
 import KpisTable from './Components/KpisTable'
 import KpiModalFragment from './Fragments/KpiModalFragment'
 
-export default function Index ({ auth, roles }) {
+export default function Index ({ auth }) {
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -17,7 +17,7 @@ export default function Index ({ auth, roles }) {
             <div className='p-6'>
               <div className='flex justify-between m-5'>
                 <h2 className='font-bold text-2xl'>Kpis en Vivo</h2>
-                {auth?.permissions?.includes('admin.kpis.create') ? (<KpiModalFragment roles={roles} />) : ''}
+                {auth?.permissions?.includes('admin.kpis.create') ? (<KpiModalFragment />) : ''}
               </div>
               <KpisTable />
             </div>
