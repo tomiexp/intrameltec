@@ -8,22 +8,12 @@ import { dateFormatter } from '@/helpers/dateHelper'
 import { priceFormatted } from '@/helpers/priceHelper'
 
 // Component
-import { Head, Link } from '@inertiajs/react'
+import { Head } from '@inertiajs/react'
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@nextui-org/react'
 import { DownloadIcon } from '@/Components/icons/Icons'
+import Paginator from '@/Components/Paginator'
 
 export default function Parts ({ auth, unreadNotifications, servers }) {
-  const dataServers = servers.data
-  const paginate = servers.links
-
-  const getClassName = (active) => {
-    if (active) {
-      return 'mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary bg-blue-700 text-white'
-    } else {
-      return 'mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary'
-    }
-  }
-
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -36,30 +26,7 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
         <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
           <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
             <Table
-              aria-label='Tabla de cotizaciones de servidores' bottomContent={
-                <div className='flex w-full justify-center'>
-                  {
-                    paginate.map((page, index) => (
-                      page.url === null
-                        ? (
-                          <div
-                            key={index}
-                            className='mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded'
-                          ><p dangerouslySetInnerHTML={{ __html: page.label }} />
-                          </div>
-                          )
-                        : (
-                          <Link
-                            key={index}
-                            className={getClassName(page.active)}
-                            href={page.url}
-                          ><p dangerouslySetInnerHTML={{ __html: page.label }} />
-                          </Link>
-                          )
-                    ))
-                  }
-                </div>
-            }
+              aria-label='Tabla de cotizaciones de servidores' bottomContent={<Paginator paginate={servers.links} />}
             >
 
               <TableHeader>
@@ -67,18 +34,24 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
                   <TableColumn key={i} className='text-center'>{header}</TableColumn>
                 ))}
               </TableHeader>
-              <TableBody>
-                {dataServers.map((server) => (
-                  <TableRow key={server.id} className='text-center'>
-                    <TableCell>{dateFormatter(server.created_at)}</TableCell>
-                    <TableCell>{server.client_server.client}</TableCell>
-                    <TableCell>{server.total_mounth} Meses</TableCell>
-                    <TableCell>${priceFormatted(server.total_amount)}</TableCell>
-                    <TableCell>${priceFormatted(server.total_year)}</TableCell>
-                    <TableCell><a href={route('quoteserver.report', server.id)} className='text-center'><DownloadIcon size={24} /></a></TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
+              {servers.data.length !== 0
+                ? (
+                  <TableBody>
+
+                    {servers.data.map((server) => (
+                      <TableRow key={server.id} className='text-center'>
+                        <TableCell>{dateFormatter(server.created_at)}</TableCell>
+                        <TableCell>{server.client_server.client}</TableCell>
+                        <TableCell>{server.total_mounth} Meses</TableCell>
+                        <TableCell>${priceFormatted(server.total_amount)}</TableCell>
+                        <TableCell>${priceFormatted(server.total_year)}</TableCell>
+                        <TableCell><a href={route('quoteserver.report', server.id)} className='text-center'><DownloadIcon size={24} /></a></TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                  )
+                : (<TableBody emptyContent='No se encontraron Registros' />)}
+
             </Table>
           </div>
         </div>
