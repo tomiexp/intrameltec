@@ -23,7 +23,8 @@ class KpiReportsController extends Controller
             $reportsData[] = [
                 'id' => $report->id,
                 'name' => $report->reportName,
-                'roles' => $report->roles
+                'roles' => $report->roles,
+                'category' => $report->category
             ];
         }
 

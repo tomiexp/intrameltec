@@ -4,6 +4,7 @@ import Dropdown from '@/Components/Dropdown'
 import NavDropdown from '@/Components/NavDropdown'
 import { HomeIcon, DatacenterIcon, ReportIcon, ToolIcon, SellerIcon, HumanIcon } from '@/Components/icons/Icons'
 import { ROLES_CONSTANTS } from '@/constants/initialValues'
+import NavKpis from './Kpis/NavKpis'
 
 export default function Routes ({ user, permissions }) {
   const roleName = user.roles[0].name // directors.index
@@ -12,7 +13,7 @@ export default function Routes ({ user, permissions }) {
       <NavLink href={route('dashboard')} active={route().current('dashboard')} className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
         <HomeIcon size={24} color='#000000' />
         <span className='text-sm font-medium px-5 self-center'>
-          Inicio Dashboard
+          Home
         </span>
       </NavLink>
       {roleName.includes(ROLES_CONSTANTS.Admin)
@@ -40,6 +41,8 @@ export default function Routes ({ user, permissions }) {
           <Dropdown.Link href={route('resources.hseq.index')}>Documentos Hseq</Dropdown.Link>
         </NavDropdown>
       </div>
+
+      <NavKpis />
 
       {permissions.includes('directors.index')
         ? (

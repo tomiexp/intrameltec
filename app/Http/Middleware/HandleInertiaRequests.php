@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Inertia\Middleware;
+use App\Models\KpiReport;
 use Tightenco\Ziggy\Ziggy;
+use App\Models\KpiCategory;
+use Illuminate\Http\Request;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -31,9 +33,14 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $notifications = 0;
-        if($request->user()){
+        if ($request->user()) {
             $notifications = $request->user()->unreadNotifications()->count();
         }
+
+
+
+
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
@@ -42,8 +49,17 @@ class HandleInertiaRequests extends Middleware
                 'permissions' => $request->user() ? $request->user()->getPermissionNames() : [],
             ],
             'ziggy' => function () use ($request) {
+                $user_id = $request->user()->roles[0]->id;
+
+                $reports = KpiCategory::with(['kpi' => function ($query) use ($user_id) {
+                    $query->whereHas('roles', function ($subQuery) use ($user_id) {
+                        $subQuery->where('role_id', $user_id);
+                    });
+                }])->get();
+
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
+                    'kpis' => $reports,
                 ]);
             },
             'unreadNotifications' => $notifications,
