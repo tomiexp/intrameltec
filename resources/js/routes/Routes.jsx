@@ -43,8 +43,8 @@ export default function Routes ({ user, permissions }) {
       </div>
 
       <NavKpis />
-
-      {permissions.includes('directors.index')
+      {/* Proximo en Retiro */}
+      {/* {permissions.includes('directors.index')
         ? (
           <div className='w-full flex items-center justify-around space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
             <ReportIcon size={24} color='#000000' />
@@ -53,7 +53,7 @@ export default function Routes ({ user, permissions }) {
             </NavDropdown>
           </div>
           )
-        : ''}
+        : ''} */}
 
       {roleName.includes(ROLES_CONSTANTS.Admin)
         ? (
