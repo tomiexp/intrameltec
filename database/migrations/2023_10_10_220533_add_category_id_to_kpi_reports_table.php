@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('kpi_reports', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id');
+            $column = $table->unsignedBigInteger('category_id');
 
-            $table->foreign('category_id')->references('id')->on('kpi_categories');
+            if($column) {
+                $table->foreign('category_id')->references('id')->on('kpi_categories');
+            }
+
         });
     }
 
