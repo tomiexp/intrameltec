@@ -6,7 +6,7 @@ export default function CardList ({ user }) {
   const { documents } = usePage().props
   return (
     <>
-      <div className='grid lg:grid-cols-5 sm:grid-cols-2 m-5 gap-5'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 m-5 gap-5'>
         {documents.data.length !== 0
           ? documents.data.map(({ hseqFilename, id }) => (
             <CardComponent key={id} name={hseqFilename} size={800} id={id} user={user} />
