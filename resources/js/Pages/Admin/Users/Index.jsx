@@ -1,12 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { UsersTable } from './components/UsersTable'
+import Header from '@/Components/Header'
 
-export default function Users ({ auth, permissions }) {
+export default function Users ({ auth }) {
   return (
     <AuthenticatedLayout
       auth={auth}
-      header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Usuarios</h2>}
+      header={<Header title='Usuarios' />}
     >
       <Head title='Usuarios' />
 

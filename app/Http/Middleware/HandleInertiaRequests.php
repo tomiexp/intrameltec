@@ -49,6 +49,9 @@ class HandleInertiaRequests extends Middleware
                 'permissions' => $request->user() ? $request->user()->getPermissionNames() : [],
             ],
             'ziggy' => function () use ($request) {
+                if(!$request->user()) {
+                    return redirect('/login');
+                }
                 $user_id = $request->user()->roles[0]->id;
 
                 $reports = KpiCategory::with(['kpi' => function ($query) use ($user_id) {

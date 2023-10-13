@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\KpiReportsController;
 use Inertia\Inertia;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\HseqController;
@@ -12,14 +9,15 @@ use App\Http\Controllers\DirectorsController;
 use App\Http\Controllers\Admin\RolsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ServerpartController;
-use App\Http\Controllers\Api\TestApiController;
+use App\Http\Controllers\Admin\PartsController;
+use App\Http\Controllers\Admin\KpiReportsController;
 use App\Http\Controllers\Auth\NotificationController;
 use App\Http\Controllers\MarkReadNotificationController;
+use App\Http\Controllers\Functions\UploadFilesController;
 use App\Http\Controllers\Pdf\QuoteServerReportController;
 use App\Http\Controllers\View\CommercialQuoterController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Auth\PersonalAccessTokensController;
-use App\Http\Controllers\Functions\UploadFilesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +78,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/revokePermission', [UserController::class, 'revokePermission'])->name('api.permission.revoke');
     Route::post('/storePermission', [UserController::class, 'storePermission'])->name('api.permission.sync');
+
+    Route::resource('/parts', PartsController::class)->names('admin.parts');
 });
 
 require __DIR__ . '/auth.php';
