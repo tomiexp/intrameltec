@@ -24,7 +24,7 @@ export const TableParts = () => {
             <TableCell>{product}</TableCell>
             <TableCell>{currencyFormatter({ value: usdPrice })}</TableCell>
             <TableCell>{usdToCop(usdPrice)}</TableCell>
-            <TableCell><ModalEdit /></TableCell>
+            <TableCell><ModalEdit dataProduct={{ id, product, usdPrice }} /></TableCell>
           </TableRow>
         ))}
       </TableBody>

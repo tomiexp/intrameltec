@@ -79,7 +79,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/revokePermission', [UserController::class, 'revokePermission'])->name('api.permission.revoke');
     Route::post('/storePermission', [UserController::class, 'storePermission'])->name('api.permission.sync');
 
-    Route::resource('/parts', PartsController::class)->names('admin.parts');
+    Route::get('/partsedit', [PartsController::class, 'index'])->name('admin.partsedit.index');
+    Route::put('/partsedit/{id}', [PartsController::class, 'update'])->name('admin.partsedit.update');
 });
 
 require __DIR__ . '/auth.php';
