@@ -1,5 +1,6 @@
 import Dropdown from '@/Components/Dropdown'
 import { Avatar } from '@nextui-org/react'
+import FailImage from '@/Components/FailImage'
 
 export default function DropdownProfile ({ user }) {
   return (
@@ -12,7 +13,7 @@ export default function DropdownProfile ({ user }) {
                 type='button'
                 className='inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150'
               >
-                <Avatar isBordered radius='full' src={user.avatar} />
+                <Avatar isBordered radius='full' src={user.avatar} showFallback fallback={<FailImage />} />
               </button>
             </span>
           </Dropdown.Trigger>

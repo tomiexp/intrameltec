@@ -31,5 +31,5 @@ export function useTrm () {
   const formattedTrmToday = parseFloat(trmToday)
   const trmInCop = formattedTrmToday.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })
 
-  return { valores: sendValues, trmInCop, loading, error }
+  return { valores: sendValues, trmInCop, loading, error, formattedTrmToday }
 }

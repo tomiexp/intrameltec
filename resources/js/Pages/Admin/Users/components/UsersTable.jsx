@@ -6,6 +6,7 @@ import { THEADS_USERS } from '@/constants/initialValues'
 import { ModalPermission } from './ModalPermissions'
 import { usePage } from '@inertiajs/react'
 import Paginator from '@/Components/Paginator'
+import FailImage from '@/Components/FailImage'
 
 export const UsersTable = () => {
   const { users, roles, permissions } = usePage().props
@@ -42,7 +43,7 @@ export const UsersTable = () => {
             const nameRol = roles[0].name
             return (
               <TableRow key={id} className='text-center'>
-                <TableCell><Avatar src={avatar} /></TableCell>
+                <TableCell><Avatar src={avatar} showFallback fallback={<FailImage />} /></TableCell>
                 <TableCell>{id}</TableCell>
                 <TableCell>{name}</TableCell>
                 <TableCell>{email}</TableCell>
