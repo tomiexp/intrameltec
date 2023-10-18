@@ -1,5 +1,6 @@
 import request from 'request'
 import { CREDENTIALS } from '../../../constants/constants.js'
+import { dateFormatted } from '../../../constants/dateFormatted.js'
 
 async function main () {
   const data = process.argv.slice(2)
@@ -21,6 +22,8 @@ async function main () {
       if (!error) {
         const csrfToken = response.headers['x-csrf-token']
         const dataSend = dataParsed
+        dataSend.StartDate = `/Date(${dateFormatted(dataParsed.StartDate)})/`
+        dataSend.EndDate = `/Date(${dateFormatted(dataParsed.EndDate)})/`
         request({
           method: 'POST',
           url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022/OpportunityCollection`,

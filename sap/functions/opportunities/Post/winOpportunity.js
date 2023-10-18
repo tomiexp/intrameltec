@@ -11,6 +11,8 @@ async function main () {
   const opportunity = dataParsed.ObjectID
   const cookies = request.jar()
 
+  const dataSend = dataParsed.ResultReasonCode
+
   request({
     method: 'GET',
     uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022`,
@@ -38,7 +40,8 @@ async function main () {
           'Content-Type': 'application/json',
           Accept: 'application/json',
           'x-csrf-token': csrfToken
-        }
+        },
+        json: dataSend
       }, (_error, response, body) => {
         const jsonBody = JSON.parse(body)
         try {
