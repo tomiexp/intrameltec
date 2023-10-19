@@ -31,13 +31,36 @@ class OpportunitiesController extends Controller
     public function win(Request $request)
     {
         $opportunity = json_encode($request->all());
-        return $this->executeScript('Post/winOpportunity.js', 'node', $opportunity);
+        $dataRecibe =  $this->executeScript('Post/winOpportunity.js', 'node', $opportunity);
+        if ($dataRecibe->getStatusCode() === 400) {
+            return response()->json(['ErrorCodeMessage' => json_encode($dataRecibe->getData()->message)], 400);
+        }
+
+        if(!$dataRecibe->getData()->result->OpportunityWin) {
+            return response()->json(['ErrorFalseOpportunity' => 'Error al Ganar la oportunidad'], 400);
+        }
+        $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
+
+        $result = json_decode($secondProccess->output(), true);
+        return response()->json($result);
     }
 
     public function lose(Request $request)
     {
         $opportunity = json_encode($request->all());
-        return $this->executeScript('Post/loseOpportunity.js', 'node', $opportunity);
+        $dataRecibe = $this->executeScript('Post/loseOpportunity.js', 'node', $opportunity);
+
+        if ($dataRecibe->getStatusCode() === 400) {
+            return response()->json(['ErrorCodeMessage' => json_encode($dataRecibe->getData()->message)], 400);
+        }
+
+        if(!$dataRecibe->getData()->result->OpportunityLose) {
+            return response()->json(['ErrorFalseOpportunity' => 'Error al Ganar la oportunidad'], 400);
+        }
+        $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
+
+        $result = json_decode($secondProccess->output(), true);
+        return response()->json($result);
     }
 
     private function executeScript(String $script, String $type, ?String $params = '')
@@ -50,7 +73,7 @@ class OpportunitiesController extends Controller
             $code = $jsonData['code'];
             return response()->json($jsonData, $code);
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['ScriptMessage' => $e->getMessage()], 500);
         }
     }
 }
