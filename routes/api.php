@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/opportunities', [OpportunitiesController::class, 'create']);
     Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
     Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
+    Route::post('/updatePhaseOpportunity', [OpportunitiesController::class, 'updatePhase']);
 
 });
 

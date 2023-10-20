@@ -25,7 +25,7 @@ class OpportunitiesController extends Controller
     public function create(Request $request)
     {
         $dataSend = json_encode($request->all());
-        return $this->executeScript('Post/postOpportunity.js', 'node', $dataSend);
+        return ($this->executeScript('Post/postOpportunity.js', 'node', $dataSend));
     }
 
     public function win(Request $request)
@@ -63,6 +63,15 @@ class OpportunitiesController extends Controller
         return response()->json($result);
     }
 
+    public function updatePhase (Request $request) 
+    {
+        $opportunity = json_encode($request->all());
+        $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
+
+        $result = json_decode($secondProccess->output(), true);
+        return response()->json($result);
+    }
+
     private function executeScript(String $script, String $type, ?String $params = '')
     {
         try {
@@ -71,7 +80,7 @@ class OpportunitiesController extends Controller
             $result = Process::run($command)->throw();
             $jsonData = json_decode($result->output(), true);
             $code = $jsonData['code'];
-            return response()->json($jsonData, $code);
+            return response()->json($jsonData, $code );
         } catch (Exception $e) {
             return response()->json(['ScriptMessage' => $e->getMessage()], 500);
         }
