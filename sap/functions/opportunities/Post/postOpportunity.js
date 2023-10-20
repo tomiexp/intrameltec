@@ -24,6 +24,7 @@ async function main () {
         const dataSend = dataParsed
         dataSend.StartDate = `/Date(${dateFormatted(dataParsed.StartDate)})/`
         dataSend.EndDate = `/Date(${dateFormatted(dataParsed.EndDate)})/`
+        
         request({
           method: 'POST',
           url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022/OpportunityCollection`,
