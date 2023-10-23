@@ -12,10 +12,10 @@ async function main () {
   const cookies = request.jar()
   request({
     method: 'GET',
-    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity`,
+    uri: `${CREDENTIALS.url}sap/byd/odata/cust/v1/khopportunity`,
     jar: cookies,
     headers: {
-      Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
+      Authorization: 'Basic ' + btoa(`${CREDENTIALS.auth.username}:${CREDENTIALS.auth.password}`),
       'Content-Type': 'application/json',
       'x-csrf-token': 'fetch'
     }
@@ -29,10 +29,10 @@ async function main () {
 
       request({
         method: 'PATCH',
-        url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection('${opportunity}')`,
+        url: `${CREDENTIALS.url}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection('${opportunity}')`,
         jar: cookies,
         headers: {
-          Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
+          Authorization: 'Basic ' + btoa(`${CREDENTIALS.auth.username}:${CREDENTIALS.auth.password}`),
           'Content-Type': 'application/json',
           Accept: 'application/json',
           'x-csrf-token': csrfToken
