@@ -13,7 +13,7 @@ async function main () {
 
   request({
     method: 'GET',
-    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022`,
+    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargar_oportunidad`,
     jar: cookies,
     headers: {
       Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
@@ -31,10 +31,10 @@ async function main () {
 
       request({
         method: 'POST',
-        url: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargarinfooportunidad23062022/OpportunityLose?ObjectID='${opportunity}'`,
+        url: `${CREDENTIALS.url}sap/byd/odata/cust/v1/cargar_oportunidad/OpportunityLose?ObjectID='${opportunity}'`,
         jar: cookies,
         headers: {
-          Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
+          Authorization: 'Basic ' + btoa(`${CREDENTIALS.auth.username}:${CREDENTIALS.auth.password}`),
           'Content-Type': 'application/json',
           Accept: 'application/json',
           'x-csrf-token': csrfToken

@@ -16,9 +16,10 @@ class ClientsController extends Controller
         $this->nodeOpportunityPath = base_path() . '/sap/functions/clients/';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->executeScript('/Get/app.js', 'node');
+        $parameters = json_encode($request->query());
+        return ($this->executeScript('/Get/app.js', 'node', $parameters));
     }
 
     private function executeScript(String $script, String $type, ?String $params = '')
@@ -28,8 +29,8 @@ class ClientsController extends Controller
             $command = "$type $scriptPath";
             $result = Process::run($command)->throw();
             $jsonData = json_decode($result->output(), true);
-            $code = $jsonData['code'];
-            return response()->json($jsonData, $code );
+            // $code = $jsonData['code'];
+            return response()->json($jsonData);
         } catch (Exception $e) {
             return response()->json(['ScriptMessage' => $e->getMessage()], 500);
         }
