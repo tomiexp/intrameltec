@@ -39,7 +39,7 @@ async function main () {
             if (response.statusCode !== 201) {
               throw new Error('Error al enviar la solicitud')
             } else {
-              const message = { code: response.statusCode, message: 'Oportunidad Creada', opportunity: body.d.results }
+              const message = { code: response.statusCode, message: 'Oportunidad Creada', opportunity: body.d.results, opportunityObjectId: body.d.results.ObjectID, opportunityID: body.d.results.ID }
               const resutls = JSON.stringify(message)
               console.log(resutls)
             }
