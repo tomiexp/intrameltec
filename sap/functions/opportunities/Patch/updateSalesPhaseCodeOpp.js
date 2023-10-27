@@ -46,7 +46,7 @@ async function main () {
           const result = { code: response.statusCode, message: 'Oportunidad Actualizada y Estado Actualizado!!', resultCode: dataParsed }
           console.log(JSON.stringify(result))
         } catch (error) {
-          const danger = { code: response.statusCode, message: 'Error al generar el La actualizacion de la oportunidad en SAP' }
+          const danger = { code: response.statusCode, message: 'Error al generar el La actualizacion de la oportunidad en SAP', messageError: body }
           console.log(JSON.stringify(danger))
         }
       })

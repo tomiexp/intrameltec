@@ -6,7 +6,7 @@ async function main () {
   const data = process.argv.slice(2)
   const dataParsed = JSON.parse(data[0])
   if (dataParsed.length === 0) {
-    url = `${CREDENTIALS.url}sap/byd/odata/cust/v1/clientesv3/CustomerCollection?$format=json&$select=ObjectID,NombreCliente,CorreoCliente,FirstLineName,Direccion,TelefonoContacto,InternalID`
+    url = `${CREDENTIALS.url}sap/byd/odata/cust/v1/clientesv3/CustomerCollection?$format=json&$select=ObjectID,NombreCliente,CorreoCliente,FirstLineName,Direccion,TelefonoContacto,InternalID&$filter=LifeCycleStatusCode eq '2'&$top=100000`
   } else {
     url = `${CREDENTIALS.url}sap/byd/odata/cust/v1/clientesv3/CustomerCollection?$format=json&$select=ObjectID,NombreCliente,CorreoCliente,FirstLineName,Direccion,TelefonoContacto,InternalID&$filter=${Object.keys(dataParsed)[0]} eq '${dataParsed.NombreCliente}'`
   }

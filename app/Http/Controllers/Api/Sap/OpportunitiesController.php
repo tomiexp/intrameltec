@@ -60,7 +60,8 @@ class OpportunitiesController extends Controller
         $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
 
         $result = json_decode($secondProccess->output(), true);
-        return response()->json($result);
+        $code = $result['code'];
+        return response()->json($result, $code);
     }
 
     public function updatePhase (Request $request) 
