@@ -14,7 +14,7 @@ export default function NavKpis () {
         if (kpi.kpi.length !== 0) {
           return (
             <div key={i} className='w-full flex items-center justify-around space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
-              <ReportIcon size={24} color='#000000' />
+              <ReportIcon size={32} color='#395181' />
               <NavDropdown menu={kpi.category}>
                 {kpi.kpi.map((data) => (
                   <Dropdown.Link key={data.id} href={route('kpi.reports.show', data.id)}>{data.reportName}</Dropdown.Link>
