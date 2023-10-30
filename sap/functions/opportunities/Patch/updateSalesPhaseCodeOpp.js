@@ -10,10 +10,9 @@ async function main () {
   const dataParsed = JSON.parse(data[0])
   const opportunity = dataParsed.ObjectID
   const cookies = request.jar()
-
   request({
     method: 'GET',
-    uri: `${CREDENTIALS.url}sap/byd/odata/cust/v1/cargar_oportunidad`,
+    uri: `${CREDENTIALS.url}sap/byd/odata/cust/v1/khopportunity`,
     jar: cookies,
     headers: {
       Authorization: 'Basic ' + btoa(`${CREDENTIALS.auth.username}:${CREDENTIALS.auth.password}`),
@@ -23,32 +22,31 @@ async function main () {
   }, (_error, response, body) => {
     try {
       const csrfToken = response.headers['x-csrf-token']
-
       if (!csrfToken) {
         const danger = { message: 'Error al obtener el Token SAP', code: 500 }
         console.log(JSON.stringify(danger))
       }
 
       request({
-        method: 'POST',
-        url: `${CREDENTIALS.url}sap/byd/odata/cust/v1/cargar_oportunidad/OpportunityWin?ObjectID='${opportunity}'`,
+        method: 'PATCH',
+        url: `${CREDENTIALS.url}sap/byd/odata/cust/v1/khopportunity/OpportunityCollection('${opportunity}')`,
         jar: cookies,
         headers: {
           Authorization: 'Basic ' + btoa(`${CREDENTIALS.auth.username}:${CREDENTIALS.auth.password}`),
           'Content-Type': 'application/json',
           Accept: 'application/json',
           'x-csrf-token': csrfToken
-        }
+        },
+        json: dataParsed
       }, (_error, response, body) => {
-        const jsonBody = JSON.parse(body)
         try {
-          if (response.statusCode !== 200) {
-            throw new Error('Error: No se pudo ganar la oportunidad')
+          if (response.statusCode !== 204) {
+            throw new Error('Error: No se pudo actualizar la oportunidad')
           }
-          const result = { code: response.statusCode, message: 'Oportunidad Ganada!!', result: jsonBody.d.results }
+          const result = { code: response.statusCode, message: 'Oportunidad Actualizada y Estado Actualizado!!', resultCode: dataParsed }
           console.log(JSON.stringify(result))
         } catch (error) {
-          const danger = { code: response.statusCode, message: 'Error al generar el WIN de la oportunidad en SAP', data: jsonBody }
+          const danger = { code: response.statusCode, message: 'Error al generar el La actualizacion de la oportunidad en SAP', messageError: body }
           console.log(JSON.stringify(danger))
         }
       })
