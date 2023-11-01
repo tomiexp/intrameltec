@@ -29,10 +29,10 @@ export default function Welcome ({ auth }) {
               </div>
             </div>
           </div>
-
-          <HomeFooter />
-
         </div>
+      </div>
+      <div className='bg-white/80'>
+        <HomeFooter />
       </div>
     </>
   )

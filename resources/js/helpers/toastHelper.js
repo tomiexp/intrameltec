@@ -1,6 +1,6 @@
 import Toastify from 'toastify-js'
 
-export const ToastifySuccess = ({ text, ...props }) => {
+export const ToastifySuccess = ({ text, color, ...props }) => {
   return Toastify({
     text,
     duration: 3000,

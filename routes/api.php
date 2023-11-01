@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Api\CreateServerController;
+use App\Http\Controllers\Api\EnviameController;
 use App\Http\Controllers\Api\Sap\ClientsController;
 use App\Http\Controllers\Api\Sap\OpportunitiesController;
 
@@ -42,3 +43,4 @@ Route::delete('/uploadFile', function (Request $request) {
 });
 
 Route::post('/createServer', CreateServerController::class);
+Route::post('/searchDelivery', [EnviameController::class, 'getDelivery']);
