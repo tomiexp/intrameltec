@@ -12,13 +12,14 @@ import { Head } from '@inertiajs/react'
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@nextui-org/react'
 import { DownloadIcon } from '@/Components/icons/Icons'
 import Paginator from '@/Components/Paginator'
+import Header from '@/Components/Header'
 
 export default function Parts ({ auth, unreadNotifications, servers }) {
   return (
     <AuthenticatedLayout
       auth={auth}
       unreadNotifications={unreadNotifications}
-      header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Partes del servidor</h2>}
+      header={<Header title='Partes del servidor' />}
     >
       <Head title='Partes del servidor' />
 

@@ -40,7 +40,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/sigue-tus-envios', function() {
+Route::get('/sigue-tus-envios', function () {
     return Inertia::render('Envios/Index', [
         'canLogin' => Route::has('login'),
     ]);
@@ -84,6 +84,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/partsedit', [PartsController::class, 'index'])->name('admin.partsedit.index');
     Route::put('/partsedit/{id}', [PartsController::class, 'update'])->name('admin.partsedit.update');
+
+    Route::get('/products', function () {
+        return Inertia::render('Products/Index');
+    })->name('products.index');
 });
 
 require __DIR__ . '/auth.php';
