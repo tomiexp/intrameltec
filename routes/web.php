@@ -17,6 +17,7 @@ use App\Http\Controllers\Functions\UploadFilesController;
 use App\Http\Controllers\Pdf\QuoteServerReportController;
 use App\Http\Controllers\View\CommercialQuoterController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
+use App\Http\Controllers\Api\EpaycoController;
 use App\Http\Controllers\Auth\PersonalAccessTokensController;
 
 /*
@@ -88,6 +89,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/products', function () {
         return Inertia::render('Products/Index');
     })->name('products.index');
+
+    Route::get('/epayco-payments', [EpaycoController::class, 'index'])->name('payments.index');
 });
 
 require __DIR__ . '/auth.php';

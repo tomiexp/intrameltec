@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Api\CreateServerController;
 use App\Http\Controllers\Api\EnviameController;
+use App\Http\Controllers\Api\EpaycoController;
 use App\Http\Controllers\Api\Sap\ClientsController;
 use App\Http\Controllers\Api\Sap\OpportunitiesController;
 
@@ -31,6 +32,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
     Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
     Route::post('/updatePhaseOpportunity', [OpportunitiesController::class, 'updatePhase']);
+
+    Route::post('/transactions-epayco', [EpaycoController::class, 'getTransactions']);
     
 });
 
