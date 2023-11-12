@@ -1,7 +1,7 @@
-export const priceFormatted = (price) => {
+export const priceFormatted = ({ price, currency = 'USD' }) => {
   const options = {
     style: 'currency',
-    currency: 'USD',
+    currency,
     minimumFractionDigits: 2
   }
 

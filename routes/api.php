@@ -32,8 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
     Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
     Route::post('/updatePhaseOpportunity', [OpportunitiesController::class, 'updatePhase']);
-
-    Route::post('/transactions-epayco', [EpaycoController::class, 'getTransactions']);
     
 });
 

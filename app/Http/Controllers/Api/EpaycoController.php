@@ -50,13 +50,19 @@ class EpaycoController extends Controller
                     'transactionInitialDate' => '2023-01-01 00:00:00',
                     'transactionEndDate' => '2023-12-31 23:59:59',
                 ],
-                'pagination' => [
-                    'page' => 1,
-                    'limit' => 50,
-                ]
             ]);
 
-            dd(json_decode($transacctionsEpayco->body(), true));
+            if(!$transacctionsEpayco) {
+                throw new Exception('Error al obtener los datos de las transacciones', 500);
+            }
+
+            $data = json_decode($transacctionsEpayco->body());
+
+            return response()->json([
+                'transactions' => $data->data->data,
+                'pagination' => $data->data->pagination
+            ], 200);
+
         } catch (Exception $e) {
             
         }
