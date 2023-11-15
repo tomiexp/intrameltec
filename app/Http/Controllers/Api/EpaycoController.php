@@ -8,20 +8,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
-define ('URL', env('APIFY_URL'));
+define('URL', env('APIFY_URL'));
 
 class EpaycoController extends Controller
 {
     public function index()
     {
         try {
-            $responseWithJWTEpayco = Http::withBasicAuth(env('EMAIL_EPAYCO'), env('PASSWORD_EPAYCO'))->post(URL. '/login/mail', [
+            $responseWithJWTEpayco = Http::withBasicAuth(env('EMAIL_EPAYCO'), env('PASSWORD_EPAYCO'))->post(URL . '/login/mail', [
                 'Content-Type' => 'application/json',
             ]);
 
             $jsonToken = json_decode($responseWithJWTEpayco->body(), true);
 
-            if(!$jsonToken || isset($jsonToken['error'])) {
+            if (!$jsonToken || isset($jsonToken['error'])) {
                 throw new Exception('Error al obtener el Token de acceso', 500);
             }
 
@@ -36,23 +36,27 @@ class EpaycoController extends Controller
         }
     }
 
-    public function getTransactions(Request $request) {
+    public function getTransactions(Request $request)
+    {
 
         $token = $request->input('token');
 
         try {
             $transacctionsEpayco =  Http::withHeaders([
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer '. $token,
+                'Authorization' => 'Bearer ' . $token,
             ])
-            ->get(URL. '/transaction', [
-                'filter' => [
-                    'transactionInitialDate' => '2023-01-01 00:00:00',
-                    'transactionEndDate' => '2023-12-31 23:59:59',
-                ],
-            ]);
+                ->get(URL . '/transaction', [
+                    'filter' => [
+                        'transactionInitialDate' => '2023-01-01 00:00:00',
+                        'transactionEndDate' => '2023-12-31 23:59:59',
+                    ],
+                    'pagination' => [
+                        'page' => 2
+                    ]
+                ]);
 
-            if(!$transacctionsEpayco) {
+            if (!$transacctionsEpayco) {
                 throw new Exception('Error al obtener los datos de las transacciones', 500);
             }
 
@@ -62,9 +66,39 @@ class EpaycoController extends Controller
                 'transactions' => $data->data->data,
                 'pagination' => $data->data->pagination
             ], 200);
-
         } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function getTransactionsById(Request $request, String $id)
+    {
+        try {
+            $reference = $id;
+            $token = $request->header('Authorization');
+
+            $transactionDetail = Http::withBody(json_encode([
+                'filter' => [
+                    'referencePayco' => $reference
+                ]
+            ]), 'application/json')->withToken($token)->get(URL . '/transaction/detail');
+
+            if(!$transactionDetail) {
+                throw new Exception('Error al obtener los datos de la transacción', 500);
+            }
+
+            $transaction = json_decode($transactionDetail->body());
+
+            return response()->json([
+                'transaction' => $transaction->data
+            ], 200);
             
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
         }
     }
 }
