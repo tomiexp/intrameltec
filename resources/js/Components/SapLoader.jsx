@@ -1,6 +1,6 @@
 import '../../css/sapLoader.css'
 
-export default function SapLoader () {
+export default function SapLoader ({ message = 'Cargando datos, por favor espere' }) {
   return (
     <>
       <div className='flex justify-center my-10 content-center '>
@@ -21,7 +21,7 @@ export default function SapLoader () {
         </div>
       </div>
 
-      <p className='text-center font-bold my-10 text-xl'>Cargando datos, por favor espere</p>
+      <p className='text-center font-bold my-10 text-xl'>{message}</p>
     </>
   )
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react'
 import { currencyFormatter } from '@/helpers/currencyFormatter'
 import { THEADS_PAYMENTS } from '@/constants/initialValues'
@@ -45,8 +46,8 @@ export default function TablePayments ({ transactions, token }) {
         </TableHeader>
         <TableBody>
           {transactions.map(({ referencePayco, names, lastnames, paymentMethod, bank, amount, currency, status, response, transactionDate }) => (
-            <TableRow key={referencePayco} className='text-center'>
-              <TableCell> <Button onClick={() => getDetailsTransaction(referencePayco)} onPress={onOpen}>{referencePayco}</Button></TableCell>
+            <TableRow key={referencePayco} className={`text-center ${status === 'Rechazada' ? 'bg-red-500/25' : 'bg-green-500/25'}`}>
+              <TableCell> <Button color={status === 'Rechazada' ? 'danger' : 'success'} className='text-white' onClick={() => getDetailsTransaction(referencePayco)} onPress={onOpen}>{referencePayco}</Button></TableCell>
               <TableCell>{dateFormatter(transactionDate)}</TableCell>
               <TableCell>{names} {lastnames}</TableCell>
               <TableCell>{paymentMethod} - {bank}</TableCell>
@@ -59,14 +60,24 @@ export default function TablePayments ({ transactions, token }) {
       </Table>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {loading && <SapLoader />}
+          {loading && <SapLoader message='Obteniendo datos de la Referencia, espera un momento' />}
           {
             details && (
               <>
                 <ModalHeader className='flex flex-col gap-1'>{details.referencePayco}</ModalHeader>
                 <ModalBody>
-                  <p>{details.referencePayco}</p>
+                  <div className='flex flex-row justify-between gap-2'>
+                    <div className='p-2'>
+                      <p>{details.referencePayco}</p>
+                    </div>
+
+                    <picture>
+                      <img src='' alt='Factura de referencia' />
+                    </picture>
+
+                  </div>
                 </ModalBody>
+                <ModalFooter />
               </>
             )
           }
