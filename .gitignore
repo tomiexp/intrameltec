@@ -21,3 +21,4 @@ yarn-error.log
 .env.production
 .env.staging
 ngrok.exe
+ngrok
