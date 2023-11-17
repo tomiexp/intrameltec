@@ -46,4 +46,4 @@ export const THEADS_USERS = ['Avatar', 'Id', 'Nombre de Usuario', 'Correo Electr
 
 export const THEADS_PARTS = ['Producto', 'Precio ($USD)', 'Precio a dia de hoy ($COP)', 'Acciones']
 
-export const THEADS_PAYMENTS = ['Id de la transaccion', 'Fecha de la transaccion', 'Usuario', 'Medio de Pago - Banco', 'Monto', 'Estado de la transaccion - Motivo', 'Acciones']
+export const THEADS_PAYMENTS = ['Id de la transaccion', 'Fecha de la transaccion', 'Usuario', 'Medio de Pago - Banco', 'Monto']

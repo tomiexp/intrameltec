@@ -45,34 +45,49 @@ export default function TablePayments ({ transactions, token }) {
 
         </TableHeader>
         <TableBody>
-          {transactions.map(({ referencePayco, names, lastnames, paymentMethod, bank, amount, currency, status, response, transactionDate }) => (
+          {transactions.map(({ referencePayco, names, lastnames, paymentMethod, bank, amount, currency, status, transactionDate }) => (
             <TableRow key={referencePayco} className={`text-center ${status === 'Rechazada' ? 'bg-red-500/25' : 'bg-green-500/25'}`}>
               <TableCell> <Button color={status === 'Rechazada' ? 'danger' : 'success'} className='text-white' onClick={() => getDetailsTransaction(referencePayco)} onPress={onOpen}>{referencePayco}</Button></TableCell>
               <TableCell>{dateFormatter(transactionDate)}</TableCell>
               <TableCell>{names} {lastnames}</TableCell>
               <TableCell>{paymentMethod} - {bank}</TableCell>
               <TableCell>{currencyFormatter({ value: amount, money: currency })}</TableCell>
-              <TableCell>{status} - {response}</TableCell>
-              <TableCell>{status} - {response}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size='3xl'>
         <ModalContent>
           {loading && <SapLoader message='Obteniendo datos de la Referencia, espera un momento' />}
           {
             details && (
               <>
-                <ModalHeader className='flex flex-col gap-1'>{details.referencePayco}</ModalHeader>
+                <ModalHeader className='flex gap-1 font-normal'>Referencia N°: <span className='font-black text-blue-600/80'>{details.referencePayco}</span></ModalHeader>
                 <ModalBody>
-                  <div className='flex flex-row justify-between gap-2'>
-                    <div className='p-2'>
-                      <p>{details.referencePayco}</p>
+                  <div className='flex flex-row gap-5 justify-between'>
+                    <h5 className='font-semibold text-blue-600/80 text-right'>Estado: {details.status === 'Aceptada' ? (<span className='font-bold text-green-500'>Aprobada</span>) : (<span className='font-bold text-red-500'>Rechazada</span>)}</h5>
+                    <h5 className='font-semibold text-blue-600/80 text-right'>{dateFormatter(details.transactionDate)}</h5>
+                  </div>
+                  <div className='flex flex-row justify-between gap-2 items-center'>
+                    <div className='px-4 text-left flex-col flex flex-1 gap-3 '>
+                      <h5 className='font-semibold text-blue-600/80'>Descripción del pago: <p className='text-black font-normal'>{details.description}</p></h5>
+                      <div className='flex flex-row gap-5'>
+                        <h5 className='font-semibold text-blue-600/80'>Cliente: <p className='text-black font-normal'>{details.firstName} {details.lastName}</p></h5>
+                        <h5 className='font-semibold text-blue-600/80'>Número de Contacto: <p className='text-black font-normal'>{details.mobilePhone}</p></h5>
+                      </div>
+                      <div className='flex flex-row gap-5'>
+                        <h5 className='font-semibold text-blue-600/80'>Medio de pago - Banco: <p className='text-black font-normal'>{details.paymentMethod} {details.bank}</p></h5>
+                        <h5 className='font-semibold text-blue-600/80'>Monto en COP: <p className='text-black font-normal'>{currencyFormatter({ value: details.amount, money: 'COP' })}</p></h5>
+                      </div>
+                      {
+                        details.status === 'Rechazada' && (
+                          <h5 className='font-semibold text-blue-600/80'>Motivo de Rechazo: <p className='text-black font-normal'>{details.response}</p></h5>
+                        )
+                      }
                     </div>
 
-                    <picture>
-                      <img src='' alt='Factura de referencia' />
+                    <picture className='aspect-square w-60 h-60 flex-none'>
+                      <img src='/img/factura.webp' alt='Factura de referencia - Designed by Freepik' />
                     </picture>
 
                   </div>
