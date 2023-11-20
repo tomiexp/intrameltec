@@ -2,7 +2,7 @@
 import NavLink from '@/Components/NavLink'
 import Dropdown from '@/Components/Dropdown'
 import NavDropdown from '@/Components/NavDropdown'
-import { HomeIcon, DatacenterIcon, ToolIcon, SellerIcon, HumanIcon } from '@/Components/icons/Icons'
+import { HomeIcon, DatacenterIcon, ToolIcon, SellerIcon, HumanIcon, AccountingIcon } from '@/Components/icons/Icons'
 import { ROLES_CONSTANTS } from '@/constants/initialValues'
 import NavKpis from './Kpis/NavKpis'
 
@@ -39,6 +39,15 @@ export default function Routes ({ user }) {
         <HumanIcon size='32px' color='#395181' />
         <NavDropdown menu='Area HSEQ'>
           <Dropdown.Link href={route('resources.hseq.index')}>Documentos Hseq</Dropdown.Link>
+        </NavDropdown>
+      </div>
+
+      {/* Area contable */}
+
+      <div className='w-full flex items-center justify-around space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
+        <AccountingIcon size='32px' color='#395181' />
+        <NavDropdown menu='Area Contable'>
+          <Dropdown.Link href={route('payments.index')}>Lista de Transacciones</Dropdown.Link>
         </NavDropdown>
       </div>
 

@@ -75,6 +75,7 @@ export default function TablePayments ({ transactions, token }) {
                         <h5 className='font-semibold text-blue-600/80'>Cliente: <p className='text-black font-normal'>{details.firstName} {details.lastName}</p></h5>
                         <h5 className='font-semibold text-blue-600/80'>Número de Contacto: <p className='text-black font-normal'>{details.mobilePhone}</p></h5>
                       </div>
+                      <h5 className='font-semibold text-blue-600/80'>Direccion IP de la transacción: <p className='text-black font-normal'>{details.ip}</p></h5>
                       <div className='flex flex-row gap-5'>
                         <h5 className='font-semibold text-blue-600/80'>Medio de pago - Banco: <p className='text-black font-normal'>{details.paymentMethod} {details.bank}</p></h5>
                         <h5 className='font-semibold text-blue-600/80'>Monto en COP: <p className='text-black font-normal'>{currencyFormatter({ value: details.amount, money: 'COP' })}</p></h5>

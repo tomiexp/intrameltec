@@ -12,7 +12,7 @@ export default function Rols ({ auth, roles, permission }) {
   const [showPermissions, setPermissions] = useState([])
   const { reset } = useForm({ nameRol: '', permissions: [] })
 
-  const openModal = ({ operation = 1, title = '', permisos = [] }) => {
+  const openModal = ({ operation = 1, title = '', permisos = [], ...props }) => {
     setModal(true)
     setOperation(operation)
 

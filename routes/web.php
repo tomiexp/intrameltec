@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->names('admin.users');
     Route::resource('parts', ServerpartController::class)->names('admin.parts');
     Route::resource('rols', RolsController::class)->names('admin.rols');
+    Route::get('/roles-permissions/{id}', [RolsController::class, 'getPermissionsByRoleId'])->name('admin.rols.getPermissions');
 
     Route::post('newPermissions', PermissionsStoreController::class)->name('admin.permission.create');
 

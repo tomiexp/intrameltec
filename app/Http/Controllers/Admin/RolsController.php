@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -31,15 +32,6 @@ class RolsController extends Controller
             'permission' => $permission,
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -67,34 +59,18 @@ class RolsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Get the permissions by Role Id
      */
-    public function show(string $id)
-    {
-        dd($id);
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function getPermissionsByRoleId(String $roleId) 
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        try {
+            $permissions = DB::table('role_has_permissions')->select(['permission_id', 'name' , 'supername'])->rightJoin('permissions', 'id', '=', 'permission_id')->where('role_id', $roleId)->get();
+            return response()->json($permissions, 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
