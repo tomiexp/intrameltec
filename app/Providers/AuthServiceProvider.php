@@ -29,16 +29,17 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // Grant "Super Administrador" role all permissions 
-        Gate::before(function (User $user, $ability) {
+        Gate::before(function (User $user) {
             if($user->hasRole('Super Administrador')) {
                 return true;
             }
         });
 
-        // Gate Define to Index Kpi's
-
-        Gate::define('kpisDirectorAccess', function(User $user) {
-            return $user->hasPermissionTo('directors.index');
+        // Gate for "Epayco Admin" 
+        Gate::define('paymentDetails', function (User $user) {
+            if($user->hasRole(['Contabilidad - Cartera', 'Administrador'])) {
+                return true;
+            }
         });
     }
 }

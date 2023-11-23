@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
@@ -12,8 +13,13 @@ define('URL', env('APIFY_URL'));
 
 class EpaycoController extends Controller
 {
+
     public function index()
     {
+        if(!Gate::allows('paymentDetails')) {
+            abort(403, 'No estas Autorizado para entrar a este recurso, comunicate con IT para solicitar Acceso');
+        }
+
         try {
             $responseWithJWTEpayco = Http::withBasicAuth(env('EMAIL_EPAYCO'), env('PASSWORD_EPAYCO'))->post(URL . '/login/mail', [
                 'Content-Type' => 'application/json',
