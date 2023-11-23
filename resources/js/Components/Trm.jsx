@@ -84,7 +84,7 @@ export function TrmGraph ({ valores, trmInCop }) {
     }
   }
   return (
-    <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg max-w-sm'>
+    <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
       <div className='p-10'>
         <h2 className='text-center font-bold text-xl mt-3'>Precio del dolar del dia de hoy: {trmInCop}</h2>
         <Line data={midata} options={misOpciones} />

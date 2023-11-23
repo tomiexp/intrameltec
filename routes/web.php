@@ -19,6 +19,7 @@ use App\Http\Controllers\View\CommercialQuoterController;
 use App\Http\Controllers\Admin\PermissionsStoreController;
 use App\Http\Controllers\Api\EpaycoController;
 use App\Http\Controllers\Auth\PersonalAccessTokensController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +38,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/sigue-tus-envios', function () {
     return Inertia::render('Envios/Index', [
@@ -48,6 +46,9 @@ Route::get('/sigue-tus-envios', function () {
 })->name('shipments');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

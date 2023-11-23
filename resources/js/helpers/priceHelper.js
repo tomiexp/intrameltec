@@ -1,11 +1,13 @@
-export const priceFormatted = ({ price, currency = 'USD' }) => {
+export const priceFormatted = ({ price, currency = 'USD', fractionDigits = 2 }) => {
   const options = {
     style: 'currency',
     currency,
-    minimumFractionDigits: 2
+    minimumFractionDigits: fractionDigits
   }
 
-  const priceFormatted = price.toLocaleString('es-CO', options)
+  const priceParsed = parseFloat(price)
+
+  const priceFormatted = priceParsed.toLocaleString('es-CO', options)
 
   return priceFormatted
 }

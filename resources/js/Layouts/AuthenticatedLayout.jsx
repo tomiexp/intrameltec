@@ -38,18 +38,20 @@ export default function Authenticated ({ auth, header, children, unreadNotificat
 
       </nav>
 
-      <DevMessage />
-
       <div className='flex'>
 
         <Sidebar>
           <Routes user={user} permissions={permissions} />
         </Sidebar>
 
-        <main className='w-screen'>
+        <main className='w-screen p-6'>
           {children}
         </main>
+
       </div>
+      <footer>
+        <DevMessage />
+      </footer>
     </div>
   )
 }
