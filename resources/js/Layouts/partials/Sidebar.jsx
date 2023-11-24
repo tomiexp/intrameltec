@@ -1,13 +1,15 @@
+/* eslint-disable no-undef */
 import NavLink from '@/Components/NavLink'
-import { LeftMenu, RigthMenu, VerticalMenu } from '@/Components/icons/Icons'
+import { LeftMenu, LogoutIcon, RigthMenu } from '@/Components/icons/Icons'
+import { Link } from '@inertiajs/react'
 import { createContext, useContext, useState } from 'react'
 
 const SidebarContext = createContext()
-export default function Sidebar ({ children }) {
+export default function Sidebar ({ children, user, ...props }) {
   const [expanded, setExpanded] = useState(true)
   return (
-    <aside className='h-screen'>
-      <nav className='flex flex-col bg-white h-full shadow-sm'>
+    <aside {...props}>
+      <nav className={`flex flex-col bg-white h-full shadow-sm overflow-hidden transition-all ${expanded ? 'w-full' : 'w-24'} `}>
         <div className='p-4 pb-2 flex justify-between items-center'>
           <img src='https://img.logoipsum.com/243.svg' alt='logoipsum' className={` overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'} `} />
           <button onClick={() => setExpanded(curr => !curr)} className='p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100'>
@@ -20,18 +22,34 @@ export default function Sidebar ({ children }) {
         </SidebarContext.Provider>
 
         <div className='border-t flex p-3'>
-          <img src='https://ui-avatars.com/api/?background=0D8ABC&color=fff' alt='Avatar' className='w-10 h-10 rounded-md' />
+          <Link href={route('profile.edit')}>
+            <img src={user.avatar} alt={`Avatar de ${user.name}`} className='w-12 h-10 rounded-md' />
+          </Link>
           <div className={`
             flex justify-between items-center
             overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'}
           `}
           >
             <div className='leading-4'>
-              <h4 className='font-semibold'>Nombre de usuario</h4>
-              <span className='text-xs text-gray-600'>correo@correo.com</span>
+              <h4 className='font-semibold'>{user.name}</h4>
+              <span className='text-xs text-gray-600'>{user.email}</span>
             </div>
-            <VerticalMenu size={20} color='#384158' />
+
+            {/* {
+              expandSubMenu && (
+                <SubSideBar>
+                  <Link className='relative flex items-center justify-between px-3 my-1 font-medium rounded-md transition-colors py-4 hover:bg-gray-100' href={route('profile.edit')}>
+                    <UserIcon size={20} />
+                    <span className='w-24 ml-3 text-lg font-medium px-5 self-center'>Perfil</span>
+                  </Link>
+
+                </SubSideBar>
+              )
+            } */}
           </div>
+          <Link className='relative flex items-center justify-between font-medium rounded-md transition-colors py-4 hover:bg-gray-100' href={route('logout')} method='post' as='button'>
+            <LogoutIcon size={20} />
+          </Link>
         </div>
 
       </nav>
@@ -53,7 +71,7 @@ export const SidebarItem = ({ icon, href, text, active, alert }) => {
     }
     `}
     >
-      <NavLink href={href} className='w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500'>
+      <NavLink href={href} className='w-full flex items-center space-x-2 py-2 px-2 border-none text-gray-500'>
         {icon}
         <span className={`overflow-hidden transition-all ${expanded ? 'w-32 ml-3 text-sm font-medium px-5 self-center' : 'w-0'}`}>
           {text}

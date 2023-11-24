@@ -137,7 +137,7 @@ export const AccountingIcon = ({ size, ...props }) => {
 
 export const VerticalMenu = ({ size, ...props }) => {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size} viewBox='0 0 24 24' {...props}><path fill='none' stroke='currentColor' stroke-linejoin='round' stroke-width='3.75' d='M12 12h.01v.01H12zm0-7h.01v.01H12zm0 14h.01v.01H12z' /></svg>
+    <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size} viewBox='0 0 24 24' {...props}><path fill='none' stroke='currentColor' strokeLinejoin='round' strokeWidth='3.75' d='M12 12h.01v.01H12zm0-7h.01v.01H12zm0 14h.01v.01H12z' /></svg>
   )
 }
 
@@ -150,5 +150,17 @@ export const LeftMenu = ({ size, ...props }) => {
 export const RigthMenu = ({ size, ...props }) => {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size} viewBox='0 0 24 24' {...props}><path fill='currentColor' d='M9 6h1.5l6 6l-6 6H9V6m4.67 6L11 9.33v5.34L13.67 12Z' /></svg>
+  )
+}
+
+export const UserIcon = ({ size, ...props }) => {
+  return (
+    <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size} viewBox='0 0 256 256' {...props}><g fill='currentColor'><path d='M192 96a64 64 0 1 1-64-64a64 64 0 0 1 64 64Z' opacity='.2' /><path d='M230.92 212c-15.23-26.33-38.7-45.21-66.09-54.16a72 72 0 1 0-73.66 0c-27.39 8.94-50.86 27.82-66.09 54.16a8 8 0 1 0 13.85 8c18.84-32.56 52.14-52 89.07-52s70.23 19.44 89.07 52a8 8 0 1 0 13.85-8ZM72 96a56 56 0 1 1 56 56a56.06 56.06 0 0 1-56-56Z' /></g></svg>
+  )
+}
+
+export const LogoutIcon = ({ size, ...props }) => {
+  return (
+    <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size} viewBox='0 0 24 24' {...props}><path fill='currentColor' d='M5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h7v2H5v14h7v2H5Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5l-5 5Z' /></svg>
   )
 }

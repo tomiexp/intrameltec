@@ -24,7 +24,7 @@ export default function Parts ({ auth, unreadNotifications, servers }) {
       <Head title='Partes del servidor' />
 
       <section className='py-12'>
-        <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
+        <div className='max-w-full mx-auto sm:px-6 lg:px-8'>
           <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
             <Table
               aria-label='Tabla de cotizaciones de servidores' bottomContent={<Paginator paginate={servers.links} />}

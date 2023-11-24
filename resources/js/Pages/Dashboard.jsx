@@ -9,7 +9,6 @@ import TableInvoices from './Home/Components/TableInvoices'
 
 export default function Dashboard ({ auth, unreadNotifications, kpi, invoices }) {
   const { valores, loading, trmInCop } = useTrm()
-  console.log(invoices)
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -48,7 +47,16 @@ export default function Dashboard ({ auth, unreadNotifications, kpi, invoices })
         </div>
 
         <div className='my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-10'>
-          <TableInvoices invoices={invoices} />
+
+          {typeof (invoices) === 'object'
+            ? (
+
+              <TableInvoices invoices={invoices} />
+              )
+            : (
+              <h3 className='text-center bg-red-500 rounded-md py-6 text-white font-bold'>Error al Obtener los datos de ventas de SAP - Contacte con Administrador del sistema para mas información</h3>
+              )}
+
         </div>
       </main>
 
