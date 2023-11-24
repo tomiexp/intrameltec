@@ -1,15 +1,13 @@
 /* eslint-disable no-undef */
-import Routes from '@/routes/Routes'
 import DropdownProfile from '@/routes/DropdownProfile'
 import ResposiveRoutes from '@/routes/ResponsiveRoutes'
 import { Badge, Link } from '@nextui-org/react'
-import { NotificationIcon } from '@/Components/icons/Icons'
-import Sidebar from './partials/Sidebar'
+import { HomeIcon, NotificationIcon, DatacenterIcon, ToolIcon, SellerIcon, HumanIcon, AccountingIcon } from '@/Components/icons/Icons'
+import Sidebar, { SidebarItem } from './partials/Sidebar'
 import DevMessage from './partials/DevMessage'
 
 export default function Authenticated ({ auth, header, children, unreadNotifications, ...props }) {
   const user = auth.user
-  const permissions = auth.userPermissions
   return (
     <div className='min-h-screen bg-gray-100'>
 
@@ -41,7 +39,12 @@ export default function Authenticated ({ auth, header, children, unreadNotificat
       <div className='flex'>
 
         <Sidebar>
-          <Routes user={user} permissions={permissions} />
+          <SidebarItem icon={<HomeIcon size='32px' color='#395181' />} href={route('dashboard')} active text='Inicio' />
+          <SidebarItem icon={<DatacenterIcon size='32px' color='#395181' />} href={route('admin.parts.index')} text='Datacenter Meltec IT' />
+          <SidebarItem icon={<SellerIcon size='32px' color='#395181' />} href={route('commercial.quoter')} text='Area Comercial' />
+          <SidebarItem icon={<HumanIcon size='32px' color='#395181' />} href={route('resources.hseq.index')} text='Area HSEQ' />
+          <SidebarItem icon={<AccountingIcon size='32px' color='#395181' />} href={route('payments.index')} text='Area Contable' />
+          <SidebarItem icon={<ToolIcon size='32px' color='#395181' />} href={route('kpi.reports.index')} text={'Kpi\'s'} />
         </Sidebar>
 
         <main className='w-screen p-6'>
