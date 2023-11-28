@@ -1,15 +1,32 @@
+/* eslint-disable no-undef */
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import KpisTable from './Components/KpisTable'
 import KpiModalFragment from './Fragments/KpiModalFragment'
+import Subheader from '@/Components/Subheader'
 
 export default function Index ({ auth }) {
+  const subroutes = [
+    {
+      name: 'Roles y Permisos',
+      route: route('admin.rols.index')
+    },
+    {
+      name: 'Servidor Datacenter',
+      route: route('admin.partsedit.index')
+    },
+    {
+      name: 'Usuarios',
+      route: route('admin.users.index')
+    }
+  ]
   return (
     <AuthenticatedLayout
       auth={auth}
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Administración de Kpis</h2>}
     >
       <Head title='Administración de Kpis' />
+      <Subheader subroutes={subroutes} />
 
       <section className='py-12'>
         <div className='max-w-full mx-auto sm:px-6 lg:px-8'>

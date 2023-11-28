@@ -1,9 +1,11 @@
+/* eslint-disable no-undef */
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, useForm } from '@inertiajs/react'
 import { useState } from 'react'
 import { RolsTable } from './components/RolsTable'
 import { HeaderTable } from './components/HeaderTable'
 import { ModalRols } from './components/Modal'
+import Subheader from '@/Components/Subheader'
 
 export default function Rols ({ auth, roles, permission }) {
   const [modal, setModal] = useState(false)
@@ -11,6 +13,21 @@ export default function Rols ({ auth, roles, permission }) {
   const [title, setTitle] = useState('')
   const [showPermissions, setPermissions] = useState([])
   const { reset } = useForm({ nameRol: '', permissions: [] })
+
+  const subroutes = [
+    {
+      name: 'Usuarios',
+      route: route('admin.users.index')
+    },
+    {
+      name: 'Servidor Datacenter',
+      route: route('admin.partsedit.index')
+    },
+    {
+      name: 'Informes KPI',
+      route: route('kpi.reports.index')
+    }
+  ]
 
   const openModal = ({ operation = 1, title = '', permisos = [], ...props }) => {
     setModal(true)
@@ -52,6 +69,7 @@ export default function Rols ({ auth, roles, permission }) {
       header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Roles y Permisos</h2>}
     >
       <Head title='Roles y Permisos' />
+      <Subheader subroutes={subroutes} />
 
       <section className='py-12'>
         <div className='max-w-full mx-auto sm:px-6 lg:px-8'>
