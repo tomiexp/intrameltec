@@ -38,12 +38,15 @@ Route::get('/', function () {
     ]);
 });
 
-
 Route::get('/sigue-tus-envios', function () {
     return Inertia::render('Envios/Index', [
         'canLogin' => Route::has('login'),
     ]);
 })->name('shipments');
+
+Route::get('/formulario-de-pagos', function() {
+    return Inertia::render('Payments/FormPayment');
+})->name('payments.form');
 
 Route::middleware('auth')->group(function () {
 

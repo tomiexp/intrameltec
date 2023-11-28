@@ -17,17 +17,16 @@ export default function Payment ({ auth, unreadNotifications, token, message = '
     >
       <Head title='Historial de Transacciones Epayco Meltec' />
 
-      <section className='py-12'>
-        <div className='max-w-fullmx-auto sm:px-6 lg:px-8'>
-          <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
-            <div className='p-6'>
+      <section className='max-w-full mx-auto sm:px-6 lg:px-8'>
+        <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
+          <div className='p-6'>
+            <h2 className='text-center font-bold py-2 text-2xl'>Historial de Transacciones</h2>
 
-              {loading && <SapLoader message='Obteniendo transacciones, espere por favor' />}
+            {loading && <SapLoader message='Obteniendo transacciones, espere por favor' />}
 
-              {transactions && <TablePayments transactions={transactions} token={token} />}
+            {transactions && <TablePayments transactions={transactions} token={token} />}
 
-              {error && <Error message={error} />}
-            </div>
+            {error && <Error message={error} />}
           </div>
         </div>
       </section>

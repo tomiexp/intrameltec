@@ -6,9 +6,9 @@ export default function NavbarHome ({ auth }) {
   return (
     <Navbar shouldHideOnScroll>
       <NavbarBrand>
-        <Link href='https://meltec.com.co/' target='_blank' rel='noreferrer'>
+        <a href='https://meltec.com.co/' target='_blank' rel='noreferrer'>
           <p className='font-bold text-inherit'>Meltec Comunicaciones S.A</p>
-        </Link>
+        </a>
       </NavbarBrand>
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
         <NavbarItem>
@@ -19,6 +19,11 @@ export default function NavbarHome ({ auth }) {
         <NavbarItem>
           <Link href='/' aria-current='page'>
             Trm del Dia
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link href={route('payments.form')} aria-current='page'>
+            Formulario de Pagos
           </Link>
         </NavbarItem>
       </NavbarContent>
