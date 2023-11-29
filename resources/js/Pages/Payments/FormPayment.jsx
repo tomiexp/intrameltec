@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react'
 import NavbarHome from '../Home/Components/Navbar'
 import { HomeFooter } from '../Home/Components/Footer'
-import { Button, Input, Textarea } from '@nextui-org/react'
+import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react'
 
 export default function FormPayment ({ auth }) {
   return (
@@ -19,9 +19,14 @@ export default function FormPayment ({ auth }) {
               <h5 className='m-2 font-semibold text-justify capitalize'>Datos personales</h5>
               <Input type='text' label='Nombre del Cliente - Razon Social' isRequired />
               <div className='flex justify-between gap-2 items-center my-2'>
+                <Select label='Tipo de Documento' className='w-48'>
+                  <SelectItem value='cc'>C.C</SelectItem>
+                  <SelectItem value='cc'>C.E</SelectItem>
+                  <SelectItem value='cc'>NIT</SelectItem>
+                </Select>
                 <Input type='text' label='Documento o NIT' isRequired />
-                <Input type='email' label='Correo Electronico' isRequired />
               </div>
+              <Input type='email' label='Correo Electronico' isRequired />
               <div className='flex justify-between gap-2 items-center my-2'>
                 <Input type='number' label='Numero Telefonico' isRequired />
                 <Input type='text' label='Dirección Empresarial' isRequired />
