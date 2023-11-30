@@ -35,6 +35,16 @@ export default function TablePayments ({ transactions, token }) {
     }
   }
 
+  const spanStatus = ({ status }) => {
+    if (status === 'Cancelada') {
+      return (<span className='font-bold text-yellow-500'>Cancelada</span>)
+    } else if (status === 'Aceptada') {
+      return (<span className='font-bold text-green-500'>Aprobada</span>)
+    } else {
+      return (<span className='font-bold text-red-500'>Rechazada</span>)
+    }
+  }
+
   return (
     <>
       <Table aria-label='Tabla de transacciones Epayco Meltec'>
@@ -46,8 +56,8 @@ export default function TablePayments ({ transactions, token }) {
         </TableHeader>
         <TableBody>
           {transactions.map(({ referencePayco, names, lastnames, paymentMethod, bank, amount, currency, status, transactionDate }) => (
-            <TableRow key={referencePayco} className={`text-center ${status === 'Rechazada' ? 'bg-red-500/25' : 'bg-green-500/25'}`}>
-              <TableCell> <Button color={status === 'Rechazada' ? 'danger' : 'success'} className='text-white' onClick={() => getDetailsTransaction(referencePayco)} onPress={onOpen}>{referencePayco}</Button></TableCell>
+            <TableRow key={referencePayco} className={`text-center ${status === 'Rechazada' ? 'bg-red-500/25' : status === 'Cancelada' ? 'bg-yellow-500/25' : 'bg-green-500/25'}`}>
+              <TableCell> <Button color={status === 'Rechazada' ? 'danger' : status === 'Cancelada' ? 'warning' : 'success'} className='text-white' onClick={() => getDetailsTransaction(referencePayco)} onPress={onOpen}>{referencePayco}</Button></TableCell>
               <TableCell>{dateFormatter(transactionDate)}</TableCell>
               <TableCell>{names} {lastnames}</TableCell>
               <TableCell>{paymentMethod} - {bank}</TableCell>
@@ -65,7 +75,8 @@ export default function TablePayments ({ transactions, token }) {
                 <ModalHeader className='flex gap-1 font-normal'>Referencia N°: <span className='font-black text-blue-600/80'>{details.referencePayco}</span></ModalHeader>
                 <ModalBody>
                   <div className='flex flex-row gap-5 justify-between'>
-                    <h5 className='font-semibold text-blue-600/80 text-right'>Estado: {details.status === 'Aceptada' ? (<span className='font-bold text-green-500'>Aprobada</span>) : (<span className='font-bold text-red-500'>Rechazada</span>)}</h5>
+                    <h5 className='font-semibold text-blue-600/80 text-right'>Estado: {spanStatus({ status: details.status })}
+                    </h5>
                     <h5 className='font-semibold text-blue-600/80 text-right'>{dateFormatter(details.transactionDate)}</h5>
                   </div>
                   <div className='flex flex-row justify-between gap-2 items-center'>

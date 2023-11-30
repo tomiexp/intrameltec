@@ -5,10 +5,10 @@ export default function Quoter ({ auth, unreadNotifications }) {
   return (
     <AuthenticatedLayout
       auth={auth}
-      header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Informe de KPIS</h2>}
+      header={<h2 className='font-semibold text-xl text-gray-800 leading-tight'>Cotizador web</h2>}
       unreadNotifications={unreadNotifications}
     >
-      <Head title='Informe de KPIS' />
+      <Head title='Cotizador web' />
 
       <section className='py-12'>
         <div className='max-w-full mx-auto sm:px-6 lg:px-8'>

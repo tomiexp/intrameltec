@@ -28,12 +28,10 @@ export default function Users ({ auth }) {
       <Head title='Usuarios' />
       <Subheader subroutes={subroutes} />
 
-      <section className='py-4'>
-        <div className='max-w-full sm:px-6 lg:px-8'>
-          <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
-            <div className='p-6'>
-              <UsersTable />
-            </div>
+      <section className='max-w-full sm:px-6 lg:px-8 py-4'>
+        <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
+          <div className='p-6'>
+            <UsersTable />
           </div>
         </div>
       </section>

@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/react'
 export const HeaderTable = ({ openModal, auth }) => {
   return (
     <div className='flex justify-between my-4'>
-      <h2 className='font-semibold'>Roles del Sistema</h2>
+      <h2 className='font-bold text-2xl m-5'>Roles del Sistema</h2>
       <div className='flex gap-2'>
         <Button type='button' className='text-white bg-blue-900 hover:bg-green-600 hover:scale-110' startContent={<AddIcon />} onClick={() => openModal({ operation: 2 })}>
           Añadir rol

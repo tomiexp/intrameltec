@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * API de integracion SAP ByDesing con Plataforma BPM Flokzu para la creacion de oportunidades 
+ * Codigo de uso privado, utilizacion solo autorizada por Meltec Comunicaciones S.A
+ * 
+ * @author Nicolas Cuadros <jcuadros@meltec.com.co>
+ * @version 1.0.0
+ */
+
 namespace App\Http\Controllers\Api\Sap;
 
 use Illuminate\Http\Request;
@@ -12,21 +20,44 @@ class OpportunitiesController extends Controller
 
     private $nodeOpportunityPath;
 
+    /**
+     * Function Constructor
+     * --------------------------------
+     * Solo se encuentra la ubicacion de la funcion JS para la oportunidad
+     */
+
     public function __construct()
     {
         $this->nodeOpportunityPath = base_path() . '/sap/functions/opportunities/';
     }
+
+    /**
+     * Obtener todas las oportunidades desde SAP
+     * @return JSONResponse
+     */
 
     public function index()
     {
         return $this->executeScript('/Get/app.js', 'node');
     }
 
+    /**
+     * Creacion de una nueva Oportunidad desde Flokzu a SAP
+     * @param Request $request
+     * @return JsonResponse
+     */
+
     public function create(Request $request)
     {
         $dataSend = json_encode($request->all());
         return ($this->executeScript('Post/postOpportunity.js', 'node', $dataSend));
     }
+
+    /**
+     * Actualizacion de la oportunidad a Ganada
+     * @param Request $request
+     * @return JsonResponse
+     */
 
     public function win(Request $request)
     {
@@ -44,6 +75,12 @@ class OpportunitiesController extends Controller
         $result = json_decode($secondProccess->output(), true);
         return response()->json($result);
     }
+
+    /**
+     * Actualizacion de la oportunidad a Perdida
+     * @param Request $request
+     * @return JsonResponse
+     */
 
     public function lose(Request $request)
     {
@@ -63,6 +100,12 @@ class OpportunitiesController extends Controller
         $code = $result['code'];
         return response()->json($result, $code);
     }
+
+    /**
+     * Actualizacion de las fases de la Oportunidad
+     * @param Request $request
+     * @return JsonResponse
+     */
 
     public function updatePhase (Request $request) 
     {
