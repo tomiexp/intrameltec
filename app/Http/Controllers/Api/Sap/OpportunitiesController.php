@@ -13,19 +13,22 @@ namespace App\Http\Controllers\Api\Sap;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Process;
 
 class OpportunitiesController extends Controller
 {
 
+    /**
+     * Ubicacion del proceso de SAP 
+     *
+     * @var String
+     */
     private $nodeOpportunityPath;
 
     /**
-     * Function Constructor
-     * --------------------------------
      * Solo se encuentra la ubicacion de la funcion JS para la oportunidad
      */
-
     public function __construct()
     {
         $this->nodeOpportunityPath = base_path() . '/sap/functions/opportunities/';
@@ -33,21 +36,21 @@ class OpportunitiesController extends Controller
 
     /**
      * Obtener todas las oportunidades desde SAP
-     * @return JSONResponse
+     *
+     * @return JsonResponse
      */
-
-    public function index()
+    public function index(): JsonResponse
     {
         return $this->executeScript('/Get/app.js', 'node');
     }
 
     /**
      * Creacion de una nueva Oportunidad desde Flokzu a SAP
+     *
      * @param Request $request
      * @return JsonResponse
      */
-
-    public function create(Request $request)
+    public function create(Request $request): JsonResponse
     {
         $dataSend = json_encode($request->all());
         return ($this->executeScript('Post/postOpportunity.js', 'node', $dataSend));
@@ -55,11 +58,11 @@ class OpportunitiesController extends Controller
 
     /**
      * Actualizacion de la oportunidad a Ganada
+     *
      * @param Request $request
      * @return JsonResponse
      */
-
-    public function win(Request $request)
+    public function win(Request $request): JsonResponse
     {
         $opportunity = json_encode($request->all());
         $dataRecibe =  $this->executeScript('Post/winOpportunity.js', 'node', $opportunity);
@@ -78,11 +81,11 @@ class OpportunitiesController extends Controller
 
     /**
      * Actualizacion de la oportunidad a Perdida
+     *
      * @param Request $request
      * @return JsonResponse
      */
-
-    public function lose(Request $request)
+    public function lose(Request $request): JsonResponse
     {
         $opportunity = json_encode($request->all());
         $dataRecibe = $this->executeScript('Post/loseOpportunity.js', 'node', $opportunity);
@@ -103,11 +106,11 @@ class OpportunitiesController extends Controller
 
     /**
      * Actualizacion de las fases de la Oportunidad
+     *
      * @param Request $request
      * @return JsonResponse
      */
-
-    public function updatePhase (Request $request) 
+    public function updatePhase (Request $request) : JsonResponse
     {
         $opportunity = json_encode($request->all());
         $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
@@ -116,7 +119,15 @@ class OpportunitiesController extends Controller
         return response()->json($result);
     }
 
-    private function executeScript(String $script, String $type, ?String $params = '')
+    /**
+     * Funcion Helper para la inicializacion del proceso
+     *
+     * @param String $script
+     * @param String $type
+     * @param String|null $params
+     * @return JsonResponse
+     */
+    private function executeScript(String $script, String $type, ?String $params = ''): JsonResponse
     {
         try {
             $scriptPath = "$this->nodeOpportunityPath$script '$params'";

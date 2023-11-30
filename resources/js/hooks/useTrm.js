@@ -9,10 +9,11 @@ export function useTrm () {
 
   useEffect(() => {
     const getPriceDollar = async () => {
+      setLoading(true)
       try {
-        setLoading(false)
         const { valores } = await trmApi()
         const fisrtTrm = valores[0].valor
+        setLoading(false)
         setTrmToday(fisrtTrm)
         setPriceDollar(valores)
       } catch (error) {

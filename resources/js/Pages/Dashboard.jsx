@@ -1,14 +1,18 @@
+/* eslint-disable no-undef */
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { useTrm } from '@/hooks/useTrm'
 import { TrmGraph } from '@/Components/Trm'
 import SidebarMeta from './Home/Components/SideBarMeta'
 import { dateTimeFormatted } from '@/helpers/dateHelper'
-import { priceFormatted } from '@/helpers/priceHelper'
-import TableInvoices from './Home/Components/TableInvoices'
+import { useSalesToday } from '@/hooks/useSalesToday'
+import SapLoader from '@/Components/SapLoader'
+import { Button } from '@nextui-org/react'
 
-export default function Dashboard ({ auth, unreadNotifications, kpi, invoices }) {
+export default function Dashboard ({ auth, unreadNotifications }) {
   const { valores, loading, trmInCop } = useTrm()
+  const { loaderKpiSap, error, kpi, getData } = useSalesToday()
+
   return (
     <AuthenticatedLayout
       auth={auth}
@@ -29,35 +33,21 @@ export default function Dashboard ({ auth, unreadNotifications, kpi, invoices })
 
             <h5 className='text-right p-4 font-semibold italic text-zinc-600/50'>Ultima Actualización: <span>{dateTimeFormatted(new Date())}</span> </h5>
 
-            {typeof (kpi) === 'object'
-              ? (
+            {loaderKpiSap && <SapLoader message='Obteniendo Meta Actual. Por favor espere...' />}
 
-                <>
-                  <SidebarMeta kpi={kpi} />
+            {kpi && <SidebarMeta kpi={kpi} />}
 
-                  <h3 className='p-6 text-right'>Faltan: <span className='font-semibold text-red-600'> {priceFormatted({ price: Math.abs(kpi.TargetDeltaAbs), currency: 'COP', fractionDigits: 0 })} </span> Para llegar a la meta del año {new Date().getFullYear()}</h3>
+            {error && (<h3 className='text-center bg-red-500 rounded-md py-6 text-white font-bold'>Error al Obtener los datos de ventas de SAP - Contacte con Administrador del sistema para mas información</h3>)}
 
-                </>
-                )
-              : (
-                <h3 className='text-center bg-red-500 rounded-md py-6 text-white font-bold'>Error al Obtener los datos de ventas de SAP - Contacte con Administrador del sistema para mas información</h3>
-                )}
-
+            <div className='flex justify-end m-2'>
+              <Button color='secondary' isDisabled={loaderKpiSap} onClick={getData}>Regenerar Datos</Button>
+            </div>
           </div>
         </div>
 
-        <div className='my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-10'>
+        {/* <div className='my-5 bg-white overflow-hidden shadow-sm sm:rounded-lg p-10'>
 
-          {typeof (invoices) === 'object'
-            ? (
-
-              <TableInvoices invoices={invoices} />
-              )
-            : (
-              <h3 className='text-center bg-red-500 rounded-md py-6 text-white font-bold'>Error al Obtener los datos de ventas de SAP - Contacte con Administrador del sistema para mas información</h3>
-              )}
-
-        </div>
+        </div> */}
       </main>
 
     </AuthenticatedLayout>
