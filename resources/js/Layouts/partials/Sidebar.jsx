@@ -11,7 +11,7 @@ export default function Sidebar ({ children, user, ...props }) {
     <aside {...props}>
       <nav className={`flex flex-col bg-white h-full shadow-sm overflow-hidden transition-all ${expanded ? 'w-full' : 'w-24'} `}>
         <div className='p-4 pb-2 flex justify-between items-center'>
-          <img src='https://img.logoipsum.com/243.svg' alt='logoipsum' className={` overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'} `} />
+          <img src='/img/logo.webp' alt='logoipsum' className={` overflow-hidden transition-all ${expanded ? 'w-24' : 'w-0'} `} />
           <button onClick={() => setExpanded(curr => !curr)} className='p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100'>
             {expanded ? <LeftMenu size={32} color='#395181' /> : <RigthMenu size={32} color='#395181' />}
           </button>
@@ -35,17 +35,6 @@ export default function Sidebar ({ children, user, ...props }) {
               <span className='text-xs text-gray-600'>{user.email}</span>
             </div>
 
-            {/* {
-              expandSubMenu && (
-                <SubSideBar>
-                  <Link className='relative flex items-center justify-between px-3 my-1 font-medium rounded-md transition-colors py-4 hover:bg-gray-100' href={route('profile.edit')}>
-                    <UserIcon size={20} />
-                    <span className='w-24 ml-3 text-lg font-medium px-5 self-center'>Perfil</span>
-                  </Link>
-
-                </SubSideBar>
-              )
-            } */}
           </div>
           <Link className='relative flex items-center justify-between font-medium rounded-md transition-colors py-4 hover:bg-gray-100' href={route('logout')} method='post' as='button'>
             <LogoutIcon size={20} />
