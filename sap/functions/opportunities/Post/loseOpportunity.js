@@ -13,14 +13,14 @@ async function main () {
 
   request({
     method: 'GET',
-    uri: `${CREDENTIALS.urlTest}sap/byd/odata/cust/v1/cargar_oportunidad`,
+    uri: `${CREDENTIALS.url}sap/byd/odata/cust/v1/cargar_oportunidad`,
     jar: cookies,
     headers: {
-      Authorization: 'Basic ' + btoa(`${CREDENTIALS.authTest.username}:${CREDENTIALS.authTest.password}`),
+      Authorization: 'Basic ' + btoa(`${CREDENTIALS.auth.username}:${CREDENTIALS.auth.password}`),
       'Content-Type': 'application/json',
       'x-csrf-token': 'fetch'
     }
-  }, (_error, response, body) => {
+  }, (_error, response, _body) => {
     try {
       const csrfToken = response.headers['x-csrf-token']
 
@@ -45,7 +45,7 @@ async function main () {
           if (response.statusCode !== 200) {
             throw new Error('Error: No se pudo ganar la oportunidad')
           }
-          const result = { code: response.statusCode, message: 'Oportunidad Ganada!!', result: jsonBody.d.results }
+          const result = { code: response.statusCode, message: 'Oportunidad Perdida!!', result: jsonBody.d.results }
           console.log(JSON.stringify(result))
         } catch (error) {
           const danger = { code: response.statusCode, message: 'Error al generar el WIN de la oportunidad en SAP', data: jsonBody }

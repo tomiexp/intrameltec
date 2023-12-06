@@ -3,6 +3,7 @@ import { HomeIcon, DatacenterIcon, ToolIcon, SellerIcon, HumanIcon, AccountingIc
 import Sidebar, { SidebarItem } from './partials/Sidebar'
 import DevMessage from './partials/DevMessage'
 import TopBar from './partials/TopBar'
+import NavKpis from '@/routes/Kpis/NavKpis'
 
 export default function Authenticated ({ auth, header, children, unreadNotifications }) {
   const user = auth.user
@@ -22,6 +23,8 @@ export default function Authenticated ({ auth, header, children, unreadNotificat
         {
           user.roles[0].name === 'Administrador' ? (<SidebarItem icon={<ToolIcon size='32px' color='#395181' />} href={route('admin.users.index')} text='Administrador del Sistema' />) : ''
         }
+
+        <NavKpis />
 
       </Sidebar>
 
