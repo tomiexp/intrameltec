@@ -1,4 +1,3 @@
-
 # Intranet Meltec Comunicaciones S.A
 
 Proyecto de inicio de intranet para Meltec Comunicaciones S.A
@@ -22,6 +21,20 @@ Esta condicion tambien aplica para las paginas desarrolladas por el equipo de de
 - [@lolesterno](https://github.com/Lolesterno)
 - [@meltecTi](https://github.com/MeltecTi)
 
+#Instrucciones de instalacion:
+
+    -Paso 1: Clonacion del repositorio.
+        Para la clonacion del repositorio usa el siguiente comando: git clone https://github.com/MeltecTi/intrameltec.git
+    -Paso 2: Instalacion de dependencias PHP y Node.js
+        Para la instalacion de PHP se requiere Composer ('https://getcomposer.org/download/')
+        Para la instalacion de las dependencias usar el siguiente comando: composer install, despues usar composer update y esperar a que se instale las dependencias
+        Clonar las variables .env (Entregadas en correo)
+        Instalar las dependencias de desarrollo con Node en el siguiente comando: npm i, npm update
+    -Paso 3: Clonar la base de datos:
+        Crear la base de datos en local con el nombre de base de datos que se tiene en la variable de entorno del archivo .env DB_DATABASE
+        Ajustar las credenciales DB_USERNAME y DB_PASSWORD a las credenciales de su servido de base de datos (Usar MySQL)
+        Una vez instaladas todas las dependencias de PHP utilizar el comando: php artisan migrate para crear todas las tablas
+        
 
 
 ## Tech Stack
