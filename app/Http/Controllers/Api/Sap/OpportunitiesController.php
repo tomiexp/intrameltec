@@ -55,9 +55,7 @@ class OpportunitiesController extends Controller
     {
         $dataSend = json_encode($request->all());
         $proccess = $this->executeScript('Post/postOpportunity.js', 'node', $dataSend);
-        $result = json_decode($proccess);
-        $code = $result->code;
-        return response()->json($result, $code);
+        return $proccess;
     }
 
     /**
