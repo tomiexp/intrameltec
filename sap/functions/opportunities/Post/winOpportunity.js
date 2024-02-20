@@ -26,7 +26,8 @@ async function main () {
    * Obtener los datos y parsear a JSON
    */
 
-  const opportunity = { ObjectID: data[0] }
+  const dataParsed = JSON.parse(data[0])
+  const opportunity = dataParsed.ObjectID
   const cookies = request.jar()
 
   /**

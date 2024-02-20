@@ -66,7 +66,7 @@ class OpportunitiesController extends Controller
      */
     public function win(Request $request): JsonResponse
     {
-        $opportunity = $request->input('ObjectID');
+        $opportunity = json_encode($request->all());
         $dataRecibe =  $this->executeScript('Post/winOpportunity.js', 'node', $opportunity);
         if ($dataRecibe->getStatusCode() === 400) {
             return response()->json(['ErrorCodeMessage' => json_encode($dataRecibe->getData()->message)], 400);
