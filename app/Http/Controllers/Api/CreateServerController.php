@@ -8,6 +8,7 @@ use App\Models\QuoteServer;
 use App\Models\Server;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 
 class CreateServerController extends Controller
@@ -37,7 +38,7 @@ class CreateServerController extends Controller
             $clientSave = $clientPost->saveOrFail($clientData);
 
             if (!$clientSave) {
-                throw new Exception('Error al Crear el Cliente');
+                throw new Exception(Lang::get('Error Creating the Client'));
             }
 
             $clientid = $clientPost->id;
@@ -59,7 +60,7 @@ class CreateServerController extends Controller
             $serverSave = $serverPost->saveOrFail($serverData);
 
             if (!$serverSave) {
-                throw new Exception('Error saving server');
+                throw new Exception(Lang::get('Error saving server'));
             }
 
             $serverid = $serverPost->id;
@@ -103,10 +104,10 @@ class CreateServerController extends Controller
             $quoteSave = $quotePost->saveOrFail($quoteServer);
 
             if (!$quoteSave) {
-                throw new Exception('Error saving quote');
+                throw new Exception(Lang::get('Error saving quote'));
             }
 
-            return response()->json(['message' => 'Cotizacion de servidor Creada'], 201);
+            return response()->json(['message' => Lang::get('Server Quote Created')], 201);
         } catch (Exception $th) {
             return response()->json(['message' => $th->getMessage()], 400);
         }

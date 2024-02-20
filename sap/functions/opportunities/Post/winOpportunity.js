@@ -26,8 +26,7 @@ async function main () {
    * Obtener los datos y parsear a JSON
    */
 
-  const dataParsed = JSON.parse(data[0])
-  const opportunity = dataParsed.ObjectID
+  const opportunity = { ObjectID: data[0] }
   const cookies = request.jar()
 
   /**
@@ -76,7 +75,7 @@ async function main () {
           if (response.statusCode !== 200) {
             throw new Error('Error: No se pudo ganar la oportunidad')
           }
-          const result = { code: response.statusCode, message: 'Oportunidad Ganada!!', result: jsonBody.d.results }
+          const result = { code: 200, message: 'Oportunidad Ganada!!', result: jsonBody.d.results }
           /**
            * @return JSON.stringify de la respuesta de SAP
            */

@@ -26,14 +26,14 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    // Ruta de Oportunidades
-    Route::get('/opportunities', [OpportunitiesController::class, 'index']);
-    Route::post('/opportunities', [OpportunitiesController::class, 'create']);
-    Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
-    Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
-    Route::post('/updatePhaseOpportunity', [OpportunitiesController::class, 'updatePhase']);
     
 });
+// Ruta de Oportunidades
+Route::get('/opportunities', [OpportunitiesController::class, 'index']);
+Route::post('/opportunities', [OpportunitiesController::class, 'create']);
+Route::post('/winOpportunity', [OpportunitiesController::class, 'win']);
+Route::post('/loseOpportunity', [OpportunitiesController::class, 'lose']);
+Route::post('/updatePhaseOpportunity', [OpportunitiesController::class, 'updatePhase']);
 
 // Clentes SAP
 Route::get('/clientsSap', [ClientsController::class, 'index']);

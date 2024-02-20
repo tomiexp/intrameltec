@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Lang;
 use Inertia\Inertia;
 
 define('URL', env('APIFY_URL'));
@@ -17,7 +18,7 @@ class EpaycoController extends Controller
     public function index()
     {
         if(!Gate::allows('paymentDetails')) {
-            abort(403, 'No estas Autorizado para entrar a este recurso, comunicate con IT para solicitar Acceso');
+            abort(403, Lang::get('You are not authorized to access this resource, please contact IT to request access'));
         }
 
         try {
@@ -28,7 +29,7 @@ class EpaycoController extends Controller
             $jsonToken = json_decode($responseWithJWTEpayco->body(), true);
 
             if (!$jsonToken || isset($jsonToken['error'])) {
-                throw new Exception('Error al obtener el Token de acceso', 500);
+                throw new Exception(Lang::get('Error getting the Access Token'), 500);
             }
 
             return Inertia::render('Payments/Index', [
@@ -92,7 +93,7 @@ class EpaycoController extends Controller
             ]), 'application/json')->withToken($token)->get(URL . '/transaction/detail');
 
             if(!$transactionDetail) {
-                throw new Exception('Error al obtener los datos de la transacción', 500);
+                throw new Exception(Lang::get('Error getting transaction data'), 500);
             }
 
             $transaction = json_decode($transactionDetail->body());

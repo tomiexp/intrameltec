@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 
 class MasterDataController extends Controller
@@ -72,7 +73,7 @@ class MasterDataController extends Controller
             $jsonData = $this->httpRequest($kpiUrl);
 
             if (!$jsonData) {
-                throw new Exception('Error al obtener los datos de SAP');
+                throw new Exception(Lang::get('Error getting data from SAP'));
             }
 
             return response()->json($jsonData->d->results, 200);
@@ -97,7 +98,7 @@ class MasterDataController extends Controller
 
             return $jsonTransform;
         } catch (Exception $e) {
-            Log::error('Error en la Solicitud HTTP SAP ' . $e->getMessage());
+            Log::error(Lang::get('SAP HTTP Request Error') . $e->getMessage());
 
             throw new Exception($e->getMessage());
 

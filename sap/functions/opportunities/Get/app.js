@@ -11,14 +11,15 @@ async function main () {
 
     try {
       const data = res.data.d.results
-      console.log(JSON.stringify(data))
+      const results = { result: data, code: 200 }
+      console.log(JSON.stringify(results))
     } catch (error) {
-      const errorJSon = { message: 'Error al traer los resultados', errorData: error, code: 400 }
-      console.log(JSON.stringify(errorJSon))
+      const errorJson = { message: 'Error al traer los resultados', errorData: error, code: 400 }
+      console.log(JSON.stringify(errorJson))
     }
   } catch (error) {
-    const errorJSon = { message: 'Error al traer los resultados', errorData: error, code: 400 }
-    console.log(JSON.stringify(errorJSon))
+    const errorJson = { message: 'Error al traer los resultados', errorData: error, code: 400 }
+    console.log(JSON.stringify(errorJson))
   }
 }
 

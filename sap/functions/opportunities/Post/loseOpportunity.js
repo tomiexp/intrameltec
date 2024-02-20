@@ -45,7 +45,7 @@ async function main () {
           if (response.statusCode !== 200) {
             throw new Error('Error: No se pudo ganar la oportunidad')
           }
-          const result = { code: response.statusCode, message: 'Oportunidad Perdida!!', result: jsonBody.d.results }
+          const result = { code: 200, message: 'Oportunidad Perdida!!', result: jsonBody.d.results }
           console.log(JSON.stringify(result))
         } catch (error) {
           const danger = { code: response.statusCode, message: 'Error al generar el WIN de la oportunidad en SAP', data: jsonBody }

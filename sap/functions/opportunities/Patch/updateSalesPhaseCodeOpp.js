@@ -43,7 +43,7 @@ async function main () {
           if (response.statusCode !== 204) {
             throw new Error('Error: No se pudo actualizar la oportunidad')
           }
-          const result = { code: response.statusCode, message: 'Oportunidad Actualizada y Estado Actualizado!!', resultCode: dataParsed }
+          const result = { code: response.statusCode, message: 'Oportunidad Actualizada y Estado Actualizado!!', resultCode: 200 }
           console.log(JSON.stringify(result))
         } catch (error) {
           const danger = { code: response.statusCode, message: 'Error al generar el La actualizacion de la oportunidad en SAP', messageError: body }
