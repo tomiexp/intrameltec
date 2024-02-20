@@ -133,7 +133,7 @@ class OpportunitiesController extends Controller
     private function executeScript(String $script, String $type, ?String $params = ''): JsonResponse
     {
         try {
-            $scriptPath = "$this->nodeOpportunityPath$script $params";
+            $scriptPath = "$this->nodeOpportunityPath$script '$params'";
             $command = "$type $scriptPath";
             $result = Process::run($command)->throw();
             $jsonData = json_decode($result->output());
