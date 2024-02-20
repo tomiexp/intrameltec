@@ -54,8 +54,10 @@ class OpportunitiesController extends Controller
     public function create(Request $request): JsonResponse
     {
         $dataSend = json_encode($request->all());
-        $result = $this->executeScript('Post/postOpportunity.js', 'node', $dataSend);
-        return $result;
+        $proccess = $this->executeScript('Post/postOpportunity.js', 'node', $dataSend);
+        $result = json_decode($proccess);
+        $code = $result->code;
+        return response()->json($result, $code);
     }
 
     /**
@@ -77,9 +79,10 @@ class OpportunitiesController extends Controller
         }
         $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
 
-        $result = json_decode($secondProccess->output(), true);
+        $result = json_decode($secondProccess->output());
+        $code = $result->code;
         
-        return response()->json($result);
+        return response()->json($result, $code);
     }
 
     /**
@@ -102,8 +105,8 @@ class OpportunitiesController extends Controller
         }
         $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
 
-        $result = json_decode($secondProccess->output(), true);
-        $code = $result['code'];
+        $result = json_decode($secondProccess->output());
+        $code = $result->code;
         return response()->json($result, $code);
     }
 
@@ -119,7 +122,8 @@ class OpportunitiesController extends Controller
         $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
 
         $result = json_decode($secondProccess->output());
-        return response()->json($result);
+        $code = $result->code;
+        return response()->json($result, $code);
     }
 
     /**
