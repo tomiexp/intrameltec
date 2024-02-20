@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Process;
+use Illuminate\Support\Facades\Lang;
 
 class OpportunitiesController extends Controller
 {
@@ -53,7 +54,8 @@ class OpportunitiesController extends Controller
     public function create(Request $request): JsonResponse
     {
         $dataSend = json_encode($request->all());
-        return ($this->executeScript('Post/postOpportunity.js', 'node', $dataSend));
+        $result = $this->executeScript('Post/postOpportunity.js', 'node', $dataSend);
+        return $result;
     }
 
     /**
@@ -64,18 +66,19 @@ class OpportunitiesController extends Controller
      */
     public function win(Request $request): JsonResponse
     {
-        $opportunity = json_encode($request->all());
+        $opportunity = $request->input('ObjectID');
         $dataRecibe =  $this->executeScript('Post/winOpportunity.js', 'node', $opportunity);
         if ($dataRecibe->getStatusCode() === 400) {
             return response()->json(['ErrorCodeMessage' => json_encode($dataRecibe->getData()->message)], 400);
         }
 
         if(!$dataRecibe->getData()->result->OpportunityWin) {
-            return response()->json(['ErrorFalseOpportunity' => 'Error al Ganar la oportunidad'], 400);
+            return response()->json(['ErrorFalseOpportunity' => Lang::get('Failure to Win the Opportunity')], 400);
         }
         $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
 
         $result = json_decode($secondProccess->output(), true);
+        
         return response()->json($result);
     }
 
@@ -95,7 +98,7 @@ class OpportunitiesController extends Controller
         }
 
         if(!$dataRecibe->getData()->result->OpportunityLose) {
-            return response()->json(['ErrorFalseOpportunity' => 'Error al Ganar la oportunidad'], 400);
+            return response()->json(['ErrorFalseOpportunity' => Lang::get('Failure to Win the Opportunity')], 400);
         }
         $secondProccess = Process::run('node '.base_path()."/sap/functions/opportunities/Patch/updateSalesPhaseCodeOpp.js '$opportunity'")->throw();
 
@@ -130,12 +133,12 @@ class OpportunitiesController extends Controller
     private function executeScript(String $script, String $type, ?String $params = ''): JsonResponse
     {
         try {
-            $scriptPath = "$this->nodeOpportunityPath$script '$params'";
+            $scriptPath = "$this->nodeOpportunityPath$script $params";
             $command = "$type $scriptPath";
             $result = Process::run($command)->throw();
-            $jsonData = json_decode($result->output(), true);
-            $code = $jsonData['code'];
-            return response()->json($jsonData, $code );
+            $jsonData = json_decode($result->output());
+            $code = $jsonData->code;
+            return response()->json($jsonData, $code);
         } catch (Exception $e) {
             return response()->json(['ScriptMessage' => $e->getMessage()], 500);
         }
